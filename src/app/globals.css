@@ -6,20 +6,36 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Breakpoints */
+  --breakpoint-xl: 1196px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-md: 768px;
+  --breakpoint-sm: 640px;
+
+  /* Font Sizes */
+  --text-56: 3.5rem;
+  --text-56--line-height: 1.3;
+  --text-40: 2.5rem;
+  --text-40--line-height: 1.22;
+  --text-xl--line-height: 1.33;
+  --text-lg--line-height: 1.4;
+  --text-md: 1.125rem;
+  --text-md--line-height: 1.36;
+  --text-base--line-height: 1.44;
+
+
+  /* Colors */
+  --color-primary: #d03059;
+  --color-secondary: #643CD7;
+
+  /* Shadows */
+  --shadow-card: 0 24px 24px rgba(0, 0, 0, 0.1); 
+  --shadow-card-lg: 0 34px 34px rgba(0, 0, 0, 0.1); 
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.container {
+  @apply mx-auto px-3;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-}
+@media (prefers-color-scheme: dark) {}
