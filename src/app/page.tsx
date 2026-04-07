@@ -1,5 +1,6 @@
 import Typography from "@/components/ui/typography";
 
+import CTASection from "@/components/shared/cta-section";
 import DesignSystem from "@/components/ui/design-system";
 import Services from "@/components/sections/home/services";
 import Solutions from "@/components/sections/home/solutions";
@@ -16,6 +17,9 @@ export default function Home() {
       </div>
       <Services />
       <Solutions />
+      <div className="large-section">
+        <CTASection />
+      </div>
       <WhyChoose />
       <Industries />
       <CaseStudies />

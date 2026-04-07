@@ -1,7 +1,7 @@
 import React from "react";
 
-type Size = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "base";
-// | "small" | "xs";
+type Size = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+// | "base" | "small" | "xs";
 
 interface TypographyProps<T extends React.ElementType = "p"> {
   variant?: T;
@@ -20,7 +20,7 @@ const sizeClasses: Record<Size, string> = {
   h5: "text-lg md:text-lg lg:text-xl xl:text-xl ", // 20
   h6: "text-base md:text-lg lg:text-xl xl:text-lg", // 18
   p: "text-sm md:text-base lg:text-base xl:text-base", // 16
-  base: "text-xs md:text-small lg:text-small xl:text-base", // 16
+  // base: "text-xs md:text-small lg:text-small xl:text-base", // 16
   // small: "text-xs md:text-xSmall lg:text-xSmall xl:text-xSmall 2xl:text-xSmall 3xl:text-sm 4xl:text-sm", // 14
   // xs: "text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs 3xl:text-xs 4xl:text-xs" // 12
 };

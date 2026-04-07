@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
+import Image from "next/image";
 
 const CaseStudies = () => {
   return (
@@ -16,6 +17,15 @@ const CaseStudies = () => {
               <Button href="">View all case studies</Button>
             </Grid.Col>
           </Grid>
+        </div>
+        <div>
+          <div className="p-2.5 bg-white shadow-card w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs">
+            <Image src="/images/case-study-1.jpg" alt="Case Study 1" width={600} height={400} className="w-full h-auto mb-3 md:mb-4 lg:mb-5" />
+            <div className="px-3 md:px-4">
+              <Typography variant="h3" size="h5" className="mb-2 font-semibold">Intranet portal for a semi government organization based in Saudi Arabia</Typography>
+              <Typography variant="p" size="p" className="mb-2.5">Employee Engagement Portal for a Semi Government Organization based in Saudi Arabia Aixtor helped a Saudi Arabia-based government body to develop an employee engagement based intranet portal, with exclusive features.</Typography>
+            </div>
+          </div>
         </div>
       </div>
     </section>

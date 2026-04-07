@@ -23,10 +23,19 @@
   --text-md--line-height: 1.36;
   --text-base--line-height: 1.44;
 
+  /* Spacing */
+  --spacing-15: 3.75rem;
+  --spacing-18_5: 4.625rem;
+  --spacing-35: 8.75rem;
+  --spacing-108: 27rem;
+  --spacing-120: 30rem;
+  --spacing-132: 33rem;
+  --spacing-140: 35rem;
 
   /* Colors */
   --color-primary: #d03059;
   --color-secondary: #643CD7;
+  --color-body: #F5F5F7;
 
   /* Shadows */
   --shadow-card: 0 24px 24px rgba(0, 0, 0, 0.1); 
@@ -34,8 +43,7 @@
 
 }
 
-.container {
-  @apply mx-auto px-3;
-}
+
+
 
 @media (prefers-color-scheme: dark) {}

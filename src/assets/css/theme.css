@@ -1,11 +1,26 @@
+@reference "tailwindcss";
+
 body {
-  background: #F5F5F7;
+  background: var(--color-body);
+}
+
+a,
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+.container {
+  @apply mx-auto px-3;
 }
 
 .common-section {
-  padding: 4.625rem 0;
+  @apply py-8 md:py-12 lg:py-18.5;
+}
+
+.large-section {
+  @apply py-10 md:py-16 lg:py-35;
 }
 
 .common-heading {
-  margin-bottom: 4.625rem;
+  @apply mb-10 md:mb-16 lg:mb-35;
 }

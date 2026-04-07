@@ -4,7 +4,7 @@ import Typography from "@/components/ui/typography";
 
 const Solutions = () => {
   return (
-    <section className="common-section">
+    <section className="">
       <div className="container">
         <div className="common-heading">
           <Grid className="items-center">

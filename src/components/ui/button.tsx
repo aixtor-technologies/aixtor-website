@@ -5,6 +5,7 @@ type Variant =
   | "default"
   | "danger"
   | "white"
+  | "light"
   | "outline";
 
 type Size = "default";
@@ -25,6 +26,7 @@ const variantClasses: Record<Variant, string> = {
   default: "bg-linear-to-r from-primary to-secondary text-white border-white",
   danger: "bg-danger text-danger-800 hover:bg-danger/90 border-transparent",
   white: "bg-white text-secondary hover:bg-secondary hover:text-white border-transparent",
+  light: "bg-white/10 text-white hover:bg-white/20 hover:text-white border-transparent",
   outline: "border-primary text-primary bg-white hover:bg-primary hover:text-white",
 };
 

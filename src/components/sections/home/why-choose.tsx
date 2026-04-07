@@ -26,9 +26,9 @@ const WhyChoose = () => {
         </Grid>
         <Grid className="justify-center">
           <Grid.Col className="md:w-10/12">
-            <Grid className="">
+            <Grid className="gap-y-4">
               {stats.map((stat) => (
-                <Grid.Col key={stat.label} className="w-full sm:w-6/12 md:w-3/12">
+                <Grid.Col key={stat.label} className="!w-6/12 md:!w-3/12">
                   <div className="p-4 md:p-5 lg:p-6 shadow-card">
                     <Typography variant="h5" size="h2" className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent inline-flex">
                       {stat.value}
