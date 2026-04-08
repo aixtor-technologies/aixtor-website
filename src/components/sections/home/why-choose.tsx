@@ -19,7 +19,9 @@ const WhyChoose = () => {
                 Why Choose Aixtor for Your Next Project?
               </Typography>
               <Typography variant="p" size="h5" className="mt-4">
-                With a team of certified expert developers, we ensure optimal outcomes and client satisfaction by conceptualizing, designing, and executing solutions as per specific requirements.
+                With a team of certified expert developers, we ensure optimal
+                outcomes and client satisfaction by conceptualizing, designing,
+                and executing solutions as per specific requirements.
               </Typography>
             </div>
           </Grid.Col>
@@ -27,13 +29,21 @@ const WhyChoose = () => {
         <Grid className="justify-center">
           <Grid.Col className="md:w-10/12">
             <Grid className="gap-y-4">
-              {stats.map((stat) => (
+              {stats.map(stat => (
                 <Grid.Col key={stat.label} className="!w-6/12 md:!w-3/12">
                   <div className="p-4 md:p-5 lg:p-6 shadow-card">
-                    <Typography variant="h5" size="h2" className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent inline-flex">
+                    <Typography
+                      variant="h5"
+                      size="h2"
+                      className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent inline-flex"
+                    >
                       {stat.value}
                     </Typography>
-                    <Typography variant="h6" size="h6" className="mt-2 font-medium">
+                    <Typography
+                      variant="h6"
+                      size="h6"
+                      className="mt-2 font-medium"
+                    >
                       {stat.label}
                     </Typography>
                   </div>
@@ -45,6 +55,6 @@ const WhyChoose = () => {
       </div>
     </section>
   );
-}
+};
 
 export default WhyChoose;

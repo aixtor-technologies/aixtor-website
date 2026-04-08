@@ -11,7 +11,7 @@ const industries = [
   { img_url: "/images/banking.svg", name: "FMCG" },
   { img_url: "/images/banking.svg", name: "Insurance" },
   { img_url: "/images/banking.svg", name: "Manufacturing" },
-  { img_url: "/images/banking.svg", name: "Telecommunication" }
+  { img_url: "/images/banking.svg", name: "Telecommunication" },
 ];
 
 const Industries = () => {
@@ -25,15 +25,25 @@ const Industries = () => {
                 Industries We Cater
               </Typography>
               <Typography variant="p" size="h5" className="mt-4">
-                We cater to diverse industries with tailored technology solutions to empower efficient enterprise operations.
+                We cater to diverse industries with tailored technology
+                solutions to empower efficient enterprise operations.
               </Typography>
             </div>
           </Grid.Col>
         </Grid>
         <div className="flex flex-wrap justify-center gap-6 lg:gap-8 xl:gap-10">
-          {industries.map((industry) => (
-            <Link href="#" key={industry.name} className="flex items-center gap-x-4 px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border border-[#D9D9D9] rounded-full shadow-card">
-              <Image src={industry.img_url} alt={industry.name} width={32} height={32} />
+          {industries.map(industry => (
+            <Link
+              href="#"
+              key={industry.name}
+              className="flex items-center gap-x-4 px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border border-[#D9D9D9] rounded-full shadow-card"
+            >
+              <Image
+                src={industry.img_url}
+                alt={industry.name}
+                width={32}
+                height={32}
+              />
               <Typography variant="span" size="h6" className="font-medium">
                 {industry.name}
               </Typography>
@@ -43,6 +53,6 @@ const Industries = () => {
       </div>
     </section>
   );
-}
+};
 
 export default Industries;

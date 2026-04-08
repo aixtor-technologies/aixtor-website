@@ -13,7 +13,9 @@ export default function Home() {
   return (
     <>
       <div className="container mx-auto">
-        <Typography variant="h1" size="h1">Home Page</Typography>
+        <Typography variant="h1" size="h1">
+          Home Page
+        </Typography>
       </div>
       <Services />
       <Solutions />

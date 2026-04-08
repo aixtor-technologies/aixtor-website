@@ -1,0 +1,30 @@
+{
+  "eslint.enable": true,
+
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+
+  // ✅ FIX: run ESLint automatically on save
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // ✅ enable auto format
+  "editor.formatOnSave": true,
+
+  // ✅ ensure Prettier is used
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // optional but good
+  "prettier.requireConfig": true
+}

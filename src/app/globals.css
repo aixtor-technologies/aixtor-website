@@ -34,16 +34,13 @@
 
   /* Colors */
   --color-primary: #d03059;
-  --color-secondary: #643CD7;
-  --color-body: #F5F5F7;
+  --color-secondary: #643cd7;
+  --color-body: #f5f5f7;
 
   /* Shadows */
-  --shadow-card: 0 24px 24px rgba(0, 0, 0, 0.1); 
-  --shadow-card-lg: 0 34px 34px rgba(0, 0, 0, 0.1); 
-
+  --shadow-card: 0 24px 24px rgba(0, 0, 0, 0.1);
+  --shadow-card-lg: 0 34px 34px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
-@media (prefers-color-scheme: dark) {}
+@media (prefers-color-scheme: dark) {
+}
