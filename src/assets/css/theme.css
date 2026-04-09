@@ -1,12 +1,25 @@
 @reference "tailwindcss";
 
+:root {
+  --lineargradientcolor12: linear-gradient(
+    95.07deg,
+    #d03059 -26.79%,
+    #643cd7 113.58%
+  );
+  --lineargradientcolor:
+    linear-gradient(white, white) padding-box,
+    var(--lineargradientcolor12) border-box;
+}
+
 body {
   background: var(--color-body);
 }
 
 a,
-button {
+button,
+.gradient-card {
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .container {
@@ -22,5 +35,23 @@ button {
 }
 
 .common-heading {
-  @apply mb-10 md:mb-16 lg:mb-35;
+  @apply mb-8 md:mb-12 lg:mb-18.5;
+}
+
+.gradient-card {
+  background: var(--lineargradientcolor);
+  border-color: var(--color-white);
+  &.body-border {
+    border-color: #d9d9d9;
+  }
+  &:hover,
+  &.active {
+    border-color: transparent;
+  }
+}
+
+@media (min-width: 96rem) {
+  .container {
+    max-width: 1172px;
+  }
 }

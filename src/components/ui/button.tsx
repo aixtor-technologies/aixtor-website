@@ -23,7 +23,7 @@ const variantClasses: Record<Variant, string> = {
   white:
     "bg-white text-secondary hover:bg-secondary hover:text-white border-transparent",
   light:
-    "bg-white/10 text-white hover:bg-white/20 hover:text-white border-transparent",
+    "bg-white/10 text-white hover:bg-white/20 hover:text-white border-white",
   outline:
     "border-primary text-primary bg-white hover:bg-primary hover:text-white",
 };

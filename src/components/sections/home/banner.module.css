@@ -1,0 +1,100 @@
+.bannerContainer {
+  width: 400px;
+  margin: 0px auto;
+}
+.centerBlock {
+  width: 70%;
+  position: relative;
+}
+.rotatingCircle {
+  animation: rotate 20s linear infinite;
+}
+.rotatingCircle:hover,
+.rotatingCircle:hover .itemContent {
+  animation-play-state: paused;
+}
+.itemContent {
+  /* animation: reverseRotate 20s linear infinite; */
+}
+.item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32%;
+  aspect-ratio: 1;
+  transform-origin: center;
+  transition: transform 0.2s ease-in-out;
+}
+.item:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(-90deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-54deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(-18deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(18deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(54deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(90deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(7) {
+  transform: translate(-50%, -50%) rotate(126deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(8) {
+  transform: translate(-50%, -50%) rotate(162deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(9) {
+  transform: translate(-50%, -50%) rotate(198deg) translate(180px) rotate(90deg);
+}
+.item:nth-child(10) {
+  transform: translate(-50%, -50%) rotate(234deg) translate(180px) rotate(90deg);
+}
+
+.item:nth-child(1):hover {
+  transform: translate(-50%, -50%) rotate(-90deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(2):hover {
+  transform: translate(-50%, -50%) rotate(-54deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(3):hover {
+  transform: translate(-50%, -50%) rotate(-18deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(4):hover {
+  transform: translate(-50%, -50%) rotate(18deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(5):hover {
+  transform: translate(-50%, -50%) rotate(54deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(6):hover {
+  transform: translate(-50%, -50%) rotate(90deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(7):hover {
+  transform: translate(-50%, -50%) rotate(126deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(8):hover {
+  transform: translate(-50%, -50%) rotate(162deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(9):hover {
+  transform: translate(-50%, -50%) rotate(198deg) translate(180px) rotate(90deg) scale(1.1);
+}
+.item:nth-child(10):hover {
+  transform: translate(-50%, -50%) rotate(234deg) translate(180px) rotate(90deg) scale(1.1);
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reverseRotate {
+  to {
+    transform: rotate(-360deg);
+  }
+}
