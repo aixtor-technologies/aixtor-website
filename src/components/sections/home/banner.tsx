@@ -1,6 +1,8 @@
 import Grid from "@/components/ui/grid";
 import BannerCircle from "./banner-circle";
 import Typography from "@/components/ui/typography";
+import RatingSection from "./rating";
+import { Button } from "@/components/ui/button";
 
 const Banner = () => {
   return (
@@ -11,7 +13,7 @@ const Banner = () => {
             <Typography
               variant="h1"
               size="h1"
-              className="font-semibold tracking-tight opacity-80 pe-1"
+              className="font-semibold tracking-[-0.04em] opacity-80 pe-1"
             >
               Empowering Enterprise with Innovative
               <br />
@@ -22,11 +24,13 @@ const Banner = () => {
               operations, enhance performance, and drive sustainable growth.
               With AIXTOR, innovation meets reliability at every step.
             </Typography>
+            <Button href="/" variant="light" className="mt-6 md:mt-8 lg:mt-10">Talk to us</Button>
           </Grid.Col>
-          <Grid.Col className="md:w-5/12 hidden md::block">
+          <Grid.Col className="md:w-5/12 hidden md:block">
             <BannerCircle />
           </Grid.Col>
         </Grid>
+        <RatingSection />
       </div>
       <video src="/images/banner-video.mp4" autoPlay muted loop className="absolute top-0 left-0 w-full h-full object-cover" >
         <source src="/images/banner-video.mp4" type="video/mp4" />

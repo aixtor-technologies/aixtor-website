@@ -146,7 +146,7 @@ export default function Footer() {
             </Grid>
           </Grid.Col>
         </Grid>
-        <div className="flex flex-wrap gap-4 md:gap-8 lg:gap-10 xl:gap-16 items-center justify-center border-t border-t-body py-4 md:py-6 lg:py-8 mt-4 md:mt-8 lg:mt-10 xl:mt-12 text-center">
+        <div className="flex flex-wrap gap-4 md:gap-6 lg:gap-7 items-center justify-center border-t border-t-body py-4 md:py-6 lg:py-8 mt-4 md:mt-8 lg:mt-10 xl:mt-12 text-center">
           <Image
             src="./images/iso-logo.svg"
             alt="Aixtor Technologies"

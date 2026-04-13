@@ -49,9 +49,7 @@ const SectionAnimation = () => {
           <Grid.Col className="md:w-6/12">
             <div className="">
               {solutions.map((solution, index) => (
-                <div
-                  key={index}
-                  className={"p-4 transition-all duration-300 border-2 border-white rounded-xl mb-6 "}
+                <div key={index} className={"p-4 transition-all duration-300 border-2 border-white rounded-xl mb-6 "}
                 >
                   <Typography size="h5" className="font-semibold mb-1">
                     {solution.title}
