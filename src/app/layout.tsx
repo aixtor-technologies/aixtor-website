@@ -31,9 +31,12 @@ const gilroy = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Aixtor Technologies",
-  description:
-    "Customized solution for Digital Transformation of your business",
+  title: "Enterprise Software, Liferay Development & Migration Company",
+  description: "Aixtor is a trusted enterprise software and Liferay portal development company delivering scalable intranet, customer, partner, and digital experience platforms for global enterprises.",
+  icons: {
+    icon: "./images/AX-logo.svg",
+    apple: "./images/AX-logo.svg",
+  },
 };
 
 export default function RootLayout({
