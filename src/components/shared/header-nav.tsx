@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
-
 import Link from "next/link";
-import IconChevronDown from "./icons/chevron-down";
 import Image from "next/image";
 
+import { useState } from "react";
+
+import IconChevronDown from "./icons/chevron-down";
 
 const navLinks = [
   {

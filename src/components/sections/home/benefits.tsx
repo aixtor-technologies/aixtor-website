@@ -12,22 +12,6 @@ const solutions = [
   { title: "Supplier And Vendor Portal", description: "Optimize supply chain..." },
 ];
 
-const Card = ({ solution, index }) => (
-  <div key={index} className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl">
-    <Image
-      src="/images/banking.svg"
-      alt={solution.title}
-      width={60}
-      height={60}
-      className="mb-4 size-15 p-2"
-    />
-    <Typography size="h5" className="font-semibold mb-1">
-      {solution.title}
-    </Typography>
-    <Typography>{solution.description}</Typography>
-  </div>
-);
-
 const Benefits = () => {
   return (
     <section className="common-section bg-white">
@@ -52,9 +36,21 @@ const Benefits = () => {
           />
           {[0, 2, 4].map((start) => (
             <Grid className={`relative z-2 gap-y-4 ${start === 2 ? "justify-between" : "justify-evenly"}`} key={start}>
-              {solutions.slice(start, start + 2).map((solution, index) => (
+              {solutions.slice(start, start + 2).map((solution) => (
                 <Grid.Col key={solution.title} className="md:w-4/12">
-                  <Card solution={solution} index={index} />
+                  <div key={solution.title} className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl">
+                    <Image
+                      src="/images/banking.svg"
+                      alt={solution.title}
+                      width={60}
+                      height={60}
+                      className="mb-4 size-15 p-2"
+                    />
+                    <Typography size="h5" className="font-semibold mb-1">
+                      {solution.title}
+                    </Typography>
+                    <Typography>{solution.description}</Typography>
+                  </div>
                 </Grid.Col>
               ))}
             </Grid>
