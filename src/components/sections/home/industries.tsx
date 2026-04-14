@@ -36,7 +36,7 @@ const Industries = () => {
             <Link
               href="#"
               key={industry.name}
-              className="flex items-center gap-x-4 px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border border-[#D9D9D9] rounded-full shadow-card"
+              className="flex items-center gap-x-4 px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border border-[#D9D9D9] rounded-full not-hover:shadow-card"
             >
               <Image
                 src={industry.img_url}

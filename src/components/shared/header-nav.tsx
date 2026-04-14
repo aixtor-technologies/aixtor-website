@@ -1,44 +1,144 @@
+"use client";
+import { useState } from "react";
+
 import Link from "next/link";
+import IconChevronDown from "./icons/chevron-down";
+import Image from "next/image";
 
 
 const navLinks = [
-  { label: "Services", href: "/services", hasDropdown: true },
-  { label: "Solution", href: "/solution", hasDropdown: true },
-  { label: "Industries", href: "/industries", hasDropdown: false },
-  { label: "Company", href: "/company", hasDropdown: true },
-  { label: "Blog", href: "/blog", hasDropdown: false },
-  { label: "Contact Us", href: "/contact", hasDropdown: false },
+  {
+    label: "Services",
+    href: "/services",
+    megamenu: true,
+    dropdown: [
+      "Enterprise Portal Development",
+      "Liferay Consulting",
+      "Liferay Migration Service",
+      "Liferay Upgrade Services",
+      "Web Portal Development",
+      "UI UX Design",
+      "Drupal Development",
+      "RPA Development",
+      "QA Automation Testing",
+      "QA Manual Testing",
+    ],
+  },
+  {
+    label: "Solution",
+    href: "/solution",
+    megamenu: true,
+    dropdown: [
+      "Intranet Portal",
+      "Customer Self-Service Portal",
+      "Partner Portal Solution",
+      "Supplier and Vendor Portal",
+      "E-Commerce Portal",
+      "Enterprise Websites",
+      "Enterprise Content Management",
+    ],
+  },
+  {
+    label: "Industries",
+    href: "/industries",
+    megamenu: true,
+    dropdown: [
+      "Telecom",
+      "Manufacturing",
+      "Logistics and Transport",
+      "Insurance",
+      "Healthcare",
+      "FMCG",
+      "Education",
+      "Banking and Finance",
+    ],
+  },
+  {
+    label: "Company", href: "/company",
+    dropdown: [
+      "About Us",
+      "Career",
+      "Blog",
+      "Case Studies",
+    ],
+  },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export default function HeaderNav() {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleDropdown = (index: any) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <nav className="hidden lg:flex items-center gap-8">
-      {
-        navLinks.map(link => (
-          <Link
+    <nav className="hidden lg:flex items-center gap-8 font-medium">
+      {navLinks.map((link, index) => {
+        const hasDropdown = !!link.dropdown;
+
+        return (
+          <div
             key={link.label}
-            href={link.href}
-            className="text-white text-sm lg:text-base font-semibold hover:text-white/80 transition-colors flex items-center gap-1"
+            className="relative group"
           >
-            {link.label}
-            {link.hasDropdown && (
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {/* Main Link */}
+            <div className="flex items-center gap-1 px-2 h-20">
+              <Link
+                href={link.href}
+                className="text-white text-sm lg:text-base font-semibold hover:text-white/80"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+                {link.label}
+              </Link>
+
+              {/* Mobile Click Icon */}
+              {hasDropdown && (
+                <button
+                  onClick={() => toggleDropdown(index)}
+                  className="lg:hidden size-5"
+                >
+                  <IconChevronDown />
+                </button>
+              )}
+
+              {/* Desktop Hover Icon */}
+              {hasDropdown && (
+                <span className="hidden lg:block size-5">
+                  <IconChevronDown />
+                </span>
+              )}
+            </div>
+
+            {/* Dropdown */}
+            {hasDropdown && (
+              <div
+                className={`
+                  absolute right-1/2 translate-x-1/2 top-full ${link.megamenu ? "w-120" : "w-64"} bg-white rounded-xl shadow-lg p-4
+                  
+                  /* Desktop hover */
+                  opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                  transition-all duration-200
+
+                  /* Mobile click */
+                  ${openIndex === index ? "block lg:opacity-100! lg:visible!" : "hidden lg:block"}
+                `}
+              >
+                <ul className={`grid gap-4 ${link.megamenu ? "grid-cols-2" : ""}`}>
+                  {link.dropdown.map((item) => (
+                    <li key={item} >
+                      <Link href="#" className="flex items-center gap-2 text-gray-700 hover:text-purple-600 text-sm">
+                        <Image src={"/images/banking.svg"} alt={item} width={20} height={20} className="size-5 object-contain" />
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
-          </Link>
-        ))
-      }
+          </div>
+        );
+      })}
     </nav>
   );
 }

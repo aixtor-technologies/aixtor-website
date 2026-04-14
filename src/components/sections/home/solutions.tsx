@@ -86,7 +86,7 @@ const Solutions = () => {
                       {solution.title}
                     </Typography>
                     <span
-                      className={`flex size-8 rounded-full border  ${activeIndex === index ? "border-primary" : "border-black/10 rotate-180"} transition-transform duration-300`}
+                      className={`flex size-8 shrink-0 rounded-full border  ${activeIndex === index ? "border-primary" : "border-black/10 rotate-180"} transition-transform duration-300`}
                     >
                       <span className="w-1/2 aspect-square m-auto">
                         <IconUp />
@@ -94,16 +94,18 @@ const Solutions = () => {
                     </span>
                   </button>
 
-                  {activeIndex === index && (
-                    <div className="px-6 pb-5">
-                      <Typography size="p" className="">
-                        {solution.description}
-                      </Typography>
-                      <button className="mt-3 text-sm text-primary border-b hover:text-secondary">
-                        Know more
-                      </button>
+                  <div className={`grid transition-all duration-300 ease-in-out ${activeIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      <div className="px-6 pb-5">
+                        <Typography size="p">
+                          {solution.description}
+                        </Typography>
+                        <button className="mt-3 text-sm text-primary border-b hover:text-secondary">
+                          Know more
+                        </button>
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>

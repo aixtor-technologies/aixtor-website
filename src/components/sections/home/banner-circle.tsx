@@ -1,63 +1,135 @@
+"use client";
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./banner.module.css";
 
-const menuItems = [
-  { label: "Liferay Upgradation", imageUrl: "./images/banking.svg" },
-  { label: "Digital Experience", imageUrl: "./images/banking.svg" },
-  { label: "Process Automation", imageUrl: "./images/banking.svg" },
-  { label: "Cloud Migration", imageUrl: "./images/banking.svg" },
-  { label: "Data Modernization", imageUrl: "./images/banking.svg" },
-  { label: "Experience Design", imageUrl: "./images/banking.svg" },
-  { label: "Analytics & AI", imageUrl: "./images/banking.svg" },
-  { label: "Integration Services", imageUrl: "./images/banking.svg" },
-  { label: "Managed Support", imageUrl: "./images/banking.svg" },
-  { label: "Security & Governance", imageUrl: "./images/banking.svg" },
+
+const rotatingItems = [
+  {
+    href: "/services/liferay-upgrade/",
+    label: "Liferay Upgradation",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/liferay_Upgradation.svg",
+    className: "img1",
+  },
+  {
+    href: "/services/web-portal-development/",
+    label: "Web Portal Development",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Web_Portal_Devlopment.svg",
+    className: "img2",
+  },
+  {
+    href: "/services/enterprise-portal-development/",
+    label: "Enterprise Portal Development",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Enterprise_Portal_Development.svg",
+    className: "img3",
+  },
+  {
+    href: "/services/liferay-consulting-services/",
+    label: "Liferay Consulting",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Liferay_Consulting.svg",
+    className: "img4",
+  },
+  {
+    href: "/solutions/supplier-and-vendor-portal/",
+    label: "Supplier And Vendor Portal",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Supplier_and_vendor_portal.svg",
+    className: "img5",
+  },
+  {
+    href: "/solutions/customer-self-service-portal/",
+    label: "Customer Self Service Portal",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Customer_Self_Service_Portal.svg",
+    className: "img6",
+  },
+  {
+    href: "/services/liferay-migration-services/",
+    label: "Liferay Migration",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Liferay_Migration.svg",
+    className: "img7",
+  },
+  {
+    href: "/solutions/partner-portal-solution/",
+    label: "Partner Management",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Partner_Management.svg",
+    className: "img8",
+  },
+  {
+    href: "/solutions/intranet-portal/",
+    label: "Intranet Portal",
+    mainImage: "./images/home/img1111.svg",
+    icon: "./images/home/Intranet_Portal.svg",
+    className: "img9",
+  },
 ];
 
 const BannerCircle = () => {
+  const [centerText, setCenterText] = useState("Digital Transformation");
+  const [animationClass, setAnimationClass] = useState("");
+
+  const handleMouseEnter = (updatedText: string) => {
+    setAnimationClass("zoom-in");
+    setCenterText(updatedText);
+  };
+
+  const handleMouseLeave = () => {
+    setAnimationClass("zoom-out");
+    setCenterText("Digital Transformation");
+  };
+
+
   return (
-    <div className={`relative flex aspect-square ${styles.bannerContainer}`}>
-      <div className={`aspect-square w-3/4 m-auto ${styles.centerBlock}`}>
+    <div className="circle-container">
+      <Image
+        src="/images/home/center-img.png"
+        alt="center img"
+        width={450}
+        height={445}
+        priority
+      />
+
+      <div className="centerImg_wrap">
         <Image
-          src="./images/center-img.svg"
-          alt="img"
-          width={200}
-          height={200}
-          className="w-full"
+          src="./images/home/center_img.svg"
+          alt="Digital Transformation"
+          width={171}
+          height={172}
+          className="centerImg"
         />
-        <span className="text-xl lg:text-xl px-5 font-semibold absolute top-1/2 inset-s-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          Digital Transformation
-        </span>
+
+        <span className={`centerText ${animationClass}`}>{centerText}</span>
       </div>
-      <ul
-        className={`${styles.rotatingCircle} absolute size-full top-0 inset-s-0`}
-      >
-        {menuItems.map(({ label, imageUrl }, index) => (
-          <li key={index} className={`absolute ${styles.item}`}>
-            <Image
-              src="./images/banner-shape.svg"
-              alt="shape"
-              width={134}
-              height={106}
-              className="absolute size-full top-0 inset-s-0"
-            />
-            <Link
-              href="/"
-              className="absolute size-full top-0 inset-s-0 flex justify-center items-center"
+
+      <ul className="rotating-circle">
+        {rotatingItems.map((item) => (
+          <li key={item.href} className={item.className}>
+            <Link prefetch={false} href={item.href}
+              onMouseEnter={() => handleMouseEnter(item.label)}
+              onMouseLeave={handleMouseLeave}
+              className="cycleImg"
             >
-              <div
-                className={`flex gap-2 text-center font-semibold p-2 text-xs flex-col justify-center items-center ${styles.itemContent}`}
-              >
-                <p>{label}</p>
-                <Image
-                  src={imageUrl}
-                  alt={label}
-                  width={60}
-                  height={60}
-                  className={`size-10 ${styles.icon}`}
-                />
-              </div>
+              <Image
+                src={item.mainImage}
+                alt={item.label}
+                width={80}
+                height={80}
+                className="mainImg"
+              />
+              <Image
+                src={item.icon}
+                alt={item.label}
+                width={36}
+                height={36}
+                className="innerIcon"
+              />
             </Link>
           </li>
         ))}

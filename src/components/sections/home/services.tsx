@@ -1,5 +1,40 @@
 import Typography from "@/components/ui/typography";
+// import ServicesSlider from "./service-slider";
+import CustomSlider from "@/components/ui/custom-slider";
 import Image from "next/image";
+
+const services = [
+  {
+    title: "Liferay Consulting & Development Service",
+    description: "Empower your business by creating tailored digital experience through expert guidance and implementation of Liferay’s robust platform and capabilities.",
+    image: "/images/liferay.svg",
+  },
+  {
+    title: "Liferay migration services",
+    description: "Empower your business by creating tailored digital experience through expert guidance and implementation of Liferay’s robust platform and capabilities.",
+    image: "/images/liferay.svg",
+  },
+  {
+    title: "Mobile app Development",
+    description: "Empower your business by creating tailored digital experience through expert guidance and implementation of Liferay’s robust platform and capabilities.",
+    image: "/images/liferay.svg",
+  },
+  {
+    title: "Enterprise portal development",
+    description: "Empower your business by creating tailored digital experience through expert guidance and implementation of Liferay’s robust platform and capabilities.",
+    image: "/images/liferay.svg",
+  },
+  {
+    title: "Web portal development",
+    description: "Empower your business by creating tailored digital experience through expert guidance and implementation of Liferay’s robust platform and capabilities.",
+    image: "/images/liferay.svg",
+  },
+  {
+    title: "Ecommerce Development",
+    description: "Empower your business by creating tailored digital experience through expert guidance and implementation of Liferay’s robust platform and capabilities.",
+    image: "/images/liferay.svg"
+  }
+];
 
 const Services = () => {
   return (
@@ -14,32 +49,38 @@ const Services = () => {
             range of expert services.
           </Typography>
         </div>
-        <div className="flex">
-          <div className="gradient-card border px-2.5 md:px-4 lg:px-6 xl:px-8 py-3 md:py-5 lg:py-8 xl:py-10 rounded shadow-card w-96">
-            <Image
-              src="/images/liferay.svg"
-              alt="Case Study 1"
-              width={60}
-              height={60}
-              className="size-15 mb-4 md:mb-6 lg:mb-8 xl:mb-10"
-            />
-            <div className="">
+      </div>
+      {/* <ServicesSlider services={services} /> */}
+      <CustomSlider arrow itemClassName="px-2 lg:px-3 py-10" className="-my-10">
+        {services.map((service) => (
+          <div
+            key={service.title}
+            className="w-80 md:w-96 gap-8 h-full"
+          >
+            <div className="gradient-card h-full border px-4 md:px-6 xl:px-8 py-6 md:py-8 xl:py-10 rounded hover:shadow-card">
+              <Image
+                src={service.image}
+                alt={service.title}
+                width={60}
+                height={60}
+                className="mb-6"
+              />
+
               <Typography
                 variant="h3"
                 size="h5"
-                className="mb-2 md:mb-2.5 font-semibold"
+                className="mb-2 font-semibold"
               >
-                Liferay consulting & development service
+                {service.title}
               </Typography>
-              <Typography variant="p" size="p" className="">
-                Empower your business by creating tailored digital experience
-                through expert guidance and implementation of Liferay’s robust
-                platform and capabilities.
+
+              <Typography variant="p" size="p">
+                {service.description}
               </Typography>
             </div>
           </div>
-        </div>
-      </div>
+        ))}
+      </CustomSlider>
     </section>
   );
 };

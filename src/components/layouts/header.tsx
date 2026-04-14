@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 
 export default function Header() {
   return (
-    <header className="py-4 bg-white/10 text-white absolute top-0 inset-s-0 w-full z-10">
+    <header className="py-4 md:py-0 bg-white/10 text-white absolute top-0 inset-s-0 w-full z-10">
       <div className="container">
         <div className="flex items-center justify-between">
           <Link href="/">
