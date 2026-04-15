@@ -14,7 +14,7 @@ const baseClasses =
 
 const variantClasses: Record<Variant, string> = {
   default:
-    "bg-body text-black border-slate-200 placeholder:text-slate-400 focus:border-primary",
+    "bg-dark-200 text-black border-slate-200 placeholder:text-slate-400 focus:border-primary",
   white:
     "bg-white text-black border-white placeholder:text-slate-400 focus:border-white",
 };

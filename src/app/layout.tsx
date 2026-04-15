@@ -32,7 +32,8 @@ const gilroy = localFont({
 
 export const metadata: Metadata = {
   title: "Enterprise Software, Liferay Development & Migration Company",
-  description: "Aixtor is a trusted enterprise software and Liferay portal development company delivering scalable intranet, customer, partner, and digital experience platforms for global enterprises.",
+  description:
+    "Aixtor is a trusted enterprise software and Liferay portal development company delivering scalable intranet, customer, partner, and digital experience platforms for global enterprises.",
   icons: {
     icon: "./images/AX-logo.svg",
     apple: "./images/AX-logo.svg",
@@ -45,7 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${gilroy.className} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${gilroy.className} h-full text-dark-400 bg-dark-200 antialiased`}
+    >
       <body className="">
         <Header />
         {children}

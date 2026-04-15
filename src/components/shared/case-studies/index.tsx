@@ -2,8 +2,8 @@ import Image from "next/image";
 
 import Grid from "@/components/ui/grid";
 import Button from "@/components/ui/button";
-import CustomSlider from "@/components/ui/custom-slider";
 import Typography from "@/components/ui/typography";
+import CustomSlider from "@/components/ui/custom-slider";
 
 const CaseStudies = () => {
   return (
@@ -28,9 +28,12 @@ const CaseStudies = () => {
         </div>
       </div>
       <CustomSlider arrow itemClassName="px-2 lg:px-3 py-10" className="-my-10">
-        {[0, 1, 2, 3, 4].map((index) => {
+        {[0, 1, 2, 3, 4].map(index => {
           return (
-            <div key={index} className="p-2.5 bg-white w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card">
+            <div
+              key={index}
+              className="p-2.5 bg-white w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card"
+            >
               <Image
                 src="/images/case-study-1.jpg"
                 alt="Case Study 1"
@@ -39,15 +42,19 @@ const CaseStudies = () => {
                 className="w-full h-auto mb-3 md:mb-4 lg:mb-5"
               />
               <div className="px-3 md:px-4">
-                <Typography variant="h3" size="h5" className="mb-2 font-semibold">
+                <Typography
+                  variant="h3"
+                  size="h5"
+                  className="mb-2 font-semibold"
+                >
                   Intranet portal for a semi government organization based in
                   Saudi Arabia
                 </Typography>
                 <Typography variant="p" size="p" className="mb-2.5">
                   Employee Engagement Portal for a Semi Government Organization
                   based in Saudi Arabia Aixtor helped a Saudi Arabia-based
-                  government body to develop an employee engagement based intranet
-                  portal, with exclusive features.
+                  government body to develop an employee engagement based
+                  intranet portal, with exclusive features.
                 </Typography>
               </div>
             </div>

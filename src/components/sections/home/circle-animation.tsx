@@ -5,7 +5,7 @@ import Image from "next/image";
 const data = [
   { name: "Banking", id: 1, img: "/images/case-study-1.jpg" },
   { name: "Healthcare", id: 2, img: "/images/cta-banner.jpg" },
-  { name: "Transportation", id: 3, img: "/images/intranet.jpg" }
+  { name: "Transportation", id: 3, img: "/images/intranet.jpg" },
 ];
 
 const CircleAnimation = () => {
@@ -14,11 +14,9 @@ const CircleAnimation = () => {
   return (
     <section className="common-section bg-blue-900">
       <div className="container flex justify-center">
-
         <div className="relative w-[420px] h-[420px] rounded-full border-4">
-
           {/* IMAGE LAYER */}
-          {data.map((item) => (
+          {data.map(item => (
             <div
               key={item.id}
               className={`absolute w-1/2 bottom-0 h-3/4 left-1/2 -translate-x-1/2 transition-all duration-500
@@ -35,9 +33,12 @@ const CircleAnimation = () => {
 
           {/* TEXT LAYER */}
           <div className="">
-            {data.map((item) => {
+            {data.map(item => {
               return (
-                <div key={item.id} className="absolute size-full rounded-full border-4 border-white/20">
+                <div
+                  key={item.id}
+                  className="absolute size-full rounded-full border-4 border-white/20"
+                >
                   <button
                     type="button"
                     className={`absolute text-left top-1/2 transition-all duration-500 text-white
@@ -52,9 +53,7 @@ const CircleAnimation = () => {
               );
             })}
           </div>
-
         </div>
-
       </div>
     </section>
   );

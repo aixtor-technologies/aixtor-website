@@ -1,30 +1,34 @@
 import Image from "next/image";
 
 import Typography from "@/components/ui/typography";
+import Link from "next/link";
 
 type CardProps = {
-  title: string,
-  imgUrl: string,
-  description: string
-}
+  title: string;
+  imgUrl: string;
+  description: string;
+};
 
 const Card = ({ title, imgUrl, description }: CardProps) => {
   return (
-
-    <div className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl">
-      <Image
-        src={imgUrl}
-        alt="title"
-        width={60}
-        height={60}
-        className="mb-4 size-15 p-2"
-      />
-      <Typography size="h5" className="font-semibold mb-1">
+    <div className="group gradient-card min-h-full body-border p-3 lg:p-4 xl:p-5 border rounded-md relative">
+      <Typography
+        size="h5"
+        className="font-semibold mb-1.5 lg:mb-2 text-dark group-hover:text-primary"
+      >
         {title}
       </Typography>
       <Typography>{description}</Typography>
+      <Image
+        src={imgUrl}
+        alt="title"
+        width={654}
+        height={442}
+        className="mt-4 md:mt-6 lg:mt-8 w-full"
+        style={{ aspectRatio: "654/442" }}
+      />
+      <Link href="/#" className="inset-0 absolute z-1" />
     </div>
-
   );
 };
 

@@ -76,7 +76,7 @@ const Solutions = () => {
                 <div
                   key={solution.title}
                   className={`transition-all duration-300 border rounded
-                      ${activeIndex === index ? " gradient-card active" : "border-t-body border-x-body border-b-black/10"}`}
+                      ${activeIndex === index ? " gradient-card active" : "border-t-dark-300 border-x-dark-300 border-b-dark-300"}`}
                 >
                   <button
                     className="w-full font-semibold flex items-center justify-between px-6 py-4 text-left"
@@ -94,12 +94,12 @@ const Solutions = () => {
                     </span>
                   </button>
 
-                  <div className={`grid transition-all duration-300 ease-in-out ${activeIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                  <div
+                    className={`grid transition-all duration-300 ease-in-out ${activeIndex === index ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                  >
                     <div className="overflow-hidden">
                       <div className="px-6 pb-5">
-                        <Typography size="p">
-                          {solution.description}
-                        </Typography>
+                        <Typography size="p">{solution.description}</Typography>
                         <button className="mt-3 text-sm text-primary border-b hover:text-secondary">
                           Know more
                         </button>

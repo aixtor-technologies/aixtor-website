@@ -29,6 +29,6 @@
   "prettier.requireConfig": true,
   "claudeCodeChat.permissions.yoloMode": false,
   "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

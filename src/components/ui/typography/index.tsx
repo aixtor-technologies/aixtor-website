@@ -33,10 +33,14 @@ const Typography = <T extends React.ElementType = "p">({
   isTitle = false,
   isCenter = false,
   ...props
-}: TypographyProps<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
+}: TypographyProps<T> &
+  Omit<React.ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
   const Component = variant || "p";
   return (
-    <Component className={`${sizeClasses[size]}  ${isTitle ? "after:content-[''] after:block after:w-44 after:h-px after:bg-linear-to-r after:from-primary after:to-secondary after:mt-2" : ""}  ${isCenter ? "text-center after:mx-auto" : ""}  ${className}`} {...props}>
+    <Component
+      className={`${sizeClasses[size]} ${isTitle ? "text-dark after:content-[''] after:block after:w-44 after:h-px after:bg-linear-to-r after:from-primary after:to-secondary after:mt-2" : ""}  ${isCenter ? "text-center after:mx-auto" : ""}  ${className}`}
+      {...props}
+    >
       {children}
     </Component>
   );

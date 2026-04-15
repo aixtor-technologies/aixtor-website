@@ -25,7 +25,9 @@ const Banner = () => {
               operations, enhance performance, and drive sustainable growth.
               With AIXTOR, innovation meets reliability at every step.
             </Typography>
-            <Button href="/" variant="light" className="mt-6 md:mt-8 lg:mt-10">Talk to us</Button>
+            <Button href="/" variant="light" className="mt-6 md:mt-8 lg:mt-10">
+              Talk to us
+            </Button>
           </Grid.Col>
           <Grid.Col className="md:w-5/12 hidden md:block">
             <BannerCircle />
@@ -33,10 +35,16 @@ const Banner = () => {
         </Grid>
         <RatingSection />
       </div>
-      <video src="/images/banner-video.mp4" autoPlay muted loop className="absolute top-0 left-0 w-full h-full object-cover" >
+      <video
+        src="/images/banner-video.mp4"
+        autoPlay
+        muted
+        loop
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
         <source src="/images/banner-video.mp4" type="video/mp4" />
       </video>
-    </section >
+    </section>
   );
 };
 

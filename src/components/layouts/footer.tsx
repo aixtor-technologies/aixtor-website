@@ -5,7 +5,12 @@ import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 import FooterMenuSection from "@/components/shared/footer-menu";
 
-import { companyMenuItems, liferayMenuItems, servicesMenuItems, solutionsMenuItems } from "./data";
+import {
+  companyMenuItems,
+  liferayMenuItems,
+  servicesMenuItems,
+  solutionsMenuItems,
+} from "./data";
 
 export default function Footer() {
   return (
@@ -146,7 +151,7 @@ export default function Footer() {
             </Grid>
           </Grid.Col>
         </Grid>
-        <div className="flex flex-wrap gap-y-2 gap-x-4 md:gap-x-6 lg:gap-x-7 items-center justify-center border-t border-t-body py-4 md:py-6 lg:py-8 mt-4 md:mt-8 lg:mt-10 xl:mt-12 text-center">
+        <div className="flex flex-wrap gap-y-2 gap-x-4 md:gap-x-6 lg:gap-x-7 items-center justify-center border-t border-t-dark-300 py-4 md:py-6 lg:py-8 mt-4 md:mt-8 lg:mt-10 xl:mt-12 text-center">
           <Image
             src="./images/iso-logo.svg"
             alt="Aixtor Technologies"
@@ -190,7 +195,7 @@ export default function Footer() {
             className="h-12 md:h-16 lg:h-18 w-auto max-w-40 md:max-w-52 lg:max-w-80"
           />
         </div>
-        <div className="border-t border-t-body py-3 md:py-4 text-center">
+        <div className="border-t border-t-dark-300 py-3 md:py-4 text-center">
           <Typography>© 2023 Aixtor.com, All rights reserved</Typography>
         </div>
       </div>
