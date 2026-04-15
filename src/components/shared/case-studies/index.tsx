@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/button";
-import CustomSlider from "@/components/ui/custom-slider";
-import Grid from "@/components/ui/grid";
-import Typography from "@/components/ui/typography";
 import Image from "next/image";
+
+import Grid from "@/components/ui/grid";
+import Button from "@/components/ui/button";
+import CustomSlider from "@/components/ui/custom-slider";
+import Typography from "@/components/ui/typography";
 
 const CaseStudies = () => {
   return (

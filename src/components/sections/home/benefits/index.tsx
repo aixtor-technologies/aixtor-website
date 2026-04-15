@@ -1,7 +1,7 @@
+import Image from "next/image";
 
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
-import Image from "next/image";
 
 const solutions = [
   { title: "Intranet Portal", description: "Enhance internal communication..." },

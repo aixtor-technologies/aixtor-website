@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import IconChevronDown from "./icons/chevron-down";
+import { useState, useRef, useEffect } from "react";
+
+import IconChevronDown from "@/components/shared/icons/chevron-down";
 
 type HireOption = {
   label: string;

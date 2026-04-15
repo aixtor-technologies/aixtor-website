@@ -1,7 +1,8 @@
-import Typography from "@/components/ui/typography";
-// import ServicesSlider from "./service-slider";
-import CustomSlider from "@/components/ui/custom-slider";
 import Image from "next/image";
+
+import Typography from "@/components/ui/typography";
+import CustomSlider from "@/components/ui/custom-slider";
+// import ServicesSlider from "./service-slider";
 
 const services = [
   {

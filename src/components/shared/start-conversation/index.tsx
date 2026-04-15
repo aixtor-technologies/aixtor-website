@@ -1,13 +1,13 @@
 import Image from "next/image";
 
 import Grid from "@/components/ui/grid";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 
 const StartConversation = () => {
   return (
-    <section className="common-section bg-white !pb-0">
+    <section className="common-section bg-white pb-0!">
       <div className="container relative">
         <Grid size="lg">
           <Grid.Col className="md:w-6/12">

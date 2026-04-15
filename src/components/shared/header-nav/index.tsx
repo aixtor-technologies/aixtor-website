@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import IconChevronDown from "./icons/chevron-down";
+
+import IconChevronDown from "@/components/shared/icons/chevron-down";
 
 type MenuItem = {
   title: string;

@@ -24,7 +24,7 @@ const sizeClasses: Record<Size, string> = {
   small: "h-10 px-3 text-sm",
 };
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       variant = "default",
@@ -55,3 +55,5 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = "Input";
+
+export default Input;

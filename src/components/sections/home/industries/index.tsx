@@ -1,7 +1,8 @@
+import Link from "next/link";
+import Image from "next/image";
+
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
-import Image from "next/image";
-import Link from "next/link";
 
 const industries = [
   { img_url: "/images/banking.svg", name: "Banking" },

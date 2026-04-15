@@ -1,5 +1,5 @@
+import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
-import { Button } from "./button";
 
 export default function DesignSystem() {
   return (

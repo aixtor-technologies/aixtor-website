@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import Grid from "@/components/ui/grid";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 
 import IconUp from "@/components/shared/icons/up";

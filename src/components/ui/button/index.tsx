@@ -41,7 +41,7 @@ const Spinner = () => (
   <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
 );
 
-export const Button = React.forwardRef<
+const Button = React.forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
 >(
@@ -106,3 +106,5 @@ export const Button = React.forwardRef<
 );
 
 Button.displayName = "Button";
+
+export default Button;

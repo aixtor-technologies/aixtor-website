@@ -1,8 +1,9 @@
 import Grid from "@/components/ui/grid";
-import BannerCircle from "./banner-circle";
+import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
+
 import RatingSection from "./rating";
-import { Button } from "@/components/ui/button";
+import BannerCircle from "./banner-circle";
 
 const Banner = () => {
   return (

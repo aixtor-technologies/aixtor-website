@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
 import HireDropdown from "@/components/shared/hire-btn";
 
