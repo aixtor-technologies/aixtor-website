@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import Grid from "@/components/ui/grid";
-import { Button } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 
 const solutions = [
@@ -75,11 +74,12 @@ const ListAnimation = () => {
             {solutions.map((solution, index) => (
               <div
                 key={solution.title}
-                ref={(el) => (itemRefs.current[index] = el)}
+                ref={(el) => {
+                  (itemRefs.current[index] = el);
+                }}
                 data-index={index}
                 className={`p-4 mb-6 border-2 rounded-xl transition-all duration-300 bg-white
-                ${activeIndex === index ? "border-primary scale-105 shadow-lg opacity-100" : "border-transparent opacity-50 scale-95"
-                  }`}
+                ${activeIndex === index ? "border-primary scale-105 shadow-lg opacity-100" : "border-transparent opacity-50 scale-95"}`}
               >
                 <Typography size="h5" className="font-semibold mb-1">
                   {solution.title}

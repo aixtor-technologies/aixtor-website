@@ -17,7 +17,7 @@ export default function FooterMenuSection({
 }: FooterMenuSectionProps) {
   return (
     <div>
-      <Typography variant="h6" size="h6" className="mb-3 font-bold">
+      <Typography variant="h4" size="h6" className="mb-3 font-bold">
         {title}
       </Typography>
       <ul className="flex flex-col gap-1 md:gap-2">

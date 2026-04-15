@@ -11,6 +11,7 @@ import StartConversation from "@/components/sections/home/start-conversation";
 // import SectionAnimation from "@/components/sections/home/section-animation";
 // import ListAnimation2 from "@/components/sections/home/list-animation2";
 import Benefits from "@/components/sections/home/benefits";
+// import CircleAnimation from "@/components/sections/home/circle-animation";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <div className="large-section">
         <CTASection />
       </div>
+      {/* <CircleAnimation /> */}
       {/* <SectionAnimation /> */}
       <WhyChoose />
       <Benefits />

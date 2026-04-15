@@ -40,7 +40,7 @@ const RatingSection = () => {
             className={"flex text-center px-6 xl:px-10 border-s-2 border-white first:border-0"}
           >
             <div className="-my-4">
-              <Image src={item.imgUrl} alt={item.title} width={200} height={40} className="h-10 w-auto inline-flex" />
+              <Image src={item.imgUrl} alt={item.title} width={122} height={40} className="h-10 w-auto inline-flex" />
               <div className="flex justify-center items-center gap-px my-2">
                 {[...Array(5)].map((_, i) => (
                   <span key={i} className="size-5">
