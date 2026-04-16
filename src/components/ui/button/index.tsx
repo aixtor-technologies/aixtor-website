@@ -25,7 +25,7 @@ const variantClasses: Record<Variant, string> = {
   light:
     "bg-white/10 text-white hover:bg-white/20 hover:text-white border-white",
   outline:
-    "border-primary text-primary bg-white hover:bg-primary hover:text-white",
+    "border-dark text-dark bg-white/40 hover:bg-white/20 hover:text-dark",
 };
 
 const sizeClasses: Record<Size, string> = {
