@@ -1,15 +1,12 @@
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 import StatCard from "./Statcard";
-
-
 const stats = [
   { value: "45+", label: "Finished Projects" },
   { value: "15+", label: "Experience Years" },
   { value: "55+", label: "Skilled Experts" },
   { value: "30+", label: "Happy Clients" },
 ];
-
 const WhyChoose = () => {
   return (
     <section className="common-section bg-white">
