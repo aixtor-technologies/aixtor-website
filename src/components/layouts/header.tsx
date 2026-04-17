@@ -4,8 +4,26 @@ import Link from "next/link";
 import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
 import HireDropdown from "@/components/shared/hire-btn";
+import HttpService from "@/shared/services/http.service";
 
-export default function Header() {
+async function fetchMenu(): Promise<any> {
+  try {
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
+      "menu/desktop-menu",
+      {
+        method: "GET",
+      }
+    );
+    return res;
+  } catch (error) {
+    console.error("Failed to fetch Menu content:", error);
+    return null; // Return fallback so UI can handle it
+  }
+}
+
+export default async function Header() {
+  const menuList = await fetchMenu();
+  console.log("menu", menuList);
   return (
     <header
       id="site-header"

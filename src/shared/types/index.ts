@@ -1,0 +1,5 @@
+type TApiResponse<T> = {
+  data: T;
+  success?: boolean;
+  message?: string;
+};
