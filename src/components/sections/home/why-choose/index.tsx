@@ -1,5 +1,6 @@
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
+import StatCard from "./Statcard";
 
 const stats = [
   { value: "45+", label: "Finished Projects" },
@@ -30,23 +31,8 @@ const WhyChoose = () => {
           <Grid.Col className="md:w-11/12">
             <Grid className="gap-y-4">
               {stats.map(stat => (
-                <Grid.Col key={stat.label} className="!w-6/12 md:!w-3/12">
-                  <div className="p-4 md:p-5 lg:p-6 shadow-card">
-                    <Typography
-                      variant="h3"
-                      size="h2"
-                      className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent inline-flex"
-                    >
-                      {stat.value}
-                    </Typography>
-                    <Typography
-                      variant="p"
-                      size="h6"
-                      className="mt-2 font-medium"
-                    >
-                      {stat.label}
-                    </Typography>
-                  </div>
+                <Grid.Col key={stat.label} className="w-6/12! md:!w-3/12">
+                  <StatCard value={stat.value} label={stat.label} />
                 </Grid.Col>
               ))}
             </Grid>
