@@ -2,12 +2,14 @@ import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 import StatCard from "./Statcard";
 
+
 const stats = [
   { value: "45+", label: "Finished Projects" },
   { value: "15+", label: "Experience Years" },
   { value: "55+", label: "Skilled Experts" },
   { value: "30+", label: "Happy Clients" },
 ];
+
 const WhyChoose = () => {
   return (
     <section className="common-section bg-white">
@@ -30,9 +32,7 @@ const WhyChoose = () => {
           <Grid.Col className="md:w-11/12">
             <Grid className="gap-y-4">
               {stats.map(stat => (
-                <Grid.Col key={stat.label} className="w-6/12! md:!w-3/12">
-                  <StatCard value={stat.value} label={stat.label} />
-                <Grid.Col key={stat.label} className="w-6/12! md:!w-3/12">
+                <Grid.Col key={stat.label} className="w-6/12! md:w-3/12!">
                   <StatCard value={stat.value} label={stat.label} />
                 </Grid.Col>
               ))}
