@@ -33,26 +33,86 @@ const navLinks: NavLink[] = [
       {
         title: "Liferay Services",
         items: [
-          { label: "Liferay Migration Services", href: "#", icon: "./images/home/liferay_Upgradation.svg" },
-          { label: "Liferay Upgrade Services", href: "#", icon: "./images/home/Web_Portal_Devlopment.svg" },
-          { label: "Liferay Consulting", href: "#", icon: "./images/home/Enterprise_Portal_Development.svg" },
-          { label: "Hire Liferay Developer Services", href: "#", icon: "./images/home/Liferay_Consulting.svg" },
+          {
+            label: "Liferay Migration Services",
+            href: "#",
+            icon: "./images/home/liferay_Upgradation.svg",
+          },
+          {
+            label: "Liferay Upgrade Services",
+            href: "#",
+            icon: "./images/home/Web_Portal_Devlopment.svg",
+          },
+          {
+            label: "Liferay Consulting",
+            href: "#",
+            icon: "./images/home/Enterprise_Portal_Development.svg",
+          },
+          {
+            label: "Hire Liferay Developer Services",
+            href: "#",
+            icon: "./images/home/Liferay_Consulting.svg",
+          },
         ],
       },
       {
         title: "Website Services",
         items: [
-          { label: "Web Portal Development", href: "#", icon: "./images/home/Supplier_and_vendor_portal.svg" },
-          { label: "UI and UX", href: "#", icon: "./images/home/Customer_Self_Service_Portal.svg" },
-          { label: "Drupal Development", href: "#", icon: "./images/home/Liferay_Migration.svg" },
-          { label: "RPA Development Services", href: "#", icon: "./images/home/Partner_Management.svg" },
-          { label: "QA Automation Testing", href: "#", icon: "./images/home/Intranet_Portal.svg" },
-          { label: "DevOps", href: "#", icon: "./images/home/liferay_Upgradation.svg" },
-          { label: "QA Manual Testing", href: "#", icon: "./images/home/Web_Portal_Devlopment.svg" },
-          { label: "AI and ML Services", href: "#", icon: "./images/home/Enterprise_Portal_Development.svg" },
-          { label: "B.I. and Data Analytics Services", href: "#", icon: "./images/home/Liferay_Consulting.svg" },
-          { label: "DevOps Solution", href: "#", icon: "./images/home/Liferay_Consulting.svg" },
-          { label: "Performance Tuning", href: "#", icon: "./images/home/Liferay_Consulting.svg" },
+          {
+            label: "Web Portal Development",
+            href: "#",
+            icon: "./images/home/Supplier_and_vendor_portal.svg",
+          },
+          {
+            label: "UI and UX",
+            href: "#",
+            icon: "./images/home/Customer_Self_Service_Portal.svg",
+          },
+          {
+            label: "Drupal Development",
+            href: "#",
+            icon: "./images/home/Liferay_Migration.svg",
+          },
+          {
+            label: "RPA Development Services",
+            href: "#",
+            icon: "./images/home/Partner_Management.svg",
+          },
+          {
+            label: "QA Automation Testing",
+            href: "#",
+            icon: "./images/home/Intranet_Portal.svg",
+          },
+          {
+            label: "DevOps",
+            href: "#",
+            icon: "./images/home/liferay_Upgradation.svg",
+          },
+          {
+            label: "QA Manual Testing",
+            href: "#",
+            icon: "./images/home/Web_Portal_Devlopment.svg",
+          },
+          {
+            label: "AI and ML Services",
+            href: "#",
+            icon: "./images/home/Enterprise_Portal_Development.svg",
+          },
+          {
+            label: "B.I. and Data Analytics Services",
+            href: "#",
+            icon: "./images/home/Liferay_Consulting.svg",
+          },
+          {
+            label: "DevOps Solution",
+            href: "#",
+            icon: "./images/home/Liferay_Consulting.svg",
+          },
+          {
+            label: "Performance Tuning",
+            href: "#",
+            icon: "./images/home/Liferay_Consulting.svg",
+          },
         ],
       },
     ],
@@ -107,7 +167,7 @@ const navLinks: NavLink[] = [
           },
         ],
       },
-    ]
+    ],
   },
   {
     label: "Industries",
@@ -148,9 +208,12 @@ export default function HeaderNav() {
     <nav className="hidden lg:flex items-center gap-2 font-medium">
       {navLinks.map((link, index) => {
         const hasDropdown = !!link.dropdown;
-        const megaMenuGroups = link.megamenu ? (link.dropdown as MenuItem[]) : [];
+
+        const megaMenuGroups = link.megamenu
+          ? (link.dropdown as MenuItem[])
+          : [];
         const hasLargeMegaMenuGroup = megaMenuGroups.some(
-          (group) => group.items.length > 6
+          group => group.items.length > 6
         );
         const useSplitMegaLayout =
           megaMenuGroups.length === 2 && hasLargeMegaMenuGroup;
@@ -169,10 +232,12 @@ export default function HeaderNav() {
             onMouseLeave={() => setOpenIndex(null)}
           >
             {/* Main Link */}
-            <div className={`flex m-auto items-center gap-1 px-3 py-2 rounded-full ${index === openIndex ? "bg-white/20" : ""}`}>
+            <div
+              className={`navItem flex m-auto items-center gap-1 px-3 py-2 rounded-full border transition-all duration-100 ${index === openIndex ? "" : "border-transparent"}`}
+            >
               <Link
                 href={link.href}
-                className="text-white text-sm lg:text-base font-semibold"
+                className="text-sm lg:text-base font-semibold"
               >
                 {link.label}
               </Link>
@@ -209,9 +274,14 @@ export default function HeaderNav() {
                   <>
                     <div className={`grid ${megaMenuGridClass} gap-4 xl:gap-6`}>
                       {megaMenuGroups.map((group, groupIndex) => {
-                        const isWideGroup = useSplitMegaLayout && groupIndex === 1;
-                        const groupClass = isWideGroup ? "col-span-2" : "col-span-1";
-                        const listClass = isWideGroup ? "grid grid-cols-2 gap-x-8 gap-y-3" : "space-y-3";
+                        const isWideGroup =
+                          useSplitMegaLayout && groupIndex === 1;
+                        const groupClass = isWideGroup
+                          ? "col-span-2"
+                          : "col-span-1";
+                        const listClass = isWideGroup
+                          ? "grid grid-cols-2 gap-x-8 gap-y-3"
+                          : "space-y-3";
 
                         return (
                           <div key={group.title} className={groupClass}>
@@ -220,7 +290,7 @@ export default function HeaderNav() {
                             </h4>
 
                             <ul className={listClass}>
-                              {group.items.map((item) => (
+                              {group.items.map(item => (
                                 <li key={item.label}>
                                   <Link
                                     href={item.href}
@@ -246,8 +316,8 @@ export default function HeaderNav() {
                     {/* Bottom CTA */}
                     <div className="mt-8 rounded-xl bg-linear-to-r from-primary to-secondary px-5 py-3 flex items-center justify-between">
                       <p className="text-white text-sm">
-                        Are you prepared to revolutionize your business? Let&apos;s
-                        embark on this journey together!
+                        Are you prepared to revolutionize your business?
+                        Let&apos;s embark on this journey together!
                       </p>
 
                       <Link
@@ -261,7 +331,7 @@ export default function HeaderNav() {
                 ) : (
                   /* ✅ Normal Dropdown */
                   <ul className="flex flex-col gap-2">
-                    {(link.dropdown as DropdownItem[]).map((item) => (
+                    {(link.dropdown as DropdownItem[]).map(item => (
                       <li key={item.label}>
                         <Link
                           href={item.href}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 const data = [
@@ -9,12 +9,12 @@ const data = [
 ];
 
 const CircleAnimation = () => {
-  const [activeItem, setActiveItem] = useState(data[0]);
+  const [activeItem] = useState(data[0]);
 
   return (
     <section className="common-section bg-blue-900">
       <div className="container flex justify-center">
-        <div className="relative w-[420px] h-[420px] rounded-full border-4">
+        <div className="relative w-108 h-10w-108 rounded-full border-4">
           {/* IMAGE LAYER */}
           {data.map(item => (
             <div

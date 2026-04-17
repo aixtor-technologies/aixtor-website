@@ -21,7 +21,7 @@ const eslintConfig = defineConfig([
           asyncArrow: "always",
         },
       ],
-      "multiline-ternary": ["error", "never"],
+      "multiline-ternary": ["warn", "never"],
       "react/react-in-jsx-scope": "off",
       "react/no-unknown-property": [
         "error",

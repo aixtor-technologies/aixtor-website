@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 
 import Typography from "@/components/ui/typography";
+import Grid from "@/components/ui/grid";
 
 type BannerProps = {
   title: string;
@@ -11,24 +11,32 @@ type BannerProps = {
 
 const Banner = ({ title, imgUrl, description }: BannerProps) => {
   return (
-    <section>
+    <section className="banner py-24 md:py-32 lg:py-35 relative">
       <div className="container">
-        <Typography
-          size="h5"
-          className="font-semibold mb-1.5 lg:mb-2 text-dark group-hover:text-primary"
-        >
-          {title}
-        </Typography>
-        <Typography>{description}</Typography>
-        <Image
-          src={imgUrl}
-          alt="title"
-          width={654}
-          height={442}
-          className="mt-4 md:mt-6 lg:mt-8 w-full"
-          style={{ aspectRatio: "654/442" }}
-        />
-        <Link href="/#" className="inset-0 absolute z-1" />
+        <Grid className="gap-y-8 items-center justify-between">
+          <Grid.Col className="md:w-6/12">
+            <Typography
+              variant="h1"
+              size="h2"
+              className="font-semibold mb-1.5 lg:mb-2 text-dark"
+            >
+              {title}
+            </Typography>
+            <Typography size="h6">{description}</Typography>
+          </Grid.Col>
+          <Grid.Col className="md:w-6/12 lg:w-5/12">
+            <div className="imgbox rounded-lg shadow-card mx-auto w-10/12 md:w-full">
+              <Image
+                src={imgUrl}
+                alt="title"
+                width={654}
+                height={442}
+                className="rounded-lg w-full"
+                style={{ aspectRatio: "654/442" }}
+              />
+            </div>
+          </Grid.Col>
+        </Grid>
       </div>
     </section>
   );

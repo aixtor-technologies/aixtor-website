@@ -1,0 +1,48 @@
+.banner::before {
+  position: absolute;
+  bottom: -1px;
+  height: 180px;
+  background: var(--color-white);
+  left: 0;
+  width: 100%;
+  content: "";
+  -webkit-clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  /* min-width: 1300px; */
+}
+
+.banner::after {
+  display: inline-block;
+  width: 350px;
+  height: 60px;
+  vertical-align: top;
+  content: "";
+  background: var(--lineargradientcolor6);
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  -webkit-transform: skew(-25deg) rotate(-8deg);
+  -moz-transform: skew(-25deg) rotate(-8deg);
+  -ms-transform: skew(-25deg) rotate(-8deg);
+  transform: skew(-25deg) rotate(-8deg);
+  z-index: 9;
+}
+
+.banner .imgbox {
+  background: var(--lineargradientcolor9);
+}
+
+.banner .imgbox img {
+  transform: translate(-12%, 10%);
+}
+
+@media only screen and (max-width: 991px) {
+  .banner::before {
+    max-height: 12%;
+  }
+  .banner::after {
+    width: 192px;
+    bottom: -16px;
+    left: -10px;
+  }
+}
