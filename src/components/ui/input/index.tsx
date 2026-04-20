@@ -21,7 +21,7 @@ const variantClasses: Record<Variant, string> = {
 
 const sizeClasses: Record<Size, string> = {
   default: "h-12 px-4",
-  small: "h-10 px-3 text-sm",
+  small: "h-10 px-3",
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(

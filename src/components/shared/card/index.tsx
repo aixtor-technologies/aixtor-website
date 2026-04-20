@@ -1,15 +1,16 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import Typography from "@/components/ui/typography";
-import Link from "next/link";
 
 type CardProps = {
   title: string;
-  imgUrl: string;
+  image: string;
   description: string;
+  slug: string;
 };
 
-const Card = ({ title, imgUrl, description }: CardProps) => {
+const Card = ({ title, image, description, slug }: CardProps) => {
   return (
     <div className="group gradient-card min-h-full body-border p-3 lg:p-4 xl:p-5 border rounded-md relative">
       <Typography
@@ -20,14 +21,14 @@ const Card = ({ title, imgUrl, description }: CardProps) => {
       </Typography>
       <Typography>{description}</Typography>
       <Image
-        src={imgUrl}
-        alt="title"
+        src={image}
+        alt={title}
         width={654}
         height={442}
         className="mt-4 md:mt-6 lg:mt-8 w-full"
         style={{ aspectRatio: "654/442" }}
       />
-      <Link href="/#" className="inset-0 absolute z-1" />
+      <Link href={slug} className="inset-0 absolute z-1" />
     </div>
   );
 };

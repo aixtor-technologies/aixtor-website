@@ -1,10 +1,11 @@
 import Banner from "@/components/shared/banner";
 import CaseStudies from "@/components/shared/case-studies";
-import StartConversation from "@/components/shared/start-conversation";
 import ListSection from "@/components/shared/list-section";
+import StartConversation from "@/components/shared/start-conversation";
+
 import HttpService from "@/shared/services/http.service";
 
-async function fetchSolutions(): Promise<any> {
+async function fetchBlogs(): Promise<any> {
   try {
     const res = await HttpService.nativeFetch<TApiResponse<any>>(
       "services?page=1&per_page=20",
@@ -14,24 +15,23 @@ async function fetchSolutions(): Promise<any> {
     );
     return res;
   } catch (error) {
-    console.error("Failed to fetch Solutions content:", error);
+    console.error("Failed to fetch Blog content:", error);
     return null; // Return fallback so UI can handle it
   }
 }
-
-export default async function SolutionsPage() {
-  const solutions = await fetchSolutions();
+export default async function BlogPage() {
+  const blogs = await fetchBlogs();
   return (
     <>
       <Banner
-        title="Maximize Business Efficiency with Aixtor’s Digital Solutions"
-        description="Benefit your business with a range of transformative solutions to streamline operations and boost productivity."
+        title="Blogs"
+        description="Find answers, inspiration, and expert advice in our comprehensive blogs along with staying updated with industry trends, exploring new perspectives, and innovative solutions."
         imgUrl="/images/dummy/services_banner.webp"
       />
       <ListSection
         title="Innovative Solutions Tailored to Your Business Needs"
         description="Aixtor offers a diverse range of solutions customized to meet your unique business needs. We provide transformative solutions to empower your business digitally. Our primary focus is on providing innovative solutions with a team of experts while partnering with you to unlock new opportunities for your business in the digital world."
-        items={solutions.data}
+        items={blogs.data}
       />
       <CaseStudies />
       <StartConversation />

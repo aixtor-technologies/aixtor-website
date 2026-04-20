@@ -3,9 +3,11 @@ import Card from "@/components/shared/card";
 import Typography from "@/components/ui/typography";
 
 type ListItem = {
+  id: number;
   title: string;
   description: string;
-  imgUrl: string;
+  image: string;
+  slug: string;
 };
 
 type ListSectionProps = {
@@ -30,12 +32,13 @@ const ListSection = ({ title, description, items }: ListSectionProps) => {
 
         {/* List */}
         <Grid className="gap-y-4 md:gap-y-5 lg:gap-y-6">
-          {items.map(item => (
-            <Grid.Col key={item.title} className="md:w-6/12 lg:w-4/12">
+          {items?.map(item => (
+            <Grid.Col key={item.id} className="md:w-6/12 lg:w-4/12">
               <Card
                 title={item.title}
                 description={item.description}
-                imgUrl={item.imgUrl}
+                image={item.image}
+                slug={item.slug}
               />
             </Grid.Col>
           ))}

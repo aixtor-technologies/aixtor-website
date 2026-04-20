@@ -3,15 +3,14 @@ import * as React from "react";
 type Variant = "default" | "white";
 type Size = "default" | "small";
 
-export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   variant?: Variant;
   inputSize?: Size;
   error?: string;
 }
 
 const baseClasses =
-  "block w-full rounded-lg border-0 text-base transition-colors outline-none focus:ring-0 resize-none";
+  "block w-full rounded-lg border-0 text-base transition-colors outline-none focus:ring-0 resize-none overflow-auto";
 
 const variantClasses: Record<Variant, string> = {
   default:
@@ -21,8 +20,8 @@ const variantClasses: Record<Variant, string> = {
 };
 
 const sizeClasses: Record<Size, string> = {
-  default: "min-h-[120px] px-4 py-3",
-  small: "min-h-[80px] px-3 py-2 text-sm",
+  default: "h-28 md:h-32 px-4 py-3",
+  small: "h-28 px-3 py-2",
 };
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
