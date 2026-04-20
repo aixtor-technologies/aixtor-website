@@ -140,14 +140,12 @@ export default async function Footer() {
           </Grid.Col>
           <Grid.Col className="md:w-8/12">
             <Grid>
-              {/* Company */}
               <Grid.Col className="sm:w-6/12 md:w-4/12">
                 <FooterMenuSection
-                  title="Company"
-                  groups={[{ title: "", items: companyMenuItems }]}
+                  title="Services"
+                  groups={[{ title: "", items: servicesMenuItems }]}
                 />
               </Grid.Col>
-
               {/* Solutions */}
               <Grid.Col className="sm:w-6/12 md:w-4/12">
                 <FooterMenuSection
@@ -155,16 +153,12 @@ export default async function Footer() {
                   groups={[{ title: "", items: solutionsMenuItems }]}
                 />
               </Grid.Col>
-
-              {/* Services */}
               <Grid.Col className="sm:w-6/12 md:w-4/12">
                 <FooterMenuSection
-                  title="Services"
-                  groups={[{ title: "", items: servicesMenuItems }]}
+                  title="Company"
+                  groups={[{ title: "", items: companyMenuItems }]}
                 />
               </Grid.Col>
-
-              {/* Liferay */}
               <Grid.Col className="sm:w-6/12 md:w-4/12">
                 <FooterMenuSection
                   title="Liferay"
