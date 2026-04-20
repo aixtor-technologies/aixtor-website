@@ -1,0 +1,255 @@
+{
+    "status": "success",
+    "data": {
+        "menu_id": 629,
+        "menu_slug": "desktop-menu",
+        "menu_title": "Desktop Menu",
+        "items": [
+            {
+                "title": "Services",
+                "url": "/services/",
+                "icon": false,
+                "is_mega_menu": true,
+                "children": [
+                    {
+                        "title": "Enterprise Portal Development",
+                        "url": "/services/enterprise-portal-development/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_Enterprise-Portal-Development.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Liferay Migration Services",
+                        "url": "/services/liferay-migration-services/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_LIFERAY-Migration.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Web Portal Development",
+                        "url": "/services/web-portal-development/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_Web-Portal-Devlopment.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Drupal Development",
+                        "url": "/services/drupal-development/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_DRUPAL-DEVELOPMENT.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "QA Automation Testing",
+                        "url": "/services/qa-automation-testing-services/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_QA-automation-testing.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "AI and ML",
+                        "url": "/services/ai-and-ml/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_Services_AI-and-ML.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "DevOps",
+                        "url": "/services/devops/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_DevOps.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Liferay Consulting",
+                        "url": "/services/liferay-consulting-services/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_Liferay-Consulting.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Liferay Upgrade Services",
+                        "url": "/services/liferay-upgrade/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_Liferay-Upgradation.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "UI UX Design",
+                        "url": "/services/ui-ux-design/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_UI-and-UX.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "RPA Development",
+                        "url": "/services/rpa-development-services/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_RPA.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "QA Manual Testing",
+                        "url": "/services/qa-manual-testing/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_QA-Manual-Testing.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "BI and Data Analytics Services",
+                        "url": "/services/bi-and-data-analytics-services/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/services_menu_icon_BI-and-Data-Analytics-Services.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Performance Tuning",
+                        "url": "/services/performance-tuning/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_Liferay-Performance-Tuning.svg",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "title": "Solutions",
+                "url": "/solutions/",
+                "icon": false,
+                "is_mega_menu": true,
+                "children": [
+                    {
+                        "title": "Intranet Portal",
+                        "url": "/solutions/intranet-portal/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_INTRANET-PORTAL.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Partner Portal Solution",
+                        "url": "/solutions/partner-portal-solution/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_PARTNER-MANAGEMENT.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "E-Commerce Portal",
+                        "url": "/solutions/e-commerce-portal-development/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_E-Commerce-Portal.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Enterprise Content Management",
+                        "url": "/solutions/enterprise-content-management-solution/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_ENTERPRISE-CONTENT-MANAGEMENT.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Customer Self Service Portal",
+                        "url": "/solutions/customer-self-service-portal/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_Customer-Self-Service-Portal-.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Supplier and Vendor Portal",
+                        "url": "/solutions/supplier-and-vendor-portal/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_Supplier-and-vendor-portal-.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Enterprise Websites",
+                        "url": "/solutions/enterprise-websites/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/solution_menu_icon_Enterprise-Websites.svg",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "title": "Industries",
+                "url": "/industries/",
+                "icon": false,
+                "is_mega_menu": false,
+                "children": [
+                    {
+                        "title": "Telecom",
+                        "url": "/industries/telecom/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_Telecommunication.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Logistics and Transport",
+                        "url": "/industries/logistics-and-transport/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_Transportation.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Healthcare",
+                        "url": "/industries/healthcare/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_Healthcare.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Education",
+                        "url": "/industries/education/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_Government-Solutions.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Manufacturing",
+                        "url": "/industries/manufacturing/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_manufacturing.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Insurance",
+                        "url": "/industries/insurance/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_Insurance.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "FMCG",
+                        "url": "/industries/fmcg/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_FMCG.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Banking and Finance",
+                        "url": "/industries/banking-and-finance/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/industries_Banking-Financial-Services.svg",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "title": "Resources",
+                "url": "/resources/",
+                "icon": false,
+                "is_mega_menu": false,
+                "children": [
+                    {
+                        "title": "Case Studies",
+                        "url": "/case-study/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/menu_icon_Case-Study.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Blogs",
+                        "url": "/blog/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/menu_icon_Blog.svg",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "title": "Company",
+                "url": "/company/",
+                "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/menu_icon_About-Company.svg",
+                "is_mega_menu": false,
+                "children": [
+                    {
+                        "title": "About Us",
+                        "url": "/company/about-us/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/menu_icon_About-Company.svg",
+                        "children": []
+                    },
+                    {
+                        "title": "Careers",
+                        "url": "/company/careers/",
+                        "icon": "http://172.16.1.159/aixtor-cms/wp-content/uploads/2026/04/menu_icon_Career.svg",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "title": "Contact Us",
+                "url": "/contact/",
+                "icon": false,
+                "is_mega_menu": false,
+                "children": []
+            }
+        ]
+    }
+}

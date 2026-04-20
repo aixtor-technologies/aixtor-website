@@ -1,7 +1,7 @@
 import Banner from "@/components/shared/banner";
-import ListSection from "@/components/shared/list-section";
 import CaseStudies from "@/components/shared/case-studies";
 import StartConversation from "@/components/shared/start-conversation";
+import ListSection from "@/components/shared/list-section";
 
 const data = [
   {
@@ -42,17 +42,17 @@ const data = [
   },
 ];
 
-export default function ServicePage() {
+export default function IndustriesPage() {
   return (
     <>
       <Banner
-        title="Unlock Your Digital Potential with Aixtor's Comprehensive Services"
-        description="Transform your operations, enhance customer experiences, and drive growth with our tailored services."
+        title="Industries We Empower Through Digital Transformation"
+        description="Business goals evolve. So should technology behind them. We help industries stay relevant with digital strategies that deliver measurable change."
         imgUrl="/images/dummy/services_banner.webp"
       />
       <ListSection
-        title="Your Partner in Digital Transformation"
-        description="Whether you are looking to optimize operations, enhance customer experiences, or open new revenue streams, Aixtor has got you covered! With our team of certified experts, we offer several end-to-end services like web portal development, Liferay consulting, AI and IoT integrations, Liferay migration and upgradation, and DevOps automation tailored to meet your unique business needs."
+        title="Crafting Industry-Specific Solutions That Deliver Impact"
+        description="At Aixtor, we understand that every industry faces unique challenges, be it complex compliance in insurance, monitoring the telecom networks in telecom, workflow inefficiencies in manufacturing, or evolving regulatory frameworks in NBFCs. That’s why we build purpose-driven digital solutions tailored to industry-specific needs. From automating policy and claims management, optimizing production pipelines, to enabling self-service telecom portals with real-time support and digitizing loan origination and streamlining KYC for NBFCs our platforms deliver measurable business outcomes. With deep domain expertise and agile technology, we help enterprises boost operational efficiency, enhance user experiences, and stay future-ready."
         items={data}
       />
       <CaseStudies />

@@ -19,7 +19,7 @@ export default function InquireNow() {
       </div>
 
       {/* Form */}
-      <div className="max-w-[1100px] mx-auto">
+      <div className="max-w-275 mx-auto">
         <Grid>
           <Grid.Col className="lg:w-1/2">
             <Input placeholder="Full name *" />
