@@ -23,7 +23,6 @@ async function fetchMenu(): Promise<any> {
 
 export default async function Header() {
   const menuList = await fetchMenu();
-  console.log("menu", menuList);
   return (
     <header
       id="site-header"
@@ -39,7 +38,7 @@ export default async function Header() {
               height={36}
             />
           </Link>
-          <HeaderNav />
+          <HeaderNav data={menuList} />
           <HireDropdown />
           <Button href="/contact" variant="outline" className="outlineBtn">
             Let’s talk

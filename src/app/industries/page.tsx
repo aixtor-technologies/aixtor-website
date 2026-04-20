@@ -42,7 +42,7 @@ const data = [
   },
 ];
 
-export default function SolutionsPage() {
+export default function IndustriesPage() {
   return (
     <>
       <Banner

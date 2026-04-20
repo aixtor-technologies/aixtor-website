@@ -1,14 +1,25 @@
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
+import HttpService from "@/shared/services/http.service";
+import StatsSection from "./stat-card";
 
-const stats = [
-  { value: "45+", label: "Finished Projects" },
-  { value: "15+", label: "Experience Years" },
-  { value: "55+", label: "Skilled Experts" },
-  { value: "30+", label: "Happy Clients" },
-];
+async function fetchMenu(): Promise<any> {
+  try {
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
+      "common-options",
+      {
+        method: "GET",
+      }
+    );
+    return res;
+  } catch (error) {
+    console.error("Failed to fetch content:", error);
+    return null;
+  }
+}
+const WhyChoose = async () => {
+  const content = await fetchMenu();
 
-const WhyChoose = () => {
   return (
     <section className="common-section bg-white">
       <div className="container">
@@ -16,42 +27,19 @@ const WhyChoose = () => {
           <Grid.Col className="md:w-10/12">
             <div className="common-heading text-center">
               <Typography variant="h2" size="h3" isTitle isCenter>
-                Why Choose Aixtor for Your Next Project?
+                {content?.data?.statistics?.title ??
+                  "Why Choose Aixtor for Your Next Project?"}
               </Typography>
+
               <Typography variant="p" size="h5" className="mt-4">
-                With a team of certified expert developers, we ensure optimal
-                outcomes and client satisfaction by conceptualizing, designing,
-                and executing solutions as per specific requirements.
+                {content?.data?.statistics?.description ??
+                  "At Aixtor, we are committed to delivering custom business-oriented solutions to our clients. We follow the best practices; as a result, we are being recommended and making a mark in the industry."}
               </Typography>
             </div>
           </Grid.Col>
         </Grid>
-        <Grid className="justify-center">
-          <Grid.Col className="md:w-11/12">
-            <Grid className="gap-y-4">
-              {stats.map(stat => (
-                <Grid.Col key={stat.label} className="!w-6/12 md:!w-3/12">
-                  <div className="p-4 md:p-5 lg:p-6 shadow-card">
-                    <Typography
-                      variant="h3"
-                      size="h2"
-                      className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent inline-flex"
-                    >
-                      {stat.value}
-                    </Typography>
-                    <Typography
-                      variant="p"
-                      size="h6"
-                      className="mt-2 font-medium"
-                    >
-                      {stat.label}
-                    </Typography>
-                  </div>
-                </Grid.Col>
-              ))}
-            </Grid>
-          </Grid.Col>
-        </Grid>
+
+        <StatsSection stats={content?.data?.statistics?.stats} />
       </div>
     </section>
   );
