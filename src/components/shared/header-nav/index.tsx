@@ -1,8 +1,7 @@
 
-import HeaderNavClient from "./header-nav-client";
-
-
 // ─── Types ────────────────────────────────────────────────────────────────────
+
+import HeaderNavClient from "./header-nav-client";
 
 export type MenuItem = {
   title: string;
@@ -52,39 +51,36 @@ type ApiResponse = {
   };
 };
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const chunks: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) {
-    chunks.push(arr.slice(i, i + size));
-  }
-  return chunks;
-}
-
-/**
- * Transforms API response AND pre-computes all layout classes server-side.
- * This means zero layout calculations happen during client renders.
- */
 function transformNavLinks(response: ApiResponse): NavLink[] {
   return response.data.items.map(item => {
     if (!item.children || item.children.length === 0) {
       return { label: item.title, href: item.url };
     }
 
+    // ─── Mega Menu ────────────────────────────────────────────────────────────
     if (item.is_mega_menu) {
-      const groups: MenuItem[] = chunkArray(item.children, 7).map(
-        (chunk, i) => ({
-          title: i === 0 ? item.title : "",
-          items: chunk.map(child => ({
-            label: child.title,
-            href: child.url,
-            icon: child.icon || undefined,
-          })),
-        })
-      );
-
-      // ✅ Pre-compute layout classes here once — never recalculated on client
+      const groups: MenuItem[] = item.children.map(group => {
+        if (group.children && group.children.length > 0) {
+          return {
+            title: group.title,
+            items: group.children.map(child => ({
+              label: child.title,
+              href: child.url,
+              icon: child.icon || undefined,
+            })),
+          };
+        }
+        return {
+          title: "",
+          items: [
+            {
+              label: group.title,
+              href: group.url,
+              icon: group.icon || undefined,
+            },
+          ],
+        };
+      });
       const hasLargeGroup = groups.some(g => g.items.length > 6);
       const useSplitMegaLayout = groups.length === 2 && hasLargeGroup;
       let megaMenuGridClass = "grid-cols-1";
@@ -100,7 +96,6 @@ function transformNavLinks(response: ApiResponse): NavLink[] {
         useSplitMegaLayout,
       };
     }
-
     return {
       label: item.title,
       href: item.url,
@@ -116,9 +111,11 @@ function transformNavLinks(response: ApiResponse): NavLink[] {
 
 // ─── Server Component ─────────────────────────────────────────────────────────
 
-export default  function HeaderNav({ data }: { data: ApiResponse }) {
+export default function HeaderNav({ data }: { data: ApiResponse }) {
   let navLinks: NavLink[] = [];
+
   console.log("Raw API response for menu:", data);
+
   try {
     navLinks = transformNavLinks(data);
   } catch (err) {
@@ -128,3 +125,4 @@ export default  function HeaderNav({ data }: { data: ApiResponse }) {
 
   return <HeaderNavClient navLinks={navLinks} />;
 }
+
