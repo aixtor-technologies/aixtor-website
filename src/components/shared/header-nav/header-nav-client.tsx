@@ -51,7 +51,7 @@ const MegaMenu = memo(function MegaMenu({
                           width={20}
                           height={20}
                           className="size-5"
-                          // ✅ Only the first few icons are eager — rest lazy load
+                          //  Only the first few icons are eager — rest lazy load
                           loading={groupIndex === 0 ? "eager" : "lazy"}
                         />
                       )}
@@ -139,7 +139,6 @@ const NavItem = memo(function NavItem({
       onMouseEnter={() => onEnter(index)}
       onMouseLeave={onLeave}
     >
-      {/* Main link pill */}
       <div
         className={`navItem flex m-auto items-center gap-1 px-3 py-2 rounded-full border transition-all duration-100 ${
           isOpen ? "" : "border-transparent"
@@ -166,7 +165,6 @@ const NavItem = memo(function NavItem({
         )}
       </div>
 
-      {/* Dropdown panel — only mounted when the link has a dropdown */}
       {hasDropdown && (
         <div
           className={`
@@ -192,13 +190,10 @@ const NavItem = memo(function NavItem({
   );
 });
 
-// ─── Client Shell ─────────────────────────────────────────────────────────────
-// Owns ONLY the hover state. Everything else is static & memoized.
 
 export default function HeaderNavClient({ navLinks }: { navLinks: NavLink[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // ✅ useCallback — stable function references, no new functions on re-render
   const handleEnter = useCallback((i: number) => setOpenIndex(i), []);
   const handleLeave = useCallback(() => setOpenIndex(null), []);
   const handleToggle = useCallback(
