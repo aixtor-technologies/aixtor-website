@@ -45,7 +45,7 @@ const StartConversation = () => {
         </Grid>
       </div>
       <Image
-        src="./images/contact-art.svg"
+        src="/images/contact-art.svg"
         width={1526}
         height={298}
         alt="contact"

@@ -20,10 +20,18 @@ export default function ContactBanner() {
       <div className="container">
         <Grid className="items-center">
           <Grid.Col className="lg:w-5/12">
-            <Typography variant="h1" size="h2" className="text-black mb-4 lg:mb-6">
+            <Typography
+              variant="h1"
+              size="h2"
+              className="text-black mb-4 lg:mb-6"
+            >
               {CONTENT.heading}
             </Typography>
-            <Typography variant="p" size="h6" className="text-gray-500 max-w-md">
+            <Typography
+              variant="p"
+              size="h6"
+              className="text-gray-500 max-w-md"
+            >
               {CONTENT.description}
             </Typography>
           </Grid.Col>
@@ -56,7 +64,7 @@ function ContactImage({
           alt={alt}
           width={width}
           height={height}
-          className="w-full h-auto rounded-sm"
+          className="w-full h-auto rounded-sm shadow-card-xl"
         />
       </div>
     </div>

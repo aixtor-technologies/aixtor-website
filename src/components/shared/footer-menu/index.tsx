@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import Typography from "@/components/ui/typography";
 
 type MenuItem = {
@@ -12,38 +13,42 @@ type MenuGroup = {
 };
 
 type FooterMenuSectionProps = {
-  title?: string; // ✅ NEW
+  title?: string;
   groups: MenuGroup[];
 };
 
-export default function FooterMenuSection({
-  title,
-  groups,
-}: FooterMenuSectionProps) {
-  if (!groups.length) return null;
+function FooterMenuSection({ title, groups }: FooterMenuSectionProps) {
+  const validGroups = groups?.filter(group => group.items?.length);
+
+  if (!validGroups?.length) return null;
 
   return (
     <div>
-      {/* ✅ Section Title */}
       {title && (
         <Typography variant="h4" size="h5" className="mb-4 font-bold">
           {title}
         </Typography>
       )}
 
-      {groups.map(group => (
-        <div key={group.title} className="mb-4">
-          {group.title && (
+      {validGroups.map(({ title: groupTitle, items }, index) => (
+        <div key={`${groupTitle}-${index}`} className="mb-4">
+          {/* ✅ Group Title */}
+          {groupTitle && (
             <Typography variant="h4" size="h6" className="mb-3 font-bold">
-              {group.title}
+              {groupTitle}
             </Typography>
           )}
 
-          <ul className="flex flex-col gap-1 md:gap-2">
-            {group.items.map(item => (
-              <li key={item.title}>
-                <Link href={item.url} title={item.title}>
-                  {item.title}
+          {/* ✅ Menu Items */}
+          <ul className="flex flex-col gap-1 md:gap-2" aria-label={groupTitle}>
+            {items.map(({ title: itemTitle, url }, idx) => (
+              <li key={`${itemTitle}-${idx}`}>
+                <Link
+                  href={url}
+                  title={itemTitle}
+                  className="hover:text-primary transition-colors"
+                >
+                  {itemTitle}
                 </Link>
               </li>
             ))}
@@ -52,4 +57,6 @@ export default function FooterMenuSection({
       ))}
     </div>
   );
-}
+};
+
+export default FooterMenuSection;

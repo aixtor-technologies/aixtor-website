@@ -1,6 +1,3 @@
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 import HeaderNavClient from "./header-nav-client";
 
 export type MenuItem = {
@@ -113,8 +110,6 @@ function transformNavLinks(response: ApiResponse): NavLink[] {
 
 export default function HeaderNav({ data }: { data: ApiResponse }) {
   let navLinks: NavLink[] = [];
-
-  console.log("Raw API response for menu:", data);
 
   try {
     navLinks = transformNavLinks(data);
