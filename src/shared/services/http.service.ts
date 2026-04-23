@@ -4,6 +4,10 @@ const nativeFetch = async <T = any>(
   url: string,
   options: any = {}
 ): Promise<T> => {
+  if (!API_BASE_URL) {
+    throw new Error(`API_BASE_URL is not configured (requested: ${url})`);
+  }
+
   const headers: any = {
     "Content-Type": "application/json",
     "X-Aixtor-API-Key": API_KEY,
