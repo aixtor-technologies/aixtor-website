@@ -10,20 +10,12 @@ const nativeFetch = async <T = any>(
     ...(options.headers || {}),
   };
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 8000);
-
-  try {
-    const res = await fetch(`${API_BASE_URL}${url}`, {
-      ...options,
-      headers,
-      signal: controller.signal,
-      next: { revalidate: 5 },
-    });
-    return res.json();
-  } finally {
-    clearTimeout(timer);
-  }
+  const res = await fetch(`${API_BASE_URL}${url}`, {
+    ...options,
+    headers,
+    next: { revalidate: 5 }, // App Router ISR support
+  });
+  return res.json();
 };
 
 const HttpService = {
