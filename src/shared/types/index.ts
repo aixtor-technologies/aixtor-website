@@ -1,4 +1,4 @@
-type TApiResponse<T> = {
+export type TApiResponse<T> = {
   data: T;
   success?: boolean;
   message?: string;

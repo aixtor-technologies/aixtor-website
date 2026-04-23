@@ -15,7 +15,6 @@ const nativeFetch = async <T = any>(
     headers,
     next: { revalidate: 5 }, // App Router ISR support
   });
-
   return res.json();
 };
 

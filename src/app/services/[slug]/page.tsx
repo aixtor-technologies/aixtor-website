@@ -7,6 +7,7 @@ import WhyChooseAixtor from "@/components/sections/service/why-choose-aixtor";
 import CaseStudies from "@/components/shared/case-studies";
 import StartConversation from "@/components/shared/start-conversation";
 
+import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
 
 async function fetchService(slug: string): Promise<any> {

@@ -1,7 +1,9 @@
+import StatsSection from "./stat-card";
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 import HttpService from "@/shared/services/http.service";
-import StatsSection from "./stat-card";
+
+import { TApiResponse } from "@/shared/types";
 
 async function fetchMenu(): Promise<any> {
   try {
