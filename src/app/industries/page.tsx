@@ -33,7 +33,7 @@ export default async function IndustriesPage() {
       <ListSection
         title={industries?.page_header?.list_section?.title}
         description={industries?.page_header?.list_section?.description}
-        items={industries.data}
+        items={industries?.data}
       />
       <CaseStudies />
       <StartConversation />
