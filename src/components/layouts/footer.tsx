@@ -1,18 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Grid from "@/components/ui/grid";
+import FooterMenuSection from "@/components/shared/footer-menu";
+
+import HttpService from "@/shared/services/http.service";
+
 import {
   companyMenuItems,
   solutionsMenuItems,
   servicesMenuItems,
   liferayMenuItems,
 } from "./data";
-import Grid from "@/components/ui/grid";
-import Typography from "@/components/ui/typography";
-import FooterMenuSection from "@/components/shared/footer-menu";
-import HttpService from "@/shared/services/http.service";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 type FooterApiResponse = {
   status: string;
@@ -78,7 +77,7 @@ export default async function Footer() {
           <Grid.Col className="md:w-4/12 flex flex-col gap-3 md:gap-6 lg:gap-8">
             <Link href="/" className="block w-40" title="Aixtor Technologies">
               <Image
-                src="./images/logo.svg"
+                src="/images/logo.svg"
                 alt="Aixtor Technologies"
                 width="143"
                 height="65"
@@ -87,7 +86,7 @@ export default async function Footer() {
             </Link>
             <address className="flex items-start gap-2 not-italic text-base">
               <Image
-                src="./images/ind-flag.svg"
+                src="/images/ind-flag.svg"
                 className="mt-0.5"
                 alt="Flag-India"
                 width={24}
@@ -98,7 +97,7 @@ export default async function Footer() {
             <address className="flex items-start gap-2 not-italic text-base">
               <Image
                 loading="eager"
-                src="./images/usa-flag.svg"
+                src="/images/usa-flag.svg"
                 className="mt-0.5"
                 alt="UsFlag"
                 width={24}

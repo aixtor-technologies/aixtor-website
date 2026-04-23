@@ -32,7 +32,7 @@ export default async function Header() {
         <div className="flex gap-2 items-center justify-between">
           <Link href="/" className="logo">
             <Image
-              src="./images/logo.svg"
+              src="/images/logo.svg"
               alt="Aixtor Logo"
               width={157}
               height={36}
