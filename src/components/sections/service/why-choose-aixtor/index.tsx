@@ -73,7 +73,7 @@ export default function WhyChooseAixtor({ why_choose_aixtor_section }: Props) {
             <div className="absolute w-55 h-55 xl:w-65 xl:h-65 rounded-full border border-gray-500 opacity-70" />
 
             {/* Center Logo */}
-            <div className="absolute z-10 size-28 xl:size-32 bg-white rounded-2xl shadow-lg flex items-center justify-center">
+            <div className="absolute z-10 size-28 xl:size-32 bg-white rounded-2xl shadow-card-xl flex items-center justify-center">
               <Image
                 src="/images/AX-logo.svg"
                 alt="Aixtor"
@@ -106,7 +106,7 @@ export default function WhyChooseAixtor({ why_choose_aixtor_section }: Props) {
                 >
                   <Pill
                     text={item.reason}
-                    className="xl:text-base min-w-[180px] xl:min-w-[220px]"
+                    className="xl:text-base min-w-45 xl:min-w-55"
                   />
                 </div>
               );
@@ -134,7 +134,7 @@ export default function WhyChooseAixtor({ why_choose_aixtor_section }: Props) {
 
         {/* ───────────── Mobile Layout ───────────── */}
         <div className="sm:hidden flex flex-col items-center gap-6">
-          <div className="size-20 bg-white rounded-2xl shadow-md flex items-center justify-center">
+          <div className="size-20 bg-white rounded-2xl shadow-card-lg flex items-center justify-center">
             <Image
               src="/images/AX-logo.svg"
               alt="Aixtor"

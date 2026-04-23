@@ -52,16 +52,9 @@ export default function EmpowerSection({
     <section className=" bg-white overflow-hidden">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* ── LEFT ──
-              min-w-0 is critical — without it, flex children ignore their
-              parent's width constraint and can overflow/overlap siblings   */}
+          {/* ── LEFT ──   */}
           <div className="w-full lg:w-1/2 min-w-0 flex flex-col gap-4">
-            <Typography
-              variant="h2"
-              size="h3"
-              className="font-bold text-dark"
-              isTitle
-            >
+            <Typography variant="h1" size="h3" className="text-dark-400" isTitle>
               {title}
             </Typography>
 

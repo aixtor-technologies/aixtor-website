@@ -2,9 +2,12 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import Typography from "@/components/ui/typography";
-import Button from "@/components/ui/button";
+
 import Grid from "@/components/ui/grid";
+import Button from "@/components/ui/button";
+import Typography from "@/components/ui/typography";
+
+
 
 type MigrateItem = {
   image: string;
@@ -49,7 +52,7 @@ export default function MigrateToLiferaySection({
   return (
     <section className="common-section bg-dark-200">
       <div className="container">
-        <Typography variant="h2" size="h2" className="text-center mb-14" isCenter isTitle>
+        <Typography variant="h1" size="h2" className="text-dark-400 mb-14" isCenter isTitle>
           {heading}
         </Typography>
 
@@ -81,7 +84,7 @@ export default function MigrateToLiferaySection({
 
             <Grid.Col className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center">
               <div className="max-w-xl text-center lg:text-left">
-                <Typography variant="h3" size="h3" className="mb-4">
+                <Typography variant="h2" size="h3" className="mb-4">
                   {activeItem.title}
                 </Typography>
 

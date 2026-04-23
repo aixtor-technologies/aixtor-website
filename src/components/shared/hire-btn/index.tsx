@@ -22,17 +22,14 @@ export default function HireDropdown() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Detect mobile
   const isMobile = () => window.innerWidth < 1024;
 
-  // Click toggle (mobile only)
   const handleClick = () => {
     if (isMobile()) {
       setOpen(prev => !prev);
     }
   };
 
-  // Close on outside click (mobile only)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!dropdownRef.current?.contains(e.target as Node)) {
