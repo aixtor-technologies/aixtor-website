@@ -44,8 +44,8 @@ type MenuApiResponse = {
 
 export default async function Footer() {
   // ─── Fetch both APIs in parallel ─────────────────────────────────────────
-
-  const [footerRes, menuRes] = await Promise.allSettled([
+  // menuRes
+  const [footerRes] = await Promise.allSettled([
     HttpService.nativeFetch<FooterApiResponse>("common-options/footer", {
       method: "GET",
     }),
@@ -56,8 +56,8 @@ export default async function Footer() {
 
   const footer =
     footerRes.status === "fulfilled" ? footerRes.value?.data?.footer : null;
-  const menuItems =
-    menuRes.status === "fulfilled" ? (menuRes.value?.data?.items ?? []) : [];
+  // const menuItems =
+  //   menuRes.status === "fulfilled" ? (menuRes.value?.data?.items ?? []) : [];
 
   const indiaAddress = footer?.india_address ?? "";
   const usAddress = footer?.us_address ?? "";
@@ -66,9 +66,9 @@ export default async function Footer() {
   const copyrights = footer?.copyrights ?? "";
   const certificates = footer?.certificates ?? [];
   const socialIcons = footer?.social_icons ?? [];
-  const menuGroups = menuItems
-    .filter(item => item.children?.length > 0)
-    .map(item => ({ title: item.title, items: item.children }));
+  // const menuGroups = menuItems
+  //   .filter(item => item.children?.length > 0)
+  //   .map(item => ({ title: item.title, items: item.children }));
 
   return (
     <footer className="pt-8 lg:pt-10 xl:pt-12 pb-2 bg-white">

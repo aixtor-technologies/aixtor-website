@@ -4,6 +4,8 @@ import Link from "next/link";
 import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
 import HireDropdown from "@/components/shared/hire-btn";
+
+import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
 
 async function fetchMenu(): Promise<any> {
@@ -34,8 +36,8 @@ export default async function Header() {
             <Image
               src="/images/logo.svg"
               alt="Aixtor Logo"
-              width={157}
-              height={36}
+              width={135}
+              height={29}
             />
           </Link>
           <HeaderNav data={menuList} />

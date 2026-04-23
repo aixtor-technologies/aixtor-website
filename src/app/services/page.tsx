@@ -3,6 +3,7 @@ import ListSection from "@/components/shared/list-section";
 import CaseStudies from "@/components/shared/case-studies";
 import StartConversation from "@/components/shared/start-conversation";
 
+import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
 
 async function fetchServices(): Promise<any> {

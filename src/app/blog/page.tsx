@@ -1,9 +1,9 @@
-import BlogList from "@/components/sections/blog/blog-list";
 import Banner from "@/components/shared/banner";
 import CaseStudies from "@/components/shared/case-studies";
-import ListSection from "@/components/shared/list-section";
+import BlogList from "@/components/sections/blog/blog-list";
 import StartConversation from "@/components/shared/start-conversation";
 
+import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
 
 async function fetchBlogs(): Promise<any> {

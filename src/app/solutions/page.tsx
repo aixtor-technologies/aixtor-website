@@ -2,7 +2,9 @@ import Banner from "@/components/shared/banner";
 import CaseStudies from "@/components/shared/case-studies";
 import StartConversation from "@/components/shared/start-conversation";
 import ListSection from "@/components/shared/list-section";
+
 import HttpService from "@/shared/services/http.service";
+import { TApiResponse } from "@/shared/types";
 
 async function fetchSolutions(): Promise<any> {
   try {
