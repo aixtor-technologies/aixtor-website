@@ -109,6 +109,7 @@ function StatCard({ counter_number, counter_title }: Stat) {
 
 /* ------------------ Section ------------------ */
 export default function StatsSection({ stats }: Props) {
+  if (!stats?.length) return null;
   return (
     <section className="py-10 lg:py-16">
       <Grid className="justify-center">

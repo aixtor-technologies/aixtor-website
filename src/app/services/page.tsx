@@ -33,7 +33,7 @@ export default async function ServicePage() {
       <ListSection
         title={services?.page_header?.list_section?.title}
         description={services?.page_header?.list_section?.description}
-        items={services.data}
+        items={services?.data}
       />
       <CaseStudies />
       <StartConversation />

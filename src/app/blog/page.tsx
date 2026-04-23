@@ -32,7 +32,7 @@ export default async function BlogPage() {
       <BlogList
         title="Related Blog Posts"
         description="We offer a wide range of Digital Solutions that are flexible to client demands and feature many options to choose from in order to really get the most out of your organization’s resources."
-        items={blogs.data}
+        items={blogs?.data}
       />
       <CaseStudies />
       <StartConversation />

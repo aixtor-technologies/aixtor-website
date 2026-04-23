@@ -33,7 +33,7 @@ export default async function SolutionsPage() {
       <ListSection
         title={solutions?.page_header?.list_section?.title}
         description={solutions?.page_header?.list_section?.description}
-        items={solutions.data}
+        items={solutions?.data}
       />
       <CaseStudies />
       <StartConversation />
