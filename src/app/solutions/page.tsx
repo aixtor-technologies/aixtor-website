@@ -7,7 +7,7 @@ import HttpService from "@/shared/services/http.service";
 async function fetchSolutions(): Promise<any> {
   try {
     const res = await HttpService.nativeFetch<TApiResponse<any>>(
-      "services?page=1&per_page=20",
+      "solutions?page=1&per_page=20",
       {
         method: "GET",
       }
@@ -24,13 +24,13 @@ export default async function SolutionsPage() {
   return (
     <>
       <Banner
-        title="Maximize Business Efficiency with Aixtor’s Digital Solutions"
-        description="Benefit your business with a range of transformative solutions to streamline operations and boost productivity."
-        imgUrl="/images/dummy/services_banner.webp"
+        title={solutions?.page_header?.banner_section?.title}
+        description={solutions?.page_header?.banner_section?.description}
+        imgUrl={solutions?.page_header?.banner_section?.side_image}
       />
       <ListSection
-        title="Innovative Solutions Tailored to Your Business Needs"
-        description="Aixtor offers a diverse range of solutions customized to meet your unique business needs. We provide transformative solutions to empower your business digitally. Our primary focus is on providing innovative solutions with a team of experts while partnering with you to unlock new opportunities for your business in the digital world."
+        title={solutions?.page_header?.list_section?.title}
+        description={solutions?.page_header?.list_section?.description}
         items={solutions.data}
       />
       <CaseStudies />

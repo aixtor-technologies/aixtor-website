@@ -25,7 +25,7 @@ const Card = ({ title, image, description, slug }: CardProps) => {
         alt={title}
         width={654}
         height={442}
-        className="mt-4 md:mt-6 lg:mt-8 w-full"
+        className="mt-4 md:mt-6 lg:mt-8 w-full object-cover"
         style={{ aspectRatio: "654/442" }}
       />
       <Link href={slug} className="inset-0 absolute z-1" />

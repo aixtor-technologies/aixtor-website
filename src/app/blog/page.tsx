@@ -1,3 +1,4 @@
+import BlogList from "@/components/sections/blog/blog-list";
 import Banner from "@/components/shared/banner";
 import CaseStudies from "@/components/shared/case-studies";
 import ListSection from "@/components/shared/list-section";
@@ -28,9 +29,9 @@ export default async function BlogPage() {
         description="Find answers, inspiration, and expert advice in our comprehensive blogs along with staying updated with industry trends, exploring new perspectives, and innovative solutions."
         imgUrl="/images/dummy/services_banner.webp"
       />
-      <ListSection
-        title="Innovative Solutions Tailored to Your Business Needs"
-        description="Aixtor offers a diverse range of solutions customized to meet your unique business needs. We provide transformative solutions to empower your business digitally. Our primary focus is on providing innovative solutions with a team of experts while partnering with you to unlock new opportunities for your business in the digital world."
+      <BlogList
+        title="Related Blog Posts"
+        description="We offer a wide range of Digital Solutions that are flexible to client demands and feature many options to choose from in order to really get the most out of your organization’s resources."
         items={blogs.data}
       />
       <CaseStudies />

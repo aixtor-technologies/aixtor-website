@@ -25,13 +25,13 @@ export default async function ServicePage() {
   return (
     <>
       <Banner
-        title="Unlock Your Digital Potential with Aixtor's Comprehensive Services"
-        description="Transform your operations, enhance customer experiences, and drive growth with our tailored services."
-        imgUrl="/images/dummy/services_banner.webp"
+        title={services?.page_header?.banner_section?.title}
+        description={services?.page_header?.banner_section?.description}
+        imgUrl={services?.page_header?.banner_section?.side_image}
       />
       <ListSection
-        title="Your Partner in Digital Transformation"
-        description="Whether you are looking to optimize operations, enhance customer experiences, or open new revenue streams, Aixtor has got you covered! With our team of certified experts, we offer several end-to-end services like web portal development, Liferay consulting, AI and IoT integrations, Liferay migration and upgradation, and DevOps automation tailored to meet your unique business needs."
+        title={services?.page_header?.list_section?.title}
+        description={services?.page_header?.list_section?.description}
         items={services.data}
       />
       <CaseStudies />
