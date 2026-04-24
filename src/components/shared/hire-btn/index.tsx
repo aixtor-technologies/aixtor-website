@@ -60,7 +60,7 @@ export default function HireDropdown() {
         {/* Button */}
         <button
           onClick={handleClick}
-          className="flex hireBtn text-dark gap-2 px-6 h-10 md:h-12 border items-center rounded-full font-semibold"
+          className="hidden lg:flex hireBtn text-dark gap-2 px-6 h-10 md:h-12 border items-center rounded-full font-semibold"
         >
           Hire us
           <span

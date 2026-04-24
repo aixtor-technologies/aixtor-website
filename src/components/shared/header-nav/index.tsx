@@ -81,8 +81,9 @@ function transformNavLinks(response: ApiResponse): NavLink[] {
       const hasLargeGroup = groups.some(g => g.items.length > 6);
       const useSplitMegaLayout = groups.length === 2 && hasLargeGroup;
       let megaMenuGridClass = "grid-cols-1";
-      if (useSplitMegaLayout) megaMenuGridClass = "grid-cols-3";
-      else if (groups.length === 2) megaMenuGridClass = "grid-cols-2";
+      if (useSplitMegaLayout) megaMenuGridClass = "grid-cols-1 md:grid-cols-3";
+      else if (groups.length === 2)
+        megaMenuGridClass = "grid-cols-1 md:grid-cols-2";
 
       return {
         label: item.title,
@@ -120,4 +121,3 @@ export default function HeaderNav({ data }: { data: ApiResponse }) {
 
   return <HeaderNavClient navLinks={navLinks} />;
 }
-

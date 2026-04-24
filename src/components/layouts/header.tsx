@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
@@ -32,7 +32,7 @@ export default async function Header() {
     >
       <div className="container">
         <div className="flex gap-2 items-center justify-between">
-          <Link href="/" className="logo">
+          <Link href="/" className="logo w-32 md:w-36 xl:w-40 shrink-0">
             <Image
               src="/images/logo.svg"
               alt="Aixtor Logo"
