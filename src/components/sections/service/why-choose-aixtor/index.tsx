@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+
 import Typography from "@/components/ui/typography";
 import Button from "@/components/ui/button";
 
@@ -18,7 +19,6 @@ type Props = {
   why_choose_aixtor_section?: WhyChooseAixtorSection;
 };
 
-// ✅ Reusable Pill Component
 const Pill = ({
   text,
   className = "",
@@ -27,7 +27,7 @@ const Pill = ({
   className?: string;
 }) => (
   <div
-    className={`bg-white px-4 py-3 rounded-full shadow-md text-sm font-medium text-dark text-center ${className}`}
+    className={`bg-white px-4 py-3 rounded-full shadow-xl text-sm font-medium text-dark text-center ${className}`}
   >
     {text}
   </div>
@@ -106,7 +106,7 @@ export default function WhyChooseAixtor({ why_choose_aixtor_section }: Props) {
                 >
                   <Pill
                     text={item.reason}
-                    className="xl:text-base min-w-45 xl:min-w-55"
+                    className="xl:text-base max-w-45 xl:max-w-55"
                   />
                 </div>
               );

@@ -1,14 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Grid from "@/components/ui/grid";
 import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 
-
-
+// ── Types ───────────────────────────────────────────
 type MigrateItem = {
   image: string;
   title: string;
@@ -22,78 +21,144 @@ type Section = {
   migrate_to_liferay: MigrateItem[];
 };
 
+const AUTOPLAY_INTERVAL = 3000;
+const WHEEL_THROTTLE = 600;
+
+// ── Component ───────────────────────────────────────
 export default function MigrateToLiferaySection({
   migrate_to_liferay_section,
 }: {
   migrate_to_liferay_section?: Section;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState<"up" | "down">("up");
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const throttleRef = useRef(false);
+  const activeIndexRef = useRef(0);
+
+  const items = migrate_to_liferay_section?.migrate_to_liferay ?? [];
+  const lastIndex = items.length - 1;
+
   useEffect(() => {
-    if (!migrate_to_liferay_section?.migrate_to_liferay?.length) return;
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
 
-    const interval = setInterval(() => {
-      setActiveIndex(prev => {
-        const length = migrate_to_liferay_section.migrate_to_liferay.length;
-        return prev === length - 1 ? 0 : prev + 1;
-      });
-    }, 3000);
+  const goTo = (next: number, dir: "up" | "down") => {
+    setDirection(dir);
+    setActiveIndex(next);
+  };
 
-    return () => clearInterval(interval);
-  }, [migrate_to_liferay_section]);
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || !items.length) return;
 
-  if (!migrate_to_liferay_section) return null;
+    const isSectionFullyInView = () => {
+      const rect = section.getBoundingClientRect();
+      return rect.top <= 0 && rect.bottom >= window.innerHeight;
+    };
 
-  const { heading, cta_title, migrate_to_liferay } = migrate_to_liferay_section;
+    const handleWheel = (e: WheelEvent) => {
+      if (!isSectionFullyInView()) return;
 
-  if (!migrate_to_liferay?.length) return null;
+      const current = activeIndexRef.current;
+      const isDown = e.deltaY > 0;
 
-  const activeItem = migrate_to_liferay[activeIndex];
+      if (isDown && current === lastIndex) return;
+      if (!isDown && current === 0) return;
+
+      e.preventDefault();
+
+      if (throttleRef.current) return;
+      throttleRef.current = true;
+
+      setTimeout(() => {
+        throttleRef.current = false;
+      }, WHEEL_THROTTLE);
+
+      goTo(isDown ? current + 1 : current - 1, isDown ? "up" : "down");
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [items.length, lastIndex]);
+
+  if (!migrate_to_liferay_section || !items.length) return null;
+
+  const { heading, cta_title } = migrate_to_liferay_section;
+  const activeItem = items[activeIndex];
 
   return (
-    <section className="common-section bg-dark-200">
+    <section ref={sectionRef} className="common-section bg-dark-200">
       <div className="container">
-        <Typography variant="h1" size="h2" className="text-dark-400 mb-14" isCenter isTitle>
+        <Typography
+          variant="h2"
+          size="h2"
+          className="text-dark mb-14"
+          isCenter
+          isTitle
+        >
           {heading}
         </Typography>
 
         <div className="relative">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4">
-            {migrate_to_liferay.map((_, i) => (
+          {/* Dots */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4">
+            {items.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setActiveIndex(i)}
-                className={`w-3 h-3 rounded-full ${
+                onClick={() => goTo(i, i > activeIndex ? "up" : "down")}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   i === activeIndex ? "bg-secondary scale-110" : "bg-dark-300"
                 }`}
               />
             ))}
           </div>
 
-          <Grid className="items-center">
-            <Grid.Col className="lg:w-1/2 flex justify-center">
-              <div className="max-w-120 w-full">
-                <Image
-                  src={activeItem.image}
-                  alt={activeItem.title}
-                  width={300}
-                  height={300}
-                  className="w-full h-auto object-contain rounded-lg shadow-card-xl"
-                />
-              </div>
-            </Grid.Col>
+          {/* Slide */}
+          <div className="overflow-hidden">
+            <div
+              key={`${activeIndex}-${direction}`}
+              className={
+                direction === "up" ? "animate-slide-up" : "animate-slide-down"
+              }
+            >
+              <Grid className="items-center">
+                <Grid.Col className="w-full lg:w-1/2 flex justify-center">
+                  <div className="max-w-100 w-full">
+                    <Image
+                      src={activeItem.image}
+                      alt={activeItem.title}
+                      width={434}
+                      height={285}
+                      className="w-full h-auto object-contain shadow-card-xl"
+                    />
+                  </div>
+                </Grid.Col>
 
-            <Grid.Col className="lg:w-1/2 mt-10 lg:mt-0 flex justify-center">
-              <div className="max-w-xl text-center lg:text-left">
-                <Typography variant="h2" size="h3" className="mb-4">
-                  {activeItem.title}
-                </Typography>
-
-                <Typography variant="h2" size="h6" className="text-dark-400 leading-relaxed">
-                  {activeItem.description.trim()}
-                </Typography>
-              </div>
-            </Grid.Col>
-          </Grid>
+                <Grid.Col className="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center">
+                  <div className="max-w-xl text-center lg:text-left">
+                    <Typography
+                      variant="h3"
+                      size="h3"
+                      className="text-dark mb-4"
+                    >
+                      {activeItem.title}
+                    </Typography>
+                    <Typography
+                      size="p"
+                      className="text-dark-400 leading-relaxed"
+                    >
+                      {activeItem.description.trim()}
+                    </Typography>
+                  </div>
+                </Grid.Col>
+              </Grid>
+            </div>
+          </div>
         </div>
 
         {cta_title && (
@@ -102,6 +167,19 @@ export default function MigrateToLiferaySection({
           </div>
         )}
       </div>
+
+      <style>{`
+        @keyframes slideInUp {
+          from { opacity: 0; transform: translateY(48px); }
+          to   { opacity: 1; transform: translateY(0);    }
+        }
+        @keyframes slideInDown {
+          from { opacity: 0; transform: translateY(-48px); }
+          to   { opacity: 1; transform: translateY(0);     }
+        }
+        .animate-slide-up   { animation: slideInUp   0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }
+        .animate-slide-down { animation: slideInDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }
+      `}</style>
     </section>
   );
 }

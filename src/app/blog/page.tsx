@@ -1,5 +1,4 @@
 import Banner from "@/components/shared/banner";
-import CaseStudies from "@/components/shared/case-studies";
 import BlogList from "@/components/sections/blog/blog-list";
 import StartConversation from "@/components/shared/start-conversation";
 
@@ -34,7 +33,6 @@ export default async function BlogPage() {
         description="We offer a wide range of Digital Solutions that are flexible to client demands and feature many options to choose from in order to really get the most out of your organization’s resources."
         items={blogs?.data}
       />
-      <CaseStudies />
       <StartConversation />
     </>
   );

@@ -1,7 +1,7 @@
-import ServiceBanner from "@/components/sections/service/banner";
+import ServiceBanner from "@/components/shared/banner-details";
 import ContinueSection from "@/components/sections/service/continue";
 import EmpowerSection from "@/components/sections/service/empower-section";
-import FaqSection from "@/components/sections/service/faq";
+import FaqSection from "@/components/shared/faq";
 import MigrateToLiferaySection from "@/components/sections/service/migrate-to-liferay";
 import WhyChooseAixtor from "@/components/sections/service/why-choose-aixtor";
 import CaseStudies from "@/components/shared/case-studies";
@@ -48,7 +48,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   return (
     <>
       <ServiceBanner
-        service_type={service_type}
+        badge={service_type}
         banner_section={banner_section}
       />
       <EmpowerSection empower_section={empower_section} />
