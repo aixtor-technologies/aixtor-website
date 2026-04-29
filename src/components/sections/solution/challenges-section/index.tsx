@@ -29,37 +29,29 @@ const ChallengesSection = ({ challenges_section }: Props) => {
   if (!challenges?.length) return null;
 
   return (
-    <section className="bg-white py-12 lg:py-10 px-12">
-      <div className="container mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-15">
-          <Typography
-            variant="h2"
-            size="h3"
-            isTitle
-            isCenter
-            className="text-dark"
-          >
+    <section className="common-section bg-white">
+      <div className="container">
+        <div className="text-center common-heading">
+          <Typography variant="h2" size="h3" isTitle isCenter className="text-dark">
             {challenges_heading}
           </Typography>
         </div>
 
-        {/* Cards Grid — two equal columns with gap */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
           {challenges.map((item, index) => (
             <div key={index} className="flex flex-col gap-4">
-              <div className="w-full h-75 overflow-hidden">
+              <div className="w-full h-48 md:h-60 lg:h-75 overflow-hidden rounded-lg">
                 <Image
                   src={item.image.url}
                   alt={item.image.alt || item.title}
-                  width={300}
-                  height={282}
+                  width={600}
+                  height={400}
                   className="w-full h-full object-cover"
-                  quality={100}
+                  quality={85}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
 
-              {/* Title */}
               <Typography
                 variant="h3"
                 size="h4"
@@ -68,26 +60,15 @@ const ChallengesSection = ({ challenges_section }: Props) => {
                 {item.title}
               </Typography>
 
-              {/* Description */}
-              <Typography
-                variant="p"
-                size="h6"
-                className="text-dark-400 text-justify"
-              >
+              <Typography variant="p" size="h6" className="text-dark-400 text-justify">
                 {item.description}
               </Typography>
             </div>
           ))}
         </div>
 
-        {/* CTA Button */}
         <div className="w-full flex justify-center mt-10">
-          <Button
-            href="/contact"
-            variant="default"
-            size="default"
-            rounded="default"
-          >
+          <Button href="/contact" variant="default" size="default" rounded="default">
             {cta_title}
           </Button>
         </div>

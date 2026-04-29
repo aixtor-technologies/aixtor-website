@@ -3,8 +3,6 @@ import Image from "next/image";
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 
-
-
 type ReasonItem = {
   reason: string;
 };
@@ -41,21 +39,15 @@ const ReasonsSection = ({ reasons_section }: Props) => {
   const { title, reasons_list } = reasons_section;
 
   return (
-    <section className="py-12 lg:py-16 px-4 bg-dark-200">
+    <section className="common-section bg-dark-200">
       <div className="container">
-        <div className="text-center mb-10 lg:mb-14">
-          <Typography
-            variant="h2"
-            size="h3"
-            isTitle
-            isCenter
-            className="text-dark"
-          >
+        <div className="text-center common-heading">
+          <Typography variant="h2" size="h3" isTitle isCenter className="text-dark">
             {title}
           </Typography>
         </div>
 
-        <Grid size="md" className="gap-y-5 px-7 lg:px-24">
+        <Grid size="md" className="gap-y-5 px-0 md:px-8 lg:px-16">
           {reasons_list.map((item, index) => (
             <Grid.Col key={index} className="w-full md:w-1/2">
               <FeatureItem text={item.reason} />

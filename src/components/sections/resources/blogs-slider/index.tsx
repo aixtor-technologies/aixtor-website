@@ -53,29 +53,16 @@ const BlogSlider = () => {
   return (
     <section className="common-section">
       <div className="container">
-        {/* Heading */}
         <div className="text-center common-heading">
-          <Typography
-            variant="h2"
-            size="h2"
-            isTitle
-            isCenter
-            className="text-dark mb-5"
-          >
+          <Typography variant="h2" size="h2" isTitle isCenter className="text-dark mb-5">
             Latest Blogs
           </Typography>
-
-          <Typography
-            variant="p"
-            size="p"
-            className="text-dark-400 max-w-3xl mx-auto"
-          >
+          <Typography variant="p" size="p" className="text-dark-400 max-w-3xl mx-auto">
             Stay up to date with the latest insights, trends, and best practices
             in enterprise portal development and digital transformation.
           </Typography>
         </div>
 
-        {/* Slider */}
         <CustomSlider
           arrow
           infinite={false}
@@ -83,7 +70,7 @@ const BlogSlider = () => {
           className="-my-10"
         >
           {blogs.map((blog, index) => (
-            <div key={index} className="w-80 md:w-96 h-full">
+            <div key={index} className="w-72 sm:w-80 md:w-96 h-full">
               <BlogCard
                 title={blog.title}
                 image={blog.image}

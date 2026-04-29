@@ -16,24 +16,16 @@ const UltimateSection = ({ ultimate_section }: Props) => {
   const { title, description, cta_title } = ultimate_section;
 
   return (
-    <section className="bg-white py-10 md:py-12 lg:py-16 px-12">
-      <div className="container mx-auto">
-        {/* Bordered Card */}
-        <div className="border border-dark-300  p-6 md:p-10 lg:p-16 min-h-55 md:min-h-70 lg:min-h-100 flex items-center">
+    <section className="common-section bg-white">
+      <div className="container">
+        <div className="border border-dark-300 p-6 md:p-10 lg:p-16 flex items-center">
           <Grid className="w-full gap-y-6 md:gap-y-0">
-            {/* Left: Heading */}
             <Grid.Col className="w-full md:w-2/5 flex items-center pr-0 md:pr-8">
-              <Typography
-                variant="h2"
-                size="h3"
-                isTitle
-                className="text-dark text-2xl md:text-3xl lg:text-4xl"
-              >
+              <Typography variant="h2" size="h3" isTitle className="text-dark">
                 {title}
               </Typography>
             </Grid.Col>
 
-            {/* Right: Description + CTA */}
             <Grid.Col className="w-full md:w-3/5 flex flex-col gap-6 md:gap-8">
               <Typography
                 variant="p"
@@ -45,13 +37,7 @@ const UltimateSection = ({ ultimate_section }: Props) => {
 
               {cta_title && (
                 <div>
-                  <Button
-                    href="/contact"
-                    variant="default"
-                    size="default"
-                    rounded="default"
-                    className="mt-2"
-                  >
+                  <Button href="/contact" variant="default" size="default" rounded="default">
                     {cta_title}
                   </Button>
                 </div>

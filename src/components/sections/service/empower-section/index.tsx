@@ -90,7 +90,7 @@ export default function EmpowerSection({
   } = empower_section;
 
   return (
-    <section className=" bg-white overflow-hidden">
+    <section className="common-section bg-white overflow-hidden">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* ── LEFT ──   */}

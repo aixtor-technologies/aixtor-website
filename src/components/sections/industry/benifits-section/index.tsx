@@ -3,7 +3,6 @@ import Image from "next/image";
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 
-// ── Types ──────────────────────────────────────────────────────────────────
 type BenefitIcon = {
   url: string;
   alt?: string;
@@ -30,24 +29,21 @@ export default function BenifitsSection({ data }: BenefitsSectionProps) {
   return (
     <section className="common-section bg-white">
       <div className="container">
-        {/* Heading */}
         <Typography
           variant="h2"
           size="h3"
-          className="text-dark mb-14"
+          className="text-dark common-heading"
           isCenter
           isTitle
         >
           {heading}
         </Typography>
 
-        {/* Benefits grid — 2 columns on lg+ */}
-        <Grid size="lg">
+        <Grid size="lg" className="gap-y-8 lg:gap-y-10">
           {maximize_list.map((item, index) => (
-            <Grid.Col key={index} className="w-full lg:w-1/2 mb-10">
-              <div className="flex items-start gap-5">
-                {/* Icon */}
-                <div className="shrink-0 w-14 h-14 flex items-center justify-center">
+            <Grid.Col key={index} className="w-full lg:w-1/2">
+              <div className="flex items-start gap-4 md:gap-5">
+                <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center">
                   <Image
                     src={item.icon.url}
                     alt={item.icon.alt || item.title}
@@ -58,17 +54,10 @@ export default function BenifitsSection({ data }: BenefitsSectionProps) {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <Typography
-                    variant="h3"
-                    size="h6"
-                    className="text-dark font-semibold"
-                  >
+                  <Typography variant="h3" size="h6" className="text-dark font-semibold">
                     {item.title}
                   </Typography>
-                  <Typography
-                    size="p"
-                    className="text-dark-400 leading-relaxed"
-                  >
+                  <Typography size="p" className="text-dark-400 leading-relaxed">
                     {item.description.trim()}
                   </Typography>
                 </div>

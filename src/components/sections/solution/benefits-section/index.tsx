@@ -24,9 +24,9 @@ type Props = {
 };
 
 const BenefitCard = ({ title, icon, description }: Benefit) => (
-  <div className="border border-dark-300 rounded-xl p-9 flex flex-col gap-5 h-full shadow-card-lg">
+  <div className="border border-dark-300 rounded-xl p-5 md:p-7 lg:p-9 flex flex-col gap-5 h-full shadow-card-lg">
     <div className="flex items-center gap-4">
-      <div className="w-17 h-17 rounded-full flex items-center justify-center shrink-0 shadow-sm">
+      <div className="w-14 h-14 md:w-17 md:h-17 rounded-full flex items-center justify-center shrink-0 shadow-sm">
         <Image
           src={icon.url}
           alt={icon.alt || title}
@@ -54,25 +54,17 @@ const BenefitsSection = ({ benefits_section }: Props) => {
   }
 
   return (
-    <section className="bg-white py-12 lg:py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-10 lg:mb-14">
-          <Typography
-            variant="h2"
-            size="h3"
-            isTitle
-            isCenter
-            className="text-dark-500"
-          >
+    <section className="common-section bg-white">
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
+        <div className="text-center common-heading">
+          <Typography variant="h2" size="h3" isTitle isCenter className="text-dark-500">
             {benefits_heading}
           </Typography>
         </div>
 
-        {/* Grid */}
-        <Grid size="lg">
+        <Grid size="lg" className="gap-y-6 lg:gap-y-8">
           {benefits.map((benefit, index) => (
-            <Grid.Col key={index} className="w-full md:w-1/2 lg:w-1/3 mb-6">
+            <Grid.Col key={index} className="w-full md:w-1/2 lg:w-1/3">
               <BenefitCard {...benefit} />
             </Grid.Col>
           ))}
