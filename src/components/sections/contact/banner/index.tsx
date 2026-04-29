@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 

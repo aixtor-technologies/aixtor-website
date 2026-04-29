@@ -28,6 +28,32 @@
   z-index: 9;
 }
 
+.banner-details {
+  position: relative;
+}
+
+.banner-details::after {
+  content: "";
+  position: absolute;
+
+  width: 130px;
+  height: 55px;
+
+  /* push into next section */
+  bottom: -35px;
+  left: -30px;
+
+  background: var(--lineargradientcolor6);
+
+  /* key part */
+  transform: skewX(-20deg) rotate(-10deg);
+  transform-origin: left bottom;
+
+  
+
+  z-index: 2;
+}
+
 .banner .imgbox {
   background: var(--lineargradientcolor9);
 }

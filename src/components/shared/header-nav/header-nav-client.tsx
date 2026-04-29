@@ -8,10 +8,6 @@ import IconMenu from "@/components/shared/icons/menu";
 import type { NavLink, MenuItem, DropdownItem } from "./index";
 import IconChevronDown from "@/components/shared/icons/chevron-down";
 
-// ─── Memoized Dropdown Components ─────────────────────────────────────────────
-// Extracted so React.memo can skip re-renders when openIndex changes
-// for items that aren't affected.
-
 const MegaMenu = memo(function MegaMenu({
   groups,
   gridClass,
