@@ -4,6 +4,8 @@ import "./globals.css";
 import "@/assets/css//common.css";
 import Footer from "@/components/layouts/footer";
 import Header from "@/components/layouts/header";
+import { Suspense } from "react";
+import PageLoader from "@/components/ui/page-loader";
 
 const gilroy = localFont({
   src: [
@@ -51,6 +53,9 @@ export default function RootLayout({
       className={`${gilroy.className} h-full text-dark-400 bg-dark-200 antialiased`}
     >
       <body className="">
+        <Suspense fallback={null}>
+          <PageLoader />
+        </Suspense>
         <Header />
         {children}
         <Footer />

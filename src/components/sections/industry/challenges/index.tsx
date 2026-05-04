@@ -47,8 +47,8 @@ const TelecomChallenges: React.FC<TelecomChallengesProps> = ({ data }) => {
                   <Image
                     src="/images/icons/icon-park.svg"
                     alt="Challenge icon"
-                    width={48}
-                    height={48}
+                    width={28}
+                    height={28}
                     className="shrink-0 mt-0.5"
                   />
                   <Typography variant="p" size="h6" className="text-dark-400 leading-relaxed">

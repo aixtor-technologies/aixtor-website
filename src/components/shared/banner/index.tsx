@@ -14,11 +14,15 @@ const Banner = ({ title, imgUrl, description }: BannerProps) => {
     <section className="banner py-24 md:py-32 lg:py-35 relative">
       <div className="container">
         <Grid className="gap-y-8 items-center justify-between">
-          <Grid.Col className="md:w-6/12">
+          <Grid.Col className="md:w-6/12 flex flex-col gap-4">
+            <span className="inline-flex items-center w-fit px-4 py-1.5 rounded-lg bg-info-200 text-info text-sm font-semibold">
+              {title}
+            </span>
+
             <Typography
               variant="h1"
               size="h2"
-              className="font-semibold mb-1.5 lg:mb-2 text-dark"
+              className="font-semibold text-dark"
             >
               {title}
             </Typography>

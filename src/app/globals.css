@@ -35,14 +35,45 @@
   --color-dark-300: #d9d9d9;
   --color-dark-400: #494949;
   --color-dark: #1e1e1e;
-  --purplecolor: #893d96;
-  --pale_pink: #f5e0f9;
   --color-dark-600: #0a2540;
+  --color-info: #893d96;
+  --color-info-200: #f5e0f9;
 
   /* Shadows */
   --shadow-card: 12px 24px 24px rgba(0, 0, 0, 0.1);
   --shadow-card-lg: 16px 32px 32px rgba(0, 0, 0, 0.05);
   --shadow-card-xl: 0px 25px 40px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes loaderZoomOut {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+    filter: blur(0px);
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+
+  70% {
+    transform: scale(4);
+    opacity: 1;
+    filter: blur(6px);
+  }
+
+  100% {
+    transform: scale(8);
+    opacity: 0;
+    filter: blur(14px);
+  }
+}
+
+.loader-zoom-out {
+  animation: loaderZoomOut 0.9s ease-in-out forwards;
+  background: transparent !important;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -29,13 +29,11 @@ const WhyChoose = async () => {
           <Grid.Col className="md:w-10/12">
             <div className="common-heading text-center">
               <Typography variant="h2" size="h3" isTitle isCenter>
-                {content?.data?.statistics?.title ??
-                  "Why Choose Aixtor for Your Next Project?"}
+                {content?.data?.statistics?.title}
               </Typography>
 
               <Typography variant="p" size="h5" className="mt-4">
-                {content?.data?.statistics?.description ??
-                  "At Aixtor, we are committed to delivering custom business-oriented solutions to our clients. We follow the best practices; as a result, we are being recommended and making a mark in the industry."}
+                {content?.data?.statistics?.description}
               </Typography>
             </div>
           </Grid.Col>

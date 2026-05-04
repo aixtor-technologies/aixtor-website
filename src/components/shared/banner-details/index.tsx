@@ -25,9 +25,13 @@ export type Author = {
 export type BannerSection = {
   title: string;
   side_image: SideImage | string;
+
+  description?: string; // ✅ ADDED: support simple description (like Banner)
+
   // Solution / service variant
   cta_title?: string;
   description_list?: DescriptionItem[];
+
   // Blog variant
   author?: Author;
   date?: string;
@@ -42,10 +46,18 @@ export default function BannerDetails({
   badge,
   banner_section,
 }: BannerDetailsProps) {
-  const { title, side_image, cta_title, description_list, author, date } =
-    banner_section;
+  const {
+    title,
+    side_image,
+    description,
+    cta_title,
+    description_list,
+    author,
+    date,
+  } = banner_section;
 
   const imageSrc = typeof side_image === "string" ? side_image : side_image.url;
+
   const imageAlt =
     typeof side_image === "string" ? title : side_image.alt || title;
 
@@ -59,7 +71,7 @@ export default function BannerDetails({
           <Grid.Col className="w-full md:w-5/12 flex flex-col gap-6">
             {/* Badge */}
             {badge && (
-              <span className="inline-flex items-center w-fit px-4 py-1.5 rounded-lg bg-(--pale_pink) text-(--purplecolor) text-sm font-semibold">
+              <span className="inline-flex items-center w-fit px-4 py-1.5 rounded-lg bg-info-200 text-info text-sm font-semibold">
                 {badge}
               </span>
             )}
@@ -68,6 +80,13 @@ export default function BannerDetails({
             <Typography variant="h1" size="h2" className="text-dark">
               {title}
             </Typography>
+
+            {/* ✅ ADDED: Description (common for all variants) */}
+            {description && (
+              <Typography size="h6" className="text-dark-400">
+                {description}
+              </Typography>
+            )}
 
             {/* ── Blog variant ── */}
             {isBlogVariant && (

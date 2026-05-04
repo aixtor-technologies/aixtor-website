@@ -1,4 +1,4 @@
-import ServiceBanner from "@/components/shared/banner-details";
+import BannerDetails from "@/components/shared/banner-details";
 import ContinueSection from "@/components/sections/service/continue";
 import EmpowerSection from "@/components/sections/service/empower-section";
 import FaqSection from "@/components/shared/faq";
@@ -9,6 +9,8 @@ import StartConversation from "@/components/shared/start-conversation";
 
 import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
+import PortalFeature from "@/components/sections/service/portal-feature";
+import OurValues from "@/components/sections/about-us/our-values";
 
 async function fetchService(slug: string): Promise<any> {
   try {
@@ -38,6 +40,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const {
     service_type,
     banner_section,
+    customizable_section,
     empower_section,
     migrate_to_liferay_section,
     continue_section,
@@ -47,15 +50,17 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <ServiceBanner
+      <BannerDetails
         badge={service_type}
         banner_section={banner_section}
       />
       <EmpowerSection empower_section={empower_section} />
+      <PortalFeature customizable_section={customizable_section} />
       <MigrateToLiferaySection
         migrate_to_liferay_section={migrate_to_liferay_section}
       />
       <ContinueSection continue_section={continue_section} />
+      <OurValues />
       <WhyChooseAixtor why_choose_aixtor_section={why_choose_aixtor_section} />
       <FaqSection faq_section={faq_section} />
       <CaseStudies />

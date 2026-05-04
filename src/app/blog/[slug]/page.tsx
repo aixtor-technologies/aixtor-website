@@ -1,3 +1,5 @@
+import BlogDetail from "@/components/sections/blog/blog-details";
+import BlogList from "@/components/sections/blog/blog-list";
 import BannerDetails, {
   BannerSection,
 } from "@/components/shared/banner-details";
@@ -38,6 +40,12 @@ export default async function BlogDetailPage({ params }: PageProps) {
   return (
     <>
       <BannerDetails badge={badge} banner_section={bannerData} />
+      <BlogDetail />
+      {/* <BlogList
+        title="Related Blog Posts"
+        description="We offer a wide range of Digital Solutions that are flexible to client demands and feature many options to choose from in order to really get the most out of your organization’s resources."
+        items={blogs?.data}
+      /> */}
       {/* other blog sections go here */}
     </>
   );

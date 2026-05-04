@@ -1,14 +1,15 @@
-import ServiceBanner from "@/components/shared/banner-details";
 import FaqSection from "@/components/shared/faq";
 import CaseStudies from "@/components/shared/case-studies";
 import StartConversation from "@/components/shared/start-conversation";
-
-import { TApiResponse } from "@/shared/types";
-import HttpService from "@/shared/services/http.service";
+import BannerDetails from "@/components/shared/banner-details";
 import UltimateSection from "@/components/sections/solution/ultimate-section";
 import ChallengesSection from "@/components/sections/solution/challenges-section";
 import ReasonsSection from "@/components/sections/solution/reason-section";
 import BenefitsSection from "@/components/sections/solution/benefits-section";
+
+import { TApiResponse } from "@/shared/types";
+import HttpService from "@/shared/services/http.service";
+
 
 
 async function fetchSolution(slug: string): Promise<any> {
@@ -47,7 +48,7 @@ export default async function SolutionDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <ServiceBanner
+      <BannerDetails
         badge={solution.title}
         banner_section={banner_section}
       />

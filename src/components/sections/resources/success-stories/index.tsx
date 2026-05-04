@@ -1,99 +1,84 @@
+import { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 
 interface StoryCard {
-  image: string;
-  imageAlt: string;
-  href: string;
-  linkTitle: string;
+  id: number;
+  title: string;
   description: string;
+  slug: string;
+  image: string;
 }
 
-const stories: StoryCard[] = [
-  {
-    image: "/images/dummy/service_banner.png.webp",
-    imageAlt:
-      "Intranet Portal For A Semi Government Organization Based In Saudi Arabia",
-    href: "/case-study/intranet-portal-for-a-semi-government-organization-based-in-saudi-arabia/",
-    linkTitle:
-      "Empowered Seamless Collaboration with Intranet Portal for a Semi-Government Transportation Body",
-    description:
-      "Employee Engagement Portal for a Semi Government Organization based in Saudi Arabia Aixtor helped a Saudi Arabia-based government body.",
-  },
-  {
-    image: "/images/dummy/service_banner.png.webp",
-    imageAlt:
-      "Intranet Portal For A Semi Government Organization Based In Saudi Arabia",
-    href: "/case-study/intranet-portal-for-a-semi-government-organization-based-in-saudi-arabia/",
-    linkTitle:
-      "Empowered Seamless Collaboration with Intranet Portal for a Semi-Government Transportation Body",
-    description:
-      "Employee Engagement Portal for a Semi Government Organization based in Saudi Arabia Aixtor helped a Saudi Arabia-based government body.",
-  },
-  {
-    image: "/images/dummy/service_banner.png.webp",
-    imageAlt:
-      "Intranet Portal For A Semi Government Organization Based In Saudi Arabia",
-    href: "/case-study/intranet-portal-for-a-semi-government-organization-based-in-saudi-arabia/",
-    linkTitle:
-      "Empowered Seamless Collaboration with Intranet Portal for a Semi-Government Transportation Body",
-    description:
-      "Employee Engagement Portal for a Semi Government Organization based in Saudi Arabia Aixtor helped a Saudi Arabia-based government body.",
-  },
-  {
-    image: "/images/dummy/service_banner.png.webp",
-    imageAlt: "Liferay Upgrade From 6.0 To DXP",
-    href: "/case-study/liferay-upgrade-from-6-0-to-liferay-dxp/",
-    linkTitle:
-      "Powering the Future of Medical Education of a US Organization with Liferay DXP Upgrade",
-    description:
-      "Aixtor partnered with a top medical education organization in the USA to upgrade their student service portal from Liferay 6.0 to DXP 7.1, enhancing operational agility and user experience.",
-  },
-];
+interface SuccessStoriesProps {
+  caseStudies: StoryCard[];
+}
 
-const StoryCard = ({ image, imageAlt, href, linkTitle, description }: StoryCard) => (
-  <Link href={href} className="group block h-full">
-    <div className="flex flex-col h-full rounded-2xl p-4 transition-all duration-700 ease-in-out group-hover:-translate-y-1 group-hover:shadow-card-xl">
-      <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-dark-200">
-        <Image
-          src={image}
-          alt={imageAlt}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-      </div>
+const StoryCardComponent = memo(
+  ({ image, title, description, slug }: StoryCard) => (
+    <Link href={`/case-study/${slug}`} className="group block h-full">
+      <div className="flex flex-col h-full rounded-2xl p-4 transition-all duration-700 ease-in-out group-hover:-translate-y-1 group-hover:shadow-card-xl">
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-dark-200">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            loading="lazy"
+          />
+        </div>
 
-      <div className="flex flex-col gap-3 pt-5 px-2 pb-2">
-        <Typography
-          variant="h3"
-          size="h6"
-          className="font-semibold leading-snug text-dark transition-all duration-200
+        <div className="flex flex-col gap-3 pt-5 px-2 pb-2">
+          <Typography
+            variant="h3"
+            size="h6"
+            className="font-semibold leading-snug text-dark transition-all duration-200
                      group-hover:bg-linear-to-r group-hover:from-primary group-hover:to-secondary
                      group-hover:bg-clip-text group-hover:text-transparent"
-        >
-          {linkTitle}
-        </Typography>
+          >
+            {title}
+          </Typography>
 
-        <Typography variant="p" size="p" className="text-dark-400">
-          {description}
-        </Typography>
+          <Typography variant="p" size="p" className="text-dark-400">
+            {description}
+          </Typography>
+        </div>
       </div>
-    </div>
-  </Link>
+    </Link>
+  ),
+  (prevProps, nextProps) => {
+    return (
+      prevProps.id === nextProps.id &&
+      prevProps.title === nextProps.title &&
+      prevProps.slug === nextProps.slug
+    );
+  }
 );
 
-const SuccessStories = () => {
+StoryCardComponent.displayName = "StoryCard";
+
+const SuccessStories = memo(({ caseStudies }: SuccessStoriesProps) => {
   return (
     <section className="bg-white common-section">
       <div className="container">
         <div className="text-center common-heading">
-          <Typography variant="h2" size="h3" isTitle isCenter className="text-dark mb-5">
+          <Typography
+            variant="h2"
+            size="h3"
+            isTitle
+            isCenter
+            className="text-dark mb-5"
+          >
             Success Stories
           </Typography>
-          <Typography variant="p" size="p" className="text-dark-400 max-w-4xl mx-auto text-center">
+          <Typography
+            variant="p"
+            size="p"
+            className="text-dark-400 max-w-4xl mx-auto text-center"
+          >
             We offer a wide range of Digital Solutions that are flexible to
             client demands and feature many options to choose from in order to
             really get the most out of your organization&apos;s resources.
@@ -101,15 +86,16 @@ const SuccessStories = () => {
         </div>
 
         <Grid size="lg" className="gap-y-6 lg:gap-y-8">
-          {stories.map((story, index) => (
-            <Grid.Col key={index} className="w-full md:w-1/2">
-              <StoryCard {...story} />
+          {caseStudies?.map(story => (
+            <Grid.Col key={story.slug} className="w-full md:w-1/2">
+              <StoryCardComponent {...story} />
             </Grid.Col>
           ))}
         </Grid>
       </div>
     </section>
   );
-};
+});
 
+SuccessStories.displayName = "SuccessStories";
 export default SuccessStories;

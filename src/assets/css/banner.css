@@ -49,11 +49,29 @@
   transform: skewX(-20deg) rotate(-10deg);
   transform-origin: left bottom;
 
-  
-
   z-index: 2;
 }
+.banner-case-studies {
+  position: relative;
+}
 
+/* 🔥 NEW: OUTSIDE clip-path (this is the fix) */
+.banner-case-studies-shape {
+  position: absolute;
+  top: -20px; /* 🔥 adjust based on visual */
+  right: 0;
+
+  width: 130px;
+  height: 50px;
+
+  background: var(--lineargradientcolor6);
+
+  transform: skewX(20deg) rotate(-5deg);
+  transform-origin: right top;
+
+  z-index: 60; /* above both sections */
+  pointer-events: none; /* optional: avoids blocking clicks */
+}
 .banner .imgbox {
   background: var(--lineargradientcolor9);
 }
