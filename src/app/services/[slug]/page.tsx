@@ -60,7 +60,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         migrate_to_liferay_section={migrate_to_liferay_section}
       />
       <ContinueSection continue_section={continue_section} />
-      <OurValues />
       <WhyChooseAixtor why_choose_aixtor_section={why_choose_aixtor_section} />
       <FaqSection faq_section={faq_section} />
       <CaseStudies />
