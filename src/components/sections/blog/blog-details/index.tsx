@@ -501,9 +501,18 @@ const ContactForm = () => {
 
 // ─── BlogDetail ───────────────────────────────────────────────────────────────
 
-const BlogDetail = () => {
+type BlogDetailProps = {
+  content?: string;
+  content_blocks?: ContentBlock[];
+  recent_blogs?: RecentBlog[];
+};
+
+const BlogDetail = ({
+  content,
+  content_blocks = [],
+  recent_blogs = [],
+}: BlogDetailProps = {}) => {
   const [email, setEmail] = useState("");
-  const { content_blocks, recent_blogs } = BLOG_DATA;
 
   return (
     <section className="common-section bg-white">

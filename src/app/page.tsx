@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import Banner from "@/components/sections/home/banner";
 import CTASection from "@/components/shared/cta-section";
 import Benefits from "@/components/sections/home/benefits";
@@ -9,14 +11,23 @@ import Industries from "@/components/sections/home/industries";
 import StartConversation from "@/components/shared/start-conversation";
 import HttpService from "@/shared/services/http.service";
 
+import { mapSeoToMetadata } from "@/lib/seo";
+
 async function fetchHomePage(): Promise<any> {
   try {
-    const res = await HttpService.nativeFetch<any>("page/home", { method: "GET" });
+    const res = await HttpService.nativeFetch<any>("page/home", {
+      method: "GET",
+    });
     return res?.data ?? {};
   } catch (error) {
     console.error("Failed to fetch home page:", error);
     return {};
   }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await fetchHomePage();
+  return mapSeoToMetadata(data.seo);
 }
 
 export default async function Home() {

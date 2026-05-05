@@ -2,37 +2,34 @@ import BlogSlider from "@/components/sections/resources/blogs-slider";
 import SuccessStories from "@/components/sections/resources/success-stories";
 import Banner from "@/components/shared/banner";
 import StartConversation from "@/components/shared/start-conversation";
-import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
+import { TApiResponse } from "@/shared/types";
 
-async function getCaseStudiesData() {
+async function fetchCaseStudiesPage(): Promise<any> {
   try {
     const res = await HttpService.nativeFetch<TApiResponse<any>>(
       "case-studies?page=1&per_page=20",
-      {
-        method: "GET",
-      }
+      { method: "GET" }
     );
-    return res?.data || [];
+    return res || null;
   } catch (error) {
     console.error("Failed to fetch case studies:", error);
-    return [];
+    return null;
   }
 }
 
-export default async function ResourcesPage() {
-  const caseStudies = await getCaseStudiesData();
+export default async function CaseStudyPage() {
+  const res = await fetchCaseStudiesPage();
+
+  if (!res) return null;
+
+  const { data: caseStudies, page_header } = res;
+  const { banner_section, list_section } = page_header;
 
   return (
     <>
-      <Banner
-        title={"Case Studies"}
-        imgUrl={"/images/dummy/service_banner.png.webp"}
-        description={
-          "Read through our case studies to know how our solutions and services are driving growth in businesses like yours!"
-        }
-      />
-      <SuccessStories caseStudies={caseStudies} />
+      <Banner title={banner_section.title} imgUrl={banner_section.side_image} description={banner_section.description} />
+      <SuccessStories caseStudies={caseStudies} list_section={list_section} />
       <BlogSlider />
       <StartConversation />
     </>

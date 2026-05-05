@@ -4,6 +4,8 @@ import Link from "next/link";
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
 interface StoryCard {
   id: number;
   title: string;
@@ -12,9 +14,17 @@ interface StoryCard {
   image: string;
 }
 
+interface ListSection {
+  title: string;
+  description: string;
+}
+
 interface SuccessStoriesProps {
   caseStudies: StoryCard[];
+  list_section: ListSection;
 }
+
+// ─── StoryCard ────────────────────────────────────────────────────────────────
 
 const StoryCardComponent = memo(
   ({ image, title, description, slug }: StoryCard) => (
@@ -49,53 +59,54 @@ const StoryCardComponent = memo(
       </div>
     </Link>
   ),
-  (prevProps, nextProps) => {
-    return (
-      prevProps.id === nextProps.id &&
-      prevProps.title === nextProps.title &&
-      prevProps.slug === nextProps.slug
-    );
-  }
+  (prevProps, nextProps) =>
+    prevProps.id === nextProps.id &&
+    prevProps.title === nextProps.title &&
+    prevProps.slug === nextProps.slug
 );
 
 StoryCardComponent.displayName = "StoryCard";
 
-const SuccessStories = memo(({ caseStudies }: SuccessStoriesProps) => {
-  return (
-    <section className="bg-white common-section">
-      <div className="container">
-        <div className="text-center common-heading">
-          <Typography
-            variant="h2"
-            size="h3"
-            isTitle
-            isCenter
-            className="text-dark mb-5"
-          >
-            Success Stories
-          </Typography>
-          <Typography
-            variant="p"
-            size="p"
-            className="text-dark-400 max-w-4xl mx-auto text-center"
-          >
-            We offer a wide range of Digital Solutions that are flexible to
-            client demands and feature many options to choose from in order to
-            really get the most out of your organization&apos;s resources.
-          </Typography>
-        </div>
+// ─── SuccessStories ───────────────────────────────────────────────────────────
 
-        <Grid size="lg" className="gap-y-6 lg:gap-y-8">
-          {caseStudies?.map(story => (
-            <Grid.Col key={story.slug} className="w-full md:w-1/2">
-              <StoryCardComponent {...story} />
-            </Grid.Col>
-          ))}
-        </Grid>
-      </div>
-    </section>
-  );
-});
+const SuccessStories = memo(
+  ({ caseStudies, list_section }: SuccessStoriesProps) => {
+    const { title, description } = list_section;
+
+    return (
+      <section className="bg-white common-section">
+        <div className="container">
+          <div className="text-center common-heading">
+            <Typography
+              variant="h2"
+              size="h3"
+              isTitle
+              isCenter
+              className="text-dark mb-5"
+            >
+              {title}
+            </Typography>
+            <Typography
+              variant="p"
+              size="p"
+              className="text-dark-400 max-w-4xl mx-auto text-center"
+            >
+              {description}
+            </Typography>
+          </div>
+
+          <Grid size="lg" className="gap-y-6 lg:gap-y-8">
+            {caseStudies?.map(story => (
+              <Grid.Col key={story.slug} className="w-full md:w-1/2">
+                <StoryCardComponent {...story} />
+              </Grid.Col>
+            ))}
+          </Grid>
+        </div>
+      </section>
+    );
+  }
+);
 
 SuccessStories.displayName = "SuccessStories";
 export default SuccessStories;
