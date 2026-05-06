@@ -38,7 +38,7 @@ const Typography = <T extends React.ElementType = "p">({
   const Component = variant || "p";
   return (
     <Component
-      className={`${sizeClasses[size]} ${isTitle ? "text-dark after:content-[''] after:block after:w-44 after:h-px after:bg-linear-to-r after:from-primary after:to-secondary after:mt-2" : ""}  ${isCenter ? "text-center after:mx-auto" : ""}  ${className}`}
+      className={`${sizeClasses[size]} ${isTitle ? "text-dark after:content-[''] after:block after:w-44 after:h-0.5 after:bg-linear-to-r after:from-primary after:to-secondary after:mt-2" : ""}  ${isCenter ? "text-center after:mx-auto" : ""}  ${className}`}
       {...props}
     >
       {children}

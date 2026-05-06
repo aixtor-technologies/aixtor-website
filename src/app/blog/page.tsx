@@ -1,40 +1,76 @@
 import Banner from "@/components/shared/banner";
-import CaseStudies from "@/components/shared/case-studies";
 import BlogList from "@/components/sections/blog/blog-list";
 import StartConversation from "@/components/shared/start-conversation";
 
 import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
 
-async function fetchBlogs(): Promise<any> {
+type BlogItem = {
+  id: number;
+  title: string;
+  description: string;
+  image: string | null;
+  slug: string;
+};
+
+type BlogPageData = {
+  status: string;
+  page_header: {
+    banner_section: {
+      title: string;
+      description: string;
+      side_image: string;
+    };
+    related: {
+      title: string;
+      description: string;
+    };
+  };
+  data: BlogItem[];
+  pagination: any;
+};
+async function fetchBlogsPage(): Promise<any> {
   try {
     const res = await HttpService.nativeFetch<TApiResponse<any>>(
-      "services?page=1&per_page=20",
-      {
-        method: "GET",
-      }
+      "blogs",
+      { method: "GET" }
     );
-    return res;
+    return res || null;
   } catch (error) {
-    console.error("Failed to fetch Blog content:", error);
-    return null; // Return fallback so UI can handle it
+    console.error("Failed to fetch blogs:", error);
+    return null;
+  }
+}
+async function fetchBlogsPage(): Promise<BlogPageData | null> {
+  try {
+    const res = await HttpService.nativeFetch<BlogPageData>("blogs", {
+      method: "GET",
+    });
+    return res || null;
+  } catch (error) {
+    console.error("Failed to fetch blogs page:", error);
+    return null;
   }
 }
 export default async function BlogPage() {
-  const blogs = await fetchBlogs();
+  const blogData = await fetchBlogsPage();
+
+  if (!blogData) {
+    return <div>Failed to load blogs</div>;
+  }
+
   return (
     <>
       <Banner
-        title="Blogs"
-        description="Find answers, inspiration, and expert advice in our comprehensive blogs along with staying updated with industry trends, exploring new perspectives, and innovative solutions."
-        imgUrl="/images/dummy/services_banner.webp"
+        title={blogData.page_header.banner_section.title}
+        description={blogData.page_header.banner_section.description}
+        imgUrl={blogData.page_header.banner_section.side_image}
       />
       <BlogList
-        title="Related Blog Posts"
-        description="We offer a wide range of Digital Solutions that are flexible to client demands and feature many options to choose from in order to really get the most out of your organization’s resources."
-        items={blogs?.data}
+        title={blogData.page_header.related.title}
+        description={blogData.page_header.related.description}
+        items={blogData.data}
       />
-      <CaseStudies />
       <StartConversation />
     </>
   );

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Slider from "react-slick";
+import { useEffect, useRef } from "react";
 
 import Typography from "@/components/ui/typography";
 import Button from "@/components/ui/button";
@@ -38,6 +39,46 @@ const sliderSettings = {
 export default function EmpowerSection({
   empower_section,
 }: EmpowerSectionProps) {
+  const upSliderRef = useRef<Slider>(null);
+  const downSliderRef = useRef<Slider>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isHovering = useRef(false);
+  const throttleRef = useRef(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onEnter = () => { isHovering.current = true; };
+    const onLeave = () => { isHovering.current = false; };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!isHovering.current) return;
+      e.preventDefault();
+      if (throttleRef.current) return;
+      throttleRef.current = true;
+      setTimeout(() => { throttleRef.current = false; }, 400);
+
+      if (e.deltaY > 0) {
+        upSliderRef.current?.slickNext();
+        downSliderRef.current?.slickPrev();
+      } else {
+        upSliderRef.current?.slickPrev();
+        downSliderRef.current?.slickNext();
+      }
+    };
+
+    container.addEventListener("mouseenter", onEnter);
+    container.addEventListener("mouseleave", onLeave);
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("mouseenter", onEnter);
+      container.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   if (!empower_section) return null;
 
   const {
@@ -49,19 +90,12 @@ export default function EmpowerSection({
   } = empower_section;
 
   return (
-    <section className=" bg-white overflow-hidden">
+    <section className="common-section bg-white overflow-hidden">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* ── LEFT ──
-              min-w-0 is critical — without it, flex children ignore their
-              parent's width constraint and can overflow/overlap siblings   */}
+          {/* ── LEFT ──   */}
           <div className="w-full lg:w-1/2 min-w-0 flex flex-col gap-4">
-            <Typography
-              variant="h2"
-              size="h3"
-              className="font-bold text-dark"
-              isTitle
-            >
+            <Typography variant="h1" size="h3" className="text-dark-400" isTitle>
               {title}
             </Typography>
 
@@ -76,9 +110,9 @@ export default function EmpowerSection({
             )}
           </div>
 
-          <div className="w-full lg:w-1/2 min-w-0 flex justify-center items-center gap-4 md:gap-6 lg:gap-8">
+          <div ref={containerRef} className="w-full lg:w-1/2 min-w-0 flex justify-center items-center gap-4 md:gap-6 lg:gap-8">
             <div className="w-20 md:w-25 lg:w-30 h-70 md:h-85 lg:h-95 overflow-hidden shrink-0">
-              <Slider {...sliderSettings}>
+              <Slider ref={upSliderRef} {...sliderSettings}>
                 {move_up_image_list.map((item, i) => (
                   <div key={i} className="flex justify-center py-3">
                     <div className="w-14 h-14 md:w-18 md:h-18 lg:w-20 lg:h-20 rounded-full bg-dark-200 flex items-center justify-center shadow-sm mx-auto">
@@ -97,7 +131,7 @@ export default function EmpowerSection({
 
             {/* DOWN slider */}
             <div className="w-20 md:w-25 lg:w-30 h-70 md:h-85 lg:h-95 overflow-hidden shrink-0">
-              <Slider {...sliderSettings} rtl={true}>
+              <Slider ref={downSliderRef} {...sliderSettings} rtl={true}>
                 {move_down_image_list.map((item, i) => (
                   <div key={i} className="flex justify-center py-3">
                     <div className="w-14 h-14 md:w-18 md:h-18 lg:w-20 lg:h-20 rounded-full bg-dark-200 flex items-center justify-center shadow-sm mx-auto">

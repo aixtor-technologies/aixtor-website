@@ -41,7 +41,7 @@ export default async function Header() {
             />
           </Link>
           <HeaderNav data={menuList} />
-          <HireDropdown />
+          <HireDropdown  />
           <Button href="/contact" variant="outline" className="outlineBtn">
             Let’s talk
           </Button>

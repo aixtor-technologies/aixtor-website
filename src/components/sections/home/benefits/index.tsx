@@ -1,35 +1,38 @@
 import Image from "next/image";
 
 import Grid from "@/components/ui/grid";
+import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 
-const solutions = [
-  {
-    title: "Intranet Portal",
-    description: "Enhance internal communication...",
-  },
-  { title: "Self-Service Portal", description: "Empower your users..." },
-  { title: "Customer Portal", description: "Build deeper relationships..." },
-  { title: "Partner Management Portal", description: "Streamline partners..." },
-  { title: "Enterprise Website", description: "Create powerful websites..." },
-  {
-    title: "Supplier And Vendor Portal",
-    description: "Optimize supply chain...",
-  },
-];
+type BenefitItem = {
+  title: string;
+  description: string;
+  icon?: string;
+};
 
-const Benefits = () => {
+type KeyBenefitsSection = {
+  heading_title?: string | null;
+  description?: string | null;
+  benefits_item?: BenefitItem[] | null;
+  cta_button?: string | null;
+};
+
+type Props = {
+  key_benefits_section?: KeyBenefitsSection;
+};
+
+const Benefits = ({ key_benefits_section }: Props) => {
+  const items = key_benefits_section?.benefits_item ?? [];
+
   return (
     <section className="common-section bg-white">
       <div className="container">
         <div className="md:w-10/12 lg:w-9/12 mx-auto text-center mb-6 md:mb-8 lg:mb-10">
           <Typography size="h2" isCenter isTitle className="font-semibold mb-4">
-            Key Benefits that set AIXTOR apart
+            {key_benefits_section?.heading_title}
           </Typography>
           <Typography size="h6">
-            Our key benefits are built to drive performance, streamline
-            operations & support scalable growth ensuring your business stays
-            ahead in a rapidly evolving digital landscape.
+            {key_benefits_section?.description}
           </Typography>
         </div>
         <div className="flex flex-col gap-4 md:gap-8 lg-gap-12 xl:gap-15 relative">
@@ -46,29 +49,33 @@ const Benefits = () => {
               className={`relative z-2 gap-y-4 ${start === 2 ? "justify-between" : "justify-evenly"}`}
               key={start}
             >
-              {solutions.slice(start, start + 2).map(solution => (
-                <Grid.Col key={solution.title} className="md:w-4/12">
-                  <div
-                    key={solution.title}
-                    className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl"
-                  >
-                    <Image
-                      src="/images/banking.svg"
-                      alt={solution.title}
-                      width={60}
-                      height={60}
-                      className="mb-4 size-15 p-2"
-                    />
+              {items.slice(start, start + 2).map(item => (
+                <Grid.Col key={item.title} className="md:w-4/12">
+                  <div className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl">
+                    {item.icon && (
+                      <Image
+                        src={item.icon}
+                        alt={item.title}
+                        width={60}
+                        height={60}
+                        className="mb-4 size-15 p-2"
+                      />
+                    )}
                     <Typography size="h5" className="font-semibold mb-1">
-                      {solution.title}
+                      {item.title}
                     </Typography>
-                    <Typography>{solution.description}</Typography>
+                    <Typography>{item.description}</Typography>
                   </div>
                 </Grid.Col>
               ))}
             </Grid>
           ))}
         </div>
+        {key_benefits_section?.cta_button && (
+          <div className="text-center mt-8">
+            <Button href="/contact">{key_benefits_section.cta_button}</Button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -35,7 +35,7 @@ export default async function ServicePage() {
         description={services?.page_header?.list_section?.description}
         items={services?.data}
       />
-      <CaseStudies />
+      <CaseStudies/>
       <StartConversation />
     </>
   );
