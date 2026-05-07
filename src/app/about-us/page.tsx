@@ -11,7 +11,7 @@ async function fetchAboutUsPage(): Promise<any> {
     const res = await HttpService.nativeFetch<TApiResponse<any>>("page/about-us", {
       method: "GET",
     });
-    return res?.data?.about_page || null;
+    return res;
   } catch (error) {
     console.error("Failed to fetch about us page:", error);
     return null;
@@ -20,28 +20,18 @@ async function fetchAboutUsPage(): Promise<any> {
 
 export default async function AboutUsPage() {
   const data = await fetchAboutUsPage();
-
-  if (!data) return null;
-
-  const {
-    banner_section,
-    our_values_section,
-    vision_section,
-    mission_section,
-    technologies_we_use,
-    founders,
-  } = data;
+  const aboutPage = data?.data?.about_page;
 
   return (
     <>
-      <BannerDetails banner_section={banner_section} />
-      <OurValues our_values_section={our_values_section} />
+      <BannerDetails banner_section={aboutPage?.banner_section} />
+      <OurValues our_values_section={aboutPage?.our_values_section} />
       <VisionMission
-        vision_section={vision_section}
-        mission_section={mission_section}
+        vision_section={aboutPage?.vision_section}
+        mission_section={aboutPage?.mission_section}
       />
-      <Technologies technologies_we_use={technologies_we_use} />
-      <MeetFounders founders={founders ?? []} />
+      <Technologies technologies_we_use={aboutPage?.technologies_we_use} />
+      <MeetFounders founders={aboutPage?.founders ?? []} />
     </>
   );
 }

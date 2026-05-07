@@ -22,82 +22,22 @@ type PortalFeatureProps = {
   customizable_section?: PortalFeatureSection;
 };
 
-// ─── Static fallback ──────────────────────────────────────────────────────────
-
-const DEFAULT_DATA: PortalFeatureSection = {
-  title: "Customizable Portal Development",
-  description:
-    "Whether you are looking to build a robust intranet, a dynamic e-commerce platform, or a feature-rich communication portal, our experts have you covered.",
-  cta_title: "Contact Us",
-
-  center_image: "/images/portal/laptop.svg",
-  left_top_image: "/images/portal/mobile.svg",
-  left_bottom_image: "/images/portal/ecommerce.svg",
-  right_top_image: "/images/portal/network.svg",
-  right_bottom_image: "/images/portal/team.svg",
-};
-
 // ─── Circle config ────────────────────────────────────────────────────────────
 
 const CIRCLES = [
-  {
-    key: "center_image",
-    size: 180,
-    top: "50%",
-    left: "45%",
-    tx: "-50%",
-    ty: "-50%",
-    icon: 80,
-    z: 2,
-  },
-  {
-    key: "left_top_image",
-    size: 110,
-    top: "5%",
-    left: "8%",
-    tx: "0",
-    ty: "0",
-    icon: 44,
-    z: 1,
-  },
-  {
-    key: "left_bottom_image",
-    size: 110,
-    top: "62%",
-    left: "5%",
-    tx: "0",
-    ty: "0",
-    icon: 44,
-    z: 1,
-  },
-  {
-    key: "right_top_image",
-    size: 90,
-    top: "4%",
-    left: "58%",
-    tx: "0",
-    ty: "0",
-    icon: 36,
-    z: 1,
-  },
-  {
-    key: "right_bottom_image",
-    size: 90,
-    top: "65%",
-    left: "60%",
-    tx: "0",
-    ty: "0",
-    icon: 36,
-    z: 1,
-  },
+  { key: "center_image", size: 180, top: "50%", left: "45%", tx: "-50%", ty: "-50%", icon: 80, z: 2 },
+  { key: "left_top_image", size: 110, top: "5%", left: "8%", tx: "0", ty: "0", icon: 44, z: 1 },
+  { key: "left_bottom_image", size: 110, top: "62%", left: "5%", tx: "0", ty: "0", icon: 44, z: 1 },
+  { key: "right_top_image", size: 90, top: "4%", left: "58%", tx: "0", ty: "0", icon: 36, z: 1 },
+  { key: "right_bottom_image", size: 90, top: "65%", left: "60%", tx: "0", ty: "0", icon: 36, z: 1 },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const PortalFeature = ({ customizable_section }: PortalFeatureProps) => {
-  const data = customizable_section ?? DEFAULT_DATA;
+  if (!customizable_section) return null;
 
-  const { title, description, cta_title } = data;
+  const { title, description, cta_title } = customizable_section;
 
   return (
     <section className="common-section overflow-hidden">
@@ -106,9 +46,8 @@ const PortalFeature = ({ customizable_section }: PortalFeatureProps) => {
           {/* ── LEFT: circles ── */}
           <div className="w-full lg:w-1/2 shrink-0 relative h-72 sm:h-80 md:h-96">
             {CIRCLES.map((c, i) => {
-              const imgSrc = data[c.key as keyof PortalFeatureSection];
-
-              if (!imgSrc) return null; // 🔥 skip if false
+              const imgSrc = customizable_section[c.key as keyof PortalFeatureSection];
+              if (!imgSrc) return null;
 
               return (
                 <div
@@ -137,23 +76,12 @@ const PortalFeature = ({ customizable_section }: PortalFeatureProps) => {
 
           {/* ── RIGHT: content ── */}
           <div className="w-full lg:w-1/2 flex flex-col gap-4">
-            <Typography
-              variant="h2"
-              size="h3"
-              isTitle
-              className="text-dark-400"
-            >
+            <Typography variant="h2" size="h3" isTitle className="text-dark-400">
               {title}
             </Typography>
-
-            <Typography
-              variant="p"
-              size="p"
-              className="text-dark-400 text-justify leading-relaxed mt-2"
-            >
+            <Typography variant="p" size="p" className="text-dark-400 text-justify leading-relaxed mt-2">
               {description}
             </Typography>
-
             {cta_title && (
               <div className="mt-2">
                 <Button href="/contact" variant="default">

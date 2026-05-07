@@ -13,7 +13,7 @@ async function fetchCareersPage(): Promise<any> {
     const res = await HttpService.nativeFetch<TApiResponse<any>>("page/careers", {
       method: "GET",
     });
-    return res?.data?.career_page || null;
+    return res;
   } catch (error) {
     console.error("Failed to fetch careers page:", error);
     return null;
@@ -22,33 +22,23 @@ async function fetchCareersPage(): Promise<any> {
 
 export default async function CareersPage() {
   const data = await fetchCareersPage();
-
-  if (!data) return null;
-
-  const {
-    banner_section,
-    what_aixtor_has,
-    truly_believe_section,
-    life_aixtor,
-    grow_section,
-    team_comments,
-  } = data;
+  const careerPage = data?.data?.career_page;
 
   return (
     <>
-      <BannerDetails banner_section={banner_section} />
+      <BannerDetails banner_section={careerPage?.banner_section} />
       <ReasonsSection
         reasons_section={{
-          title: what_aixtor_has?.heading,
-          reasons_list: (what_aixtor_has?.aixtor_list ?? []).map((item: { aixtor_has: string }) => ({
-            reason: item.aixtor_has,
-          })),
+          title: careerPage?.what_aixtor_has?.heading,
+          reasons_list: (careerPage?.what_aixtor_has?.aixtor_list ?? []).map(
+            (item: { aixtor_has: string }) => ({ reason: item.aixtor_has })
+          ),
         }}
       />
-      <WeTrulyBelieve truly_believe_section={truly_believe_section} />
-      <LifeAtAixtor life_aixtor={life_aixtor} />
-      <GrowWithUs grow_section={grow_section} />
-      <TeamTestimonials team_comments={team_comments} />
+      <WeTrulyBelieve truly_believe_section={careerPage?.truly_believe_section} />
+      <LifeAtAixtor life_aixtor={careerPage?.life_aixtor} />
+      <GrowWithUs grow_section={careerPage?.grow_section} />
+      <TeamTestimonials team_comments={careerPage?.team_comments} />
       <StartConversation />
     </>
   );

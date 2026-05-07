@@ -10,24 +10,25 @@ import WhyChoose from "@/components/sections/home/why-choose";
 import Industries from "@/components/sections/home/industries";
 import StartConversation from "@/components/shared/start-conversation";
 import HttpService from "@/shared/services/http.service";
+import { TApiResponse } from "@/shared/types";
 
 import { mapSeoToMetadata } from "@/lib/seo";
 
 async function fetchHomePage(): Promise<any> {
   try {
-    const res = await HttpService.nativeFetch<any>("page/home", {
+    const res = await HttpService.nativeFetch<TApiResponse<any>>("page/home", {
       method: "GET",
     });
-    return res?.data ?? {};
+    return res;
   } catch (error) {
     console.error("Failed to fetch home page:", error);
-    return {};
+    return null;
   }
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await fetchHomePage();
-  return mapSeoToMetadata(data.seo);
+  return mapSeoToMetadata(data?.data?.seo);
 }
 
 export default async function Home() {
@@ -35,15 +36,15 @@ export default async function Home() {
 
   return (
     <>
-      <Banner banner_section={data.banner_section} />
-      <Services services_section={data.services_section} />
-      <Solutions solutions_section={data.solutions_section} />
+      <Banner banner_section={data?.data?.banner_section} />
+      <Services services_section={data?.data?.services_section} />
+      <Solutions solutions_section={data?.data?.solutions_section} />
       <div className="large-section">
-        <CTASection cta_banner_section={data.cta_banner_section} />
+        <CTASection cta_banner_section={data?.data?.cta_banner_section} />
       </div>
       <WhyChoose />
-      <Benefits key_benefits_section={data.key_benefits_section} />
-      <Industries industries_section={data.industries_section} />
+      <Benefits key_benefits_section={data?.data?.key_benefits_section} />
+      <Industries industries_section={data?.data?.industries_section} />
       <CaseStudies />
       <StartConversation />
     </>

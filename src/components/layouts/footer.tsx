@@ -6,13 +6,6 @@ import FooterMenuSection from "@/components/shared/footer-menu";
 
 import HttpService from "@/shared/services/http.service";
 
-import {
-  companyMenuItems,
-  solutionsMenuItems,
-  servicesMenuItems,
-  liferayMenuItems,
-} from "./data";
-
 type FooterApiResponse = {
   status: string;
   data: {
@@ -43,9 +36,7 @@ type MenuApiResponse = {
 };
 
 export default async function Footer() {
-  // ─── Fetch both APIs in parallel ─────────────────────────────────────────
-  // menuRes
-  const [footerRes] = await Promise.allSettled([
+  const [footerRes, menuRes] = await Promise.allSettled([
     HttpService.nativeFetch<FooterApiResponse>("common-options/footer", {
       method: "GET",
     }),
@@ -56,8 +47,11 @@ export default async function Footer() {
 
   const footer =
     footerRes.status === "fulfilled" ? footerRes.value?.data?.footer : null;
-  // const menuItems =
-  //   menuRes.status === "fulfilled" ? (menuRes.value?.data?.items ?? []) : [];
+
+  const menuItems =
+    menuRes.status === "fulfilled"
+      ? (menuRes.value?.data?.items ?? [])
+      : [];
 
   const indiaAddress = footer?.india_address ?? "";
   const usAddress = footer?.us_address ?? "";
@@ -66,9 +60,6 @@ export default async function Footer() {
   const copyrights = footer?.copyrights ?? "";
   const certificates = footer?.certificates ?? [];
   const socialIcons = footer?.social_icons ?? [];
-  // const menuGroups = menuItems
-  //   .filter(item => item.children?.length > 0)
-  //   .map(item => ({ title: item.title, items: item.children }));
 
   return (
     <footer className="pt-8 lg:pt-10 xl:pt-12 pb-2 bg-white">
@@ -139,31 +130,14 @@ export default async function Footer() {
           </Grid.Col>
           <Grid.Col className="md:w-8/12">
             <Grid>
-              <Grid.Col className="sm:w-6/12 md:w-4/12">
-                <FooterMenuSection
-                  title="Services"
-                  groups={[{ title: "", items: servicesMenuItems }]}
-                />
-              </Grid.Col>
-              {/* Solutions */}
-              <Grid.Col className="sm:w-6/12 md:w-4/12">
-                <FooterMenuSection
-                  title="Solutions"
-                  groups={[{ title: "", items: solutionsMenuItems }]}
-                />
-              </Grid.Col>
-              <Grid.Col className="sm:w-6/12 md:w-4/12">
-                <FooterMenuSection
-                  title="Company"
-                  groups={[{ title: "", items: companyMenuItems }]}
-                />
-              </Grid.Col>
-              <Grid.Col className="sm:w-6/12 md:w-4/12">
-                <FooterMenuSection
-                  title="Liferay"
-                  groups={[{ title: "", items: liferayMenuItems }]}
-                />
-              </Grid.Col>
+              {menuItems.map(group => (
+                <Grid.Col key={group.title} className="sm:w-6/12 md:w-4/12">
+                  <FooterMenuSection
+                    title={group.title}
+                    groups={[{ title: "", items: group.children }]}
+                  />
+                </Grid.Col>
+              ))}
             </Grid>
           </Grid.Col>
         </Grid>

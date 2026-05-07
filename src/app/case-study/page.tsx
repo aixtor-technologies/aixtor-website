@@ -11,26 +11,41 @@ async function fetchCaseStudiesPage(): Promise<any> {
       "case-studies?page=1&per_page=20",
       { method: "GET" }
     );
-    return res || null;
+    return res;
   } catch (error) {
     console.error("Failed to fetch case studies:", error);
     return null;
   }
 }
 
+async function fetchBlogs(): Promise<any[]> {
+  try {
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
+      "blogs?page=1&per_page=6",
+      { method: "GET" }
+    );
+    return res?.data ?? [];
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    return [];
+  }
+}
+
 export default async function CaseStudyPage() {
-  const res = await fetchCaseStudiesPage();
-
-  if (!res) return null;
-
-  const { data: caseStudies, page_header } = res;
-  const { banner_section, list_section } = page_header;
+  const [data, blogs] = await Promise.all([
+    fetchCaseStudiesPage(),
+    fetchBlogs(),
+  ]);
 
   return (
     <>
-      <Banner title={banner_section.title} imgUrl={banner_section.side_image} description={banner_section.description} />
-      <SuccessStories caseStudies={caseStudies} list_section={list_section} />
-      <BlogSlider />
+      <Banner
+        title={data?.page_header?.banner_section?.title}
+        imgUrl={data?.page_header?.banner_section?.side_image}
+        description={data?.page_header?.banner_section?.description}
+      />
+      <SuccessStories caseStudies={data?.data} list_section={data?.page_header?.list_section} />
+      <BlogSlider blogs={blogs} />
       <StartConversation />
     </>
   );

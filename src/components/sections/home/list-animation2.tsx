@@ -1,26 +1,18 @@
 import Grid from "@/components/ui/grid";
 import Typography from "@/components/ui/typography";
 
-const solutions = [
-  {
-    title: "Intranet Portal",
-    description: "Enhance internal communication...",
-  },
-  { title: "Self-Service Portal", description: "Empower your users..." },
-  { title: "Customer Portal", description: "Build deeper relationships..." },
-  { title: "Partner Management Portal", description: "Streamline partners..." },
-  { title: "Enterprise Website", description: "Create powerful websites..." },
-  {
-    title: "Supplier And Vendor Portal",
-    description: "Optimize supply chain...",
-  },
-  {
-    title: "B2B & B2C E-Commerce Portal Development Services",
-    description: "Launch platforms...",
-  },
-];
+type SolutionItem = {
+  title: string;
+  description: string;
+};
 
-const ListAnimation2 = () => {
+type Props = {
+  items?: SolutionItem[];
+};
+
+const ListAnimation2 = ({ items = [] }: Props) => {
+  if (!items.length) return null;
+
   return (
     <section className="">
       <div className="container">
@@ -30,23 +22,17 @@ const ListAnimation2 = () => {
         >
           Option 2
         </Typography>
-        <div className=" top-40 sticky">
+        <div className="top-40 sticky">
           <Grid className="justify-center pt-14">
             <Grid.Col className="md:w-6/12">
-              {solutions.map((solution, index) => (
+              {items.map((item, index) => (
                 <div
-                  key={solution.title}
+                  key={item.title}
                   data-index={index}
-                  className={
-                    "p-4 mb-6 border-2 rounded-xl transition-all duration-300 bg-white top-40 sticky"
-                  }
-                  // ${activeIndex === index ? "border-primary scale-105 shadow-lg opacity-100" : "border-transparent opacity-50 scale-95"
-                  //   }`}
+                  className="p-4 mb-6 border-2 rounded-xl transition-all duration-300 bg-white top-40 sticky"
                 >
-                  <Typography size="h5" className="font-semibold mb-1">
-                    {solution.title}
-                  </Typography>
-                  <Typography>{solution.description}</Typography>
+                  <Typography size="h5" className="font-semibold mb-1">{item.title}</Typography>
+                  <Typography>{item.description}</Typography>
                 </div>
               ))}
             </Grid.Col>

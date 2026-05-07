@@ -13,14 +13,25 @@ async function fetchIndustries(slug: string): Promise<any> {
   try {
     const res = await HttpService.nativeFetch<TApiResponse<any>>(
       `industry/${slug}`,
-      {
-        method: "GET",
-      }
+      { method: "GET" }
     );
     return res;
   } catch (error) {
     console.error("Failed to fetch Industries content:", error);
     return null;
+  }
+}
+
+async function fetchBlogs(): Promise<any[]> {
+  try {
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
+      "blogs?page=1&per_page=6",
+      { method: "GET" }
+    );
+    return res?.data ?? [];
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    return [];
   }
 }
 
@@ -30,7 +41,11 @@ type PageProps = {
 
 export default async function IndustryDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const industry = await fetchIndustries(slug);
+
+  const [industry, blogs] = await Promise.all([
+    fetchIndustries(slug),
+    fetchBlogs(),
+  ]);
 
   if (!industry?.acf_fields) return null;
 
@@ -44,11 +59,10 @@ export default async function IndustryDetailPage({ params }: PageProps) {
 
   const description = banner_section?.description || "";
 
-  //  Transform aixtor_help → migrate_to_liferay_section
   const migrateData = aixtor_help
     ? {
       heading: aixtor_help.heading || "",
-      cta_title: "", // not available in API
+      cta_title: "",
       migrate_to_liferay:
           aixtor_help.help?.map((item: any) => ({
             title: item?.title || "",
@@ -80,7 +94,7 @@ export default async function IndustryDetailPage({ params }: PageProps) {
         <BenifitsSection data={maximizing_manufacturing} />
       )}
       <CaseStudies />
-      <BlogSlider />
+      <BlogSlider blogs={blogs} />
       <StartConversation />
     </>
   );

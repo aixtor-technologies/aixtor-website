@@ -33,7 +33,7 @@ const BlogCard = ({ title, image, description, slug }: BlogCardProps) => {
           By <span className="text-primary font-semibold">Nikunj Malaviya</span>
         </p>
       </div>
-      <Link href={slug} className="inset-0 absolute z-1" />
+      <Link href={`blog/${slug}`} className="inset-0 absolute z-1" />
     </div>
   );
 };
