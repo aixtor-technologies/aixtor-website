@@ -52,7 +52,7 @@ const BlogSlider = ({ blogs = [] }: BlogSliderProps) => {
           itemClassName="px-2 lg:px-3"
           className=""
         >
-          {blogs.map((blog, index) => (
+          {blogs?.map((blog, index) => (
             <div key={index} className="w-72 sm:w-80 md:w-96 h-full flex">
               <BlogCard
                 title={blog.title}

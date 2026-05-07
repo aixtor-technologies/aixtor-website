@@ -70,7 +70,8 @@ StoryCardComponent.displayName = "StoryCard";
 // ─── SuccessStories ───────────────────────────────────────────────────────────
 
 const SuccessStories = memo(
-  ({ caseStudies, list_section }: SuccessStoriesProps) => {
+  ({ caseStudies = [], list_section }: SuccessStoriesProps) => {
+    const safeCaseStudies = Array.isArray(caseStudies) ? caseStudies : [];
     const { title, description } = list_section;
 
     return (
@@ -96,7 +97,7 @@ const SuccessStories = memo(
           </div>
 
           <Grid size="lg" className="gap-y-6 lg:gap-y-8">
-            {caseStudies?.map(story => (
+            {safeCaseStudies.map(story => (
               <Grid.Col key={story.slug} className="w-full md:w-1/2">
                 <StoryCardComponent {...story} />
               </Grid.Col>
