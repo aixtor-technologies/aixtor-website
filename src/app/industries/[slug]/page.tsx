@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import BenifitsSection from "@/components/sections/industry/benifits-section";
 import TelecomChallenges from "@/components/sections/industry/challenges";
 import BlogSlider from "@/components/shared/blogs-slider";
