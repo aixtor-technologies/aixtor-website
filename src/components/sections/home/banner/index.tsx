@@ -17,7 +17,7 @@ type Props = {
 };
 
 const Banner = ({ banner_section }: Props) => {
-  console.log("Banner section data:", banner_section); // Debug log to check data
+  // console.log("Banner section data:", banner_section);
   return (
     <section className="common-section min-h-dvh flex items-center relative text-white bg-linear-to-br from-[#2D1B69] via-[#5B2D8E] to-[#8B3FA0] overflow-hidden">
       <div className="container relative z-2 pt-10 lg:pt-16">

@@ -53,14 +53,14 @@ const BulletPoint = ({ title, description }: BulletItem) => (
 // ─── CaseStudyDetail ──────────────────────────────────────────────────────────
 
 const CaseStudyDetail = ({ data }: CaseStudyDetailProps) => {
-  if (!data?.acf_fields?.detail_sections?.length) return null;
-
-  const sections = data.acf_fields.detail_sections;
-  const [activeId, setActiveId] = useState(sections[0].id);
+  const sections = data?.acf_fields?.detail_sections ?? [];
+  const [activeId, setActiveId] = useState(() => sections[0]?.id ?? "");
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Update active nav item based on scroll position
   useEffect(() => {
+    if (!sections.length) return;
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -78,6 +78,8 @@ const CaseStudyDetail = ({ data }: CaseStudyDetailProps) => {
 
     return () => observer.disconnect();
   }, [sections]);
+
+  if (!sections.length) return null;
 
   const scrollToSection = (id: string) => {
     sectionRefs.current[id]?.scrollIntoView({
@@ -102,11 +104,7 @@ const CaseStudyDetail = ({ data }: CaseStudyDetailProps) => {
                     className={`
                       relative text-left text-sm pl-5 pr-2 py-3
                       transition-colors duration-200
-                      ${
-                        isActive
-                          ? "text-dark-400 font-bold"
-                          : "text-dark-300 font-normal hover:text-dark-400"
-                      }
+                      ${isActive ? "text-dark-400 font-bold" : "text-dark-300 font-normal hover:text-dark-400"}
                     `}
                   >
                     {/* Active indicator — overlaps the left border */}

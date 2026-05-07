@@ -30,7 +30,10 @@ export function mapSeoToMetadata(
     openGraph: {
       title: seo.og_title,
       description: seo.og_description,
-      type: seo.og_type === "default" ? "website" : (seo.og_type as any),
+      type:
+        seo.og_type && seo.og_type !== "default"
+          ? (seo.og_type as any)
+          : "website",
       images: seo.og_image_url ? [{ url: seo.og_image_url }] : undefined,
       siteName,
     },

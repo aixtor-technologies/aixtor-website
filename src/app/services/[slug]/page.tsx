@@ -10,7 +10,7 @@ import StartConversation from "@/components/shared/start-conversation";
 import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
 import PortalFeature from "@/components/sections/service/portal-feature";
-import OurValues from "@/components/sections/about-us/our-values";
+// import OurValues from "@/components/sections/about-us/our-values";
 
 async function fetchService(slug: string): Promise<any> {
   try {
@@ -50,10 +50,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <BannerDetails
-        badge={service_type}
-        banner_section={banner_section}
-      />
+      <BannerDetails badge={service_type} banner_section={banner_section} />
       <EmpowerSection empower_section={empower_section} />
       <PortalFeature customizable_section={customizable_section} />
       <MigrateToLiferaySection

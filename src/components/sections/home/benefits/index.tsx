@@ -31,9 +31,7 @@ const Benefits = ({ key_benefits_section }: Props) => {
           <Typography size="h2" isCenter isTitle className="font-semibold mb-4">
             {key_benefits_section?.heading_title}
           </Typography>
-          <Typography size="h6">
-            {key_benefits_section?.description}
-          </Typography>
+          <Typography size="h6">{key_benefits_section?.description}</Typography>
         </div>
         <div className="flex flex-col gap-4 md:gap-8 lg-gap-12 xl:gap-15 relative">
           <Image
@@ -49,7 +47,7 @@ const Benefits = ({ key_benefits_section }: Props) => {
               className={`relative z-2 gap-y-4 ${start === 2 ? "justify-between" : "justify-evenly"}`}
               key={start}
             >
-              {items.slice(start, start + 2).map(item => (
+              {items?.slice(start, start + 2).map(item => (
                 <Grid.Col key={item.title} className="md:w-4/12">
                   <div className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl">
                     {item.icon && (

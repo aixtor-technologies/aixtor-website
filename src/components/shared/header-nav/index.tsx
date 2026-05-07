@@ -49,7 +49,7 @@ type ApiResponse = {
 };
 
 function transformNavLinks(response: ApiResponse): NavLink[] {
-  return response.data.items.map(item => {
+  return response.data.items?.map(item => {
     if (!item.children || item.children.length === 0) {
       return { label: item.title, href: item.url };
     }

@@ -209,7 +209,7 @@ export default function HeaderNavClient({ navLinks }: { navLinks: NavLink[] }) {
       <nav
         className={`${openMenu ? "block" : "hidden md:block"} max-h-96 md:max-h-fit absolute inset-s-0 top-full md:static bg-white md:bg-transparent w-full md:w-auto p-4 md:p-0 md:flex items-center gap-2 font-medium overflow-auto md:overflow-visible`}
       >
-        {navLinks.map((link, index) => (
+        {navLinks?.map((link, index) => (
           <NavItem
             key={link.label}
             link={link}

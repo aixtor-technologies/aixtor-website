@@ -1,7 +1,6 @@
 "use client";
 
 import Typography from "@/components/ui/typography";
-import Button from "@/components/ui/button";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -71,7 +70,11 @@ const GrowWithUs = ({ grow_section }: GrowWithUsProps) => {
           <Typography variant="h2" size="h3" isTitle isCenter>
             {heading}
           </Typography>
-          <Typography variant="p" size="p" className="text-dark-400 mt-4 max-w-2xl">
+          <Typography
+            variant="p"
+            size="p"
+            className="text-dark-400 mt-4 max-w-2xl"
+          >
             {description}
           </Typography>
         </div>

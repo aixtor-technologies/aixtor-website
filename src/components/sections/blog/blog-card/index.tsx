@@ -15,7 +15,7 @@ const BlogCard = ({ title, image, description, slug }: BlogCardProps) => {
     <div className="group h-full flex flex-col border border-dark-300 hover:shadow-card relative transition-all duration-200">
       <Image
         src={image}
-        alt={title}
+        alt={title || "blog-img"}
         width={480}
         height={256}
         className="w-full object-cover shrink-0"

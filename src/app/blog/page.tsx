@@ -31,27 +31,26 @@ type BlogPageData = {
 };
 async function fetchBlogsPage(): Promise<any> {
   try {
-    const res = await HttpService.nativeFetch<TApiResponse<any>>(
-      "blogs",
-      { method: "GET" }
-    );
+    const res = await HttpService.nativeFetch<TApiResponse<any>>("blogs", {
+      method: "GET",
+    });
     return res || null;
   } catch (error) {
     console.error("Failed to fetch blogs:", error);
     return null;
   }
 }
-async function fetchBlogsPage(): Promise<BlogPageData | null> {
-  try {
-    const res = await HttpService.nativeFetch<BlogPageData>("blogs", {
-      method: "GET",
-    });
-    return res || null;
-  } catch (error) {
-    console.error("Failed to fetch blogs page:", error);
-    return null;
-  }
-}
+// async function fetchBlogsPage(): Promise<BlogPageData | null> {
+//   try {
+//     const res = await HttpService.nativeFetch<BlogPageData>("blogs", {
+//       method: "GET",
+//     });
+//     return res || null;
+//   } catch (error) {
+//     console.error("Failed to fetch blogs page:", error);
+//     return null;
+//   }
+// }
 export default async function BlogPage() {
   const blogData = await fetchBlogsPage();
 

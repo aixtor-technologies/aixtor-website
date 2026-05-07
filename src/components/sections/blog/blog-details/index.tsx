@@ -1,9 +1,9 @@
+/* eslint-disable indent */
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
 import Typography from "@/components/ui/typography";
-import Grid from "@/components/ui/grid";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

@@ -1,5 +1,4 @@
 import BlogDetail from "@/components/sections/blog/blog-details";
-import BlogList from "@/components/sections/blog/blog-list";
 import BlogSlider from "@/components/sections/resources/blogs-slider";
 import BannerDetails, {
   BannerSection,
@@ -88,8 +87,8 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const badge = "Blog";
   const blogContent = blog.acf_fields.content || blog.description;
   // TODO: Fetch content_blocks and recent_blogs from API when available
-  const contentBlocks = [];
-  const recentBlogs = [];
+  const contentBlocks: any[] = [];
+  const recentBlogs: any[] = [];
 
   return (
     <>
