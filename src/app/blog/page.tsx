@@ -16,17 +16,7 @@ async function fetchBlogsPage(): Promise<any> {
     return null;
   }
 }
-// async function fetchBlogsPage(): Promise<BlogPageData | null> {
-//   try {
-//     const res = await HttpService.nativeFetch<BlogPageData>("blogs", {
-//       method: "GET",
-//     });
-//     return res || null;
-//   } catch (error) {
-//     console.error("Failed to fetch blogs page:", error);
-//     return null;
-//   }
-// }
+
 export default async function BlogPage() {
   const blogData = await fetchBlogsPage();
   return (
@@ -39,7 +29,7 @@ export default async function BlogPage() {
       <BlogList
         title={blogData?.page_header?.related?.title}
         description={blogData?.page_header?.related?.description}
-        items={blogData?.data}
+        items={Array.isArray(blogData?.data) ? blogData.data : []}
       />
       <StartConversation />
     </>
