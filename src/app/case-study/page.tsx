@@ -46,7 +46,11 @@ export default async function CaseStudyPage() {
       />
       <SuccessStories
         caseStudies={data?.data}
-        list_section={data?.page_header?.list_section}
+        list_section={
+          Array.isArray(data?.page_header?.list_section)
+            ? data?.page_header?.list_section
+            : []
+        }
       />
       <BlogSlider blogs={blogs} />
       <StartConversation />
