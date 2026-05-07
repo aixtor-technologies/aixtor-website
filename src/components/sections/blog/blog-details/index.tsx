@@ -93,15 +93,55 @@ const ContactForm = () => {
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-      <Typography variant="h3" size="h5" className="font-semibold text-dark-400 mb-4">
+      <Typography
+        variant="h3"
+        size="h5"
+        className="font-semibold text-dark-400 mb-4"
+      >
         Contact us
       </Typography>
-      <Input name="fullName" type="text" placeholder="Full name *" value={form.fullName} onChange={handleChange} variant="white" />
-      <Input name="company" type="text" placeholder="Company/organization *" value={form.company} onChange={handleChange} variant="white" />
-      <Input name="email" type="email" placeholder="Email *" value={form.email} onChange={handleChange} variant="white" />
-      <Input name="phone" type="tel" placeholder="Phone number *" value={form.phone} onChange={handleChange} variant="white" />
-      <Textarea name="message" placeholder="What you are looking for" value={form.message} onChange={handleChange} variant="white" />
-      <Button className="w-full mt-4" variant="default">Submit</Button>
+      <Input
+        name="fullName"
+        type="text"
+        placeholder="Full name *"
+        value={form.fullName}
+        onChange={handleChange}
+        variant="white"
+      />
+      <Input
+        name="company"
+        type="text"
+        placeholder="Company/organization *"
+        value={form.company}
+        onChange={handleChange}
+        variant="white"
+      />
+      <Input
+        name="email"
+        type="email"
+        placeholder="Email *"
+        value={form.email}
+        onChange={handleChange}
+        variant="white"
+      />
+      <Input
+        name="phone"
+        type="tel"
+        placeholder="Phone number *"
+        value={form.phone}
+        onChange={handleChange}
+        variant="white"
+      />
+      <Textarea
+        name="message"
+        placeholder="What you are looking for"
+        value={form.message}
+        onChange={handleChange}
+        variant="white"
+      />
+      <Button className="w-full mt-4" variant="default">
+        Submit
+      </Button>
     </div>
   );
 };
@@ -153,16 +193,27 @@ const BlogDetail = ({
               {recent_blogs.length > 0 && (
                 <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <Typography variant="h3" size="h6" className="font-semibold text-dark-400">
+                    <Typography
+                      variant="h3"
+                      size="h6"
+                      className="font-semibold text-dark-400"
+                    >
                       Recent blogs
                     </Typography>
-                    <Link href="/blog" className="text-xs text-primary hover:underline">
+                    <Link
+                      href="/blog"
+                      className="text-xs text-primary hover:underline"
+                    >
                       View all
                     </Link>
                   </div>
                   <div className="flex flex-col gap-4">
                     {recent_blogs.map(blog => (
-                      <Link key={blog.id} href={`/blog/${blog.slug}`} className="flex gap-3 group">
+                      <Link
+                        key={blog.id}
+                        href={`/blog/${blog.slug}`}
+                        className="flex gap-3 group"
+                      >
                         <div className="w-16 h-14 shrink-0 rounded-lg overflow-hidden bg-gray-100">
                           {blog.image && (
                             <Image
@@ -185,7 +236,11 @@ const BlogDetail = ({
 
               {/* Newsletter */}
               <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-                <Typography variant="h3" size="h6" className="font-semibold text-dark-400 mb-3">
+                <Typography
+                  variant="h3"
+                  size="h6"
+                  className="font-semibold text-dark-400 mb-3"
+                >
                   Subscribe to our newsletter
                 </Typography>
                 <div className="flex gap-2 items-start">
@@ -205,7 +260,11 @@ const BlogDetail = ({
             </div>
 
             {/* Contact form — direct child of aside so sticky works against full page height */}
-            <div ref={formWrapRef} className="sticky" style={{ top: stickyTop }}>
+            <div
+              ref={formWrapRef}
+              className="sticky"
+              style={{ top: stickyTop }}
+            >
               <ContactForm />
             </div>
           </aside>
