@@ -77,7 +77,7 @@ const ColumnStrip = ({ images }: { images: string[] }) => {
         {doubled.map((src, i) => (
           <div key={i} className="shrink-0 rounded-xl overflow-hidden w-44 md:w-56">
             <Image
-              src={src}
+              src={src || "/images/placeholder/placeholder.jpg"}
               alt=""
               width={224}
               height={200}

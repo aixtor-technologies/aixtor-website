@@ -26,8 +26,8 @@ const BeliefCard = ({ name, image }: BelieveItem) => (
   <div className="h-full border border-gray-200 bg-white flex flex-col items-center shadow-card-xl justify-between px-6 pt-10 pb-8 gap-8">
     <div className="w-full flex items-center justify-center h-48">
       <Image
-        src={image}
-        alt={name}
+        src={image || "/images/placeholder/placeholder.jpg"}
+        alt={name || "belief-img"}
         width={220}
         height={180}
         className="object-contain w-full h-full"

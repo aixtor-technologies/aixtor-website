@@ -1,5 +1,5 @@
 import BlogDetail from "@/components/sections/blog/blog-details";
-import BlogSlider from "@/components/sections/resources/blogs-slider";
+import BlogSlider from "@/components/shared/blogs-slider";
 import BannerDetails, {
   BannerSection,
 } from "@/components/shared/banner-details";
@@ -76,14 +76,24 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
   const bannerData = mapBlogToBannerSection(blog);
   const blogContent = blog?.acf_fields?.content || blog?.description;
+  const faqSection = blog?.acf_fields?.faq_section ?? [];
+  const recentBlogs = blogs.map((b: any) => ({
+    id: b.id,
+    title: b.acf_fields?.title || b.title,
+    image:
+      typeof b.acf_fields?.blog_image === "string"
+        ? b.acf_fields.blog_image
+        : "",
+    slug: b.slug,
+  }));
 
   return (
     <>
       <BannerDetails badge="Blog" banner_section={bannerData} />
       <BlogDetail
         content={blogContent}
-        content_blocks={[]}
-        recent_blogs={[]}
+        faq_section={faqSection}
+        recent_blogs={recentBlogs}
       />
       <BlogSlider blogs={blogs} />
     </>

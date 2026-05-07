@@ -37,8 +37,8 @@ const CaseStudyAbout = ({ data }: CaseStudyAboutProps) => {
           <Grid.Col className="w-full md:w-5/12 mb-6 md:mb-0">
             <div className="overflow-hidden">
               <Image
-                src={image}
-                alt={title}
+                src={image || "/images/placeholder/placeholder.jpg"}
+                alt={title || "about-img"}
                 width={500}
                 height={400}
                 className="w-full h-auto object-cover"

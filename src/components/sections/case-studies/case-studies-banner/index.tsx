@@ -100,8 +100,8 @@ const CaseStudyBanner = ({
             <div className="w-full rounded-xl border-2 border-dark-300 p-3">
               <div className="w-full rounded-xl border-2 border-dark-300 p-3">
                 <Image
-                  src={side_image}
-                  alt={title}
+                  src={side_image || "/images/placeholder/placeholder.jpg"}
+                  alt={title || "case-study-banner"}
                   width={560}
                   height={420}
                   sizes="(max-width: 768px) 100vw, 560px"

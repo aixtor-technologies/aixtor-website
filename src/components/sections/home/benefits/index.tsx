@@ -22,7 +22,9 @@ type Props = {
 };
 
 const Benefits = ({ key_benefits_section }: Props) => {
-  const items = key_benefits_section?.benefits_item ?? [];
+  const items = Array.isArray(key_benefits_section?.benefits_item)
+    ? key_benefits_section.benefits_item
+    : [];
 
   return (
     <section className="common-section bg-white">

@@ -38,8 +38,8 @@ const RatingSection = ({ review_highlight }: Props) => {
             <div className="-my-4">
               {item.review_image && (
                 <Image
-                  src={item.review_image}
-                  alt={item.review_label ?? ""}
+                  src={item.review_image || "/images/placeholder/placeholder.jpg"}
+                  alt={item.review_label || "review-img"}
                   width={122}
                   height={40}
                   className="h-10 w-auto inline-flex"

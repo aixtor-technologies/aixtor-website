@@ -118,8 +118,8 @@ export default async function Footer() {
                   title={social.label}
                 >
                   <Image
-                    src={social.icon!}
-                    alt={social.label}
+                    src={social.icon || "/images/placeholder/placeholder.jpg"}
+                    alt={social.label || "social-icon"}
                     width={24}
                     height={24}
                     className="size-full"
@@ -145,8 +145,8 @@ export default async function Footer() {
           {certificates.map(cert => (
             <Image
               key={cert.label}
-              src={cert.image}
-              alt={cert.label}
+              src={cert.image || "/images/placeholder/placeholder.jpg"}
+              alt={cert.label || "certificate"}
               width={70}
               height={70}
               className="h-12 md:h-16 lg:h-18 w-auto max-w-40 md:max-w-52 lg:max-w-80"

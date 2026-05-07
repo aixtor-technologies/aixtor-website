@@ -42,8 +42,8 @@ const ChallengesSection = ({ challenges_section }: Props) => {
             <div key={index} className="flex flex-col gap-4">
               <div className="w-full h-48 md:h-60 lg:h-75 overflow-hidden rounded-lg">
                 <Image
-                  src={item.image.url}
-                  alt={item.image.alt || item.title}
+                  src={item.image.url || "/images/placeholder/placeholder.jpg"}
+                  alt={item.image.alt || item.title || "challenge-img"}
                   width={600}
                   height={400}
                   className="w-full h-full object-cover"

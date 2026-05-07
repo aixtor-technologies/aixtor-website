@@ -1,0 +1,136 @@
+.prose h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin: 2rem 0 0.875rem;
+  line-height: 1.35;
+  color: var(--color-dark);
+}
+
+.prose h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.625rem;
+  line-height: 1.4;
+  color: var(--color-dark);
+}
+
+.prose h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--color-dark);
+}
+
+.prose p {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  color: var(--color-dark-400, #4b5563);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  display: block;
+}
+
+.prose ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose li {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  margin-bottom: 0.375rem;
+  color: var(--color-dark-400, #4b5563);
+}
+
+.prose a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  opacity: 0.8;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--color-dark-400, #4b5563);
+}
+
+/* FAQ */
+.faqItem {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.faqTrigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  text-align: left;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  gap: 1rem;
+}
+
+.faqTrigger:hover {
+  color: var(--color-primary);
+}
+
+.faqIcon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.2s;
+}
+
+.faqIconOpen {
+  transform: rotate(180deg);
+}
+
+.faqBody {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faqBodyOpen {
+  max-height: 600px;
+  padding-bottom: 1rem;
+}
+
+.faqDescription {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--color-dark-400, #4b5563);
+}

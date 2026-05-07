@@ -56,7 +56,9 @@ export default function HireDropdown({ options = [] }: Props) {
           className="hidden lg:flex hireBtn text-dark gap-2 px-6 h-10 md:h-12 border items-center rounded-full font-semibold"
         >
           Hire us
-          <span className={`size-5 -me-1 transition-transform ${open ? "rotate-180" : ""}`}>
+          <span
+            className={`size-5 -me-1 transition-transform ${open ? "rotate-180" : ""}`}
+          >
             <IconChevronDown />
           </span>
         </button>
@@ -85,7 +87,6 @@ export default function HireDropdown({ options = [] }: Props) {
           </div>
         )}
       </div>
-      <HeaderClassHandler />
     </>
   );
 }

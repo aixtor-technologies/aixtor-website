@@ -32,8 +32,8 @@ const StoryCardComponent = memo(
       <div className="flex flex-col h-full rounded-2xl p-4 transition-all duration-700 ease-in-out group-hover:-translate-y-1 group-hover:shadow-card-xl">
         <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-dark-200">
           <Image
-            src={image}
-            alt={title}
+            src={image || "/images/placeholder/placeholder.jpg"}
+            alt={title || "case-study-img"}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -70,7 +70,8 @@ StoryCardComponent.displayName = "StoryCard";
 // ─── SuccessStories ───────────────────────────────────────────────────────────
 
 const SuccessStories = memo(
-  ({ caseStudies, list_section }: SuccessStoriesProps) => {
+  ({ caseStudies = [], list_section }: SuccessStoriesProps) => {
+    const safeCaseStudies = Array.isArray(caseStudies) ? caseStudies : [];
     const { title, description } = list_section;
 
     return (
@@ -96,7 +97,7 @@ const SuccessStories = memo(
           </div>
 
           <Grid size="lg" className="gap-y-6 lg:gap-y-8">
-            {caseStudies?.map(story => (
+            {safeCaseStudies.map(story => (
               <Grid.Col key={story.slug} className="w-full md:w-1/2">
                 <StoryCardComponent {...story} />
               </Grid.Col>

@@ -18,7 +18,7 @@ const HireExperts = ({
       <div className="container">
         <Grid className="gap-y-4 md:gap-y-5 lg:gap-y-6">
           <Grid.Col className="md:w-6/12">
-            <Image src={imgUrl} alt={title} width={621} height={407} />
+            <Image src={imgUrl || "/images/placeholder/placeholder.jpg"} alt={title || "hire-experts-img"} width={621} height={407} />
           </Grid.Col>
           <Grid.Col className="md:w-6/12">
             <Typography size="h2" isTitle className="font-semibold mb-4">

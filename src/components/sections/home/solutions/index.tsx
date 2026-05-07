@@ -70,7 +70,9 @@ const Solutions = ({ solutions_section }: Props) => {
                     >
                       <div className="overflow-hidden">
                         <div className="px-6 pb-5">
-                          <Typography size="p">{solution.description}</Typography>
+                          <Typography size="p">
+                            {solution.description}
+                          </Typography>
                           <button className="mt-3 text-sm text-primary border-b hover:text-secondary">
                             Know more
                           </button>

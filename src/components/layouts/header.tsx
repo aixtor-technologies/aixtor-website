@@ -10,10 +10,9 @@ import HttpService from "@/shared/services/http.service";
 
 async function fetchMenu(): Promise<any> {
   try {
-    const res = await HttpService.nativeFetch<TApiResponse<any>>(
-      "menu",
-      { method: "GET" }
-    );
+    const res = await HttpService.nativeFetch<TApiResponse<any>>("menu", {
+      method: "GET",
+    });
     return res;
   } catch (error) {
     console.error("Failed to fetch Menu content:", error);
@@ -48,7 +47,7 @@ export default async function Header() {
             />
           </Link>
           <HeaderNav data={menuList} />
-          <HireDropdown options={hireOptions} />
+
           <Button href="/contact" variant="outline" className="outlineBtn">
             Let&apos;s talk
           </Button>

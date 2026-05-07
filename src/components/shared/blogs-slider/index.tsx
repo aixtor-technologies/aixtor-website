@@ -3,7 +3,7 @@
 import Typography from "@/components/ui/typography";
 import Button from "@/components/ui/button";
 import CustomSlider from "@/components/ui/custom-slider";
-import BlogCard from "../../blog/blog-card";
+import BlogCard from "../../sections/blog/blog-card";
 
 type Blog = {
   title: string;
@@ -20,9 +20,7 @@ const BlogSlider = ({ blogs = [] }: BlogSliderProps) => {
   return (
     <section className="common-section">
       <div className="container">
-        {/* ── Header row: title+desc left · button right ── */}
         <div className="flex flex-col sm:flex-row justify-between gap-6 mb-8 p-3">
-          {/* Left: title + description */}
           <div className="max-w-xl">
             <Typography
               variant="h2"
@@ -54,7 +52,7 @@ const BlogSlider = ({ blogs = [] }: BlogSliderProps) => {
           itemClassName="px-2 lg:px-3"
           className=""
         >
-          {blogs.map((blog, index) => (
+          {blogs?.map((blog, index) => (
             <div key={index} className="w-72 sm:w-80 md:w-96 h-full flex">
               <BlogCard
                 title={blog.title}

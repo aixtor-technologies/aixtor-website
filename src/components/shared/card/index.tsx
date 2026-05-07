@@ -21,8 +21,8 @@ const Card = ({ title, image, description, slug }: CardProps) => {
       </Typography>
       <Typography>{description}</Typography>
       <Image
-        src={image}
-        alt={title}
+        src={image || "/images/placeholder/placeholder.jpg"}
+        alt={title || "card-img"}
         width={654}
         height={442}
         className="mt-4 md:mt-6 lg:mt-8 w-full object-cover"
