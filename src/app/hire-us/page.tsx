@@ -3,55 +3,66 @@ import type { Metadata } from "next";
 import FaqSection from "@/components/shared/faq";
 import HireExperts from "@/components/sections/hire-us/hire-experts";
 import ServicesWeOffer from "@/components/sections/hire-us/services-we-offer";
-
-import { mapSeoToMetadata } from "@/lib/seo";
-import HttpService from "@/shared/services/http.service";
 import WhyHire from "@/components/sections/hire-us/why-hire";
 import BannerDetails from "@/components/shared/banner-details";
 
-async function fetchHomePage(): Promise<any> {
+import { mapSeoToMetadata } from "@/lib/seo";
+import HttpService from "@/shared/services/http.service";
+import { TApiResponse } from "@/shared/types";
+
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+async function fetchHireUsPage(slug: string): Promise<any> {
   try {
-    const res = await HttpService.nativeFetch<any>("page/home", {
-      method: "GET",
-    });
-    return res?.data ?? {};
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
+      `hire-developers/${slug}`,
+      { method: "GET" }
+    );
+    return res;
   } catch (error) {
-    console.error("Failed to fetch home page:", error);
-    return {};
+    console.error("Failed to fetch hire us page:", error);
+    return null;
   }
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await fetchHomePage();
-  return mapSeoToMetadata(data.seo);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await fetchHireUsPage(slug);
+  return mapSeoToMetadata(data?.data?.seo);
 }
 
-export default async function HireUsPage() {
-  const data = await fetchHomePage();
+export default async function HireUsPage({ params }: PageProps) {
+  const { slug } = await params;
+  const data = await fetchHireUsPage(slug);
+
+  const acf = data?.acf_fields;
+
+  const bannerSection = acf?.banner_section;
+  const hireExperts = acf?.hire_experts_section;
+  const servicesSection = acf?.services_section;
+  const whyHireSection = acf?.why_hire_section;
 
   return (
     <>
       <BannerDetails
         banner_section={{
-          title:
-            "Hire Liferay Developers Who Bring Experience to Every Project ",
-          description_list: [
-            { description: "Certified Liferay Developers" },
-            { description: "Enhanced communication and collaboration" },
-          ],
-          side_image: "/images/dummy/services_banner.webp",
+          title: bannerSection?.title ?? "",
+          description_list: bannerSection?.description_list ?? [],
+          side_image: bannerSection?.side_image?.url ?? bannerSection?.side_image ?? "",
         }}
       />
       <HireExperts
-        title="Hire Our Experts: We Know Liferay Inside and Out"
-        description="Being Liferay solution partners, we take pride in our Liferay developers unparalleled expertise. We have a team of certified developers who are skilled, experienced, and passionate about delivering tailored solutions to meet your needs. Hire our Liferay consultants who are up to date with Liferay's latest version and work on each project following the Liferay best practices, ensuring that no details are missed."
-        imgUrl="/images/dummy/blog1.webp"
+        title={hireExperts?.title ?? ""}
+        description={hireExperts?.description ?? ""}
+        imgUrl={hireExperts?.image?.url ?? hireExperts?.image ?? ""}
       />
       <ServicesWeOffer
-        title="Liferay Development Services We Offer"
-        description="We offer end-to-end Liferay development - from custom modules to integrations, built to fit your business needs and scale with ease. "
+        title={servicesSection?.title ?? ""}
+        description={servicesSection?.description ?? ""}
       />
-      <WhyHire title="Why Hire Liferay Developers from Aixtor?" />
+      <WhyHire title={whyHireSection?.title ?? ""} />
       <FaqSection />
     </>
   );

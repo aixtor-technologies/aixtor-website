@@ -10,6 +10,21 @@ type BannerSection = {
   description?: string;
   cta_title?: string;
   background_video?: string | null;
+  rotating_items?: {
+    href: string;
+    label: string;
+    mainImage: string;
+    icon: string;
+    className: string;
+  }[];
+  review_highlight?: {
+    review_items?: {
+      review_image: string | null;
+      review_rating: string | null;
+      review_description: string | null;
+      review_label?: string | null;
+    }[];
+  };
 };
 
 type Props = {
@@ -38,23 +53,20 @@ const Banner = ({ banner_section }: Props) => {
             </Button>
           </Grid.Col>
           <Grid.Col className="md:w-5/12 hidden md:block">
-            <BannerCircle />
+            <BannerCircle items={banner_section?.rotating_items} />
           </Grid.Col>
         </Grid>
-        <RatingSection />
+        <RatingSection review_highlight={banner_section?.review_highlight} />
       </div>
       {banner_section?.background_video && (
-        <>
-          {banner_section?.cta_title}
-          <video
-            autoPlay
-            muted
-            loop
-            className="absolute top-0 left-0 w-full h-full object-cover"
-          >
-            <source src={banner_section.background_video} type="video/mp4" />
-          </video>
-        </>
+        <video
+          autoPlay
+          muted
+          loop
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        >
+          <source src={banner_section.background_video} type="video/mp4" />
+        </video>
       )}
     </section>
   );

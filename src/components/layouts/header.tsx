@@ -11,20 +11,27 @@ import HttpService from "@/shared/services/http.service";
 async function fetchMenu(): Promise<any> {
   try {
     const res = await HttpService.nativeFetch<TApiResponse<any>>(
-      "menu/desktop-menu",
-      {
-        method: "GET",
-      }
+      "menu",
+      { method: "GET" }
     );
     return res;
   } catch (error) {
     console.error("Failed to fetch Menu content:", error);
-    return null; // Return fallback so UI can handle it
+    return null;
   }
 }
 
 export default async function Header() {
   const menuList = await fetchMenu();
+
+  const allItems = menuList?.data?.[0]?.items ?? [];
+
+  const hireItem = allItems.find((item: any) => item.is_button === true);
+  const hireOptions = (hireItem?.children ?? []).map((child: any) => ({
+    label: child.title,
+    href: child.url,
+  }));
+
   return (
     <header
       id="site-header"
@@ -41,9 +48,9 @@ export default async function Header() {
             />
           </Link>
           <HeaderNav data={menuList} />
-          <HireDropdown  />
+          <HireDropdown options={hireOptions} />
           <Button href="/contact" variant="outline" className="outlineBtn">
-            Let’s talk
+            Let&apos;s talk
           </Button>
         </div>
       </div>

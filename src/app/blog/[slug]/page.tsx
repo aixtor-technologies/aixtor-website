@@ -10,56 +10,45 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-type BlogAcfFields = {
-  category_name: boolean | string;
-  title: string;
-  blog_image: boolean | string;
-  blog_post_date: string;
-  author_name: string;
-  author_image: boolean | string;
-  author_description: string;
-  author_linkedin_url: string;
-  content: string;
-  faq_section: boolean | string;
-};
-
-type BlogApiResponse = {
-  id: number;
-  title: string;
-  description: string;
-  slug: string;
-  acf_fields: BlogAcfFields;
-  seo: any;
-};
-
-async function fetchBlog(slug: string): Promise<BlogApiResponse | null> {
+async function fetchBlog(slug: string): Promise<any> {
   try {
-    const res = await HttpService.nativeFetch<BlogApiResponse>(
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
       `blogs/${slug}`,
-      {
-        method: "GET",
-      }
+      { method: "GET" }
     );
     return res;
   } catch (error) {
     console.error("Failed to fetch Blog content:", error);
-    return null; // Return fallback so UI can handle it
+    return null;
   }
 }
 
-function mapBlogToBannerSection(blog: BlogApiResponse): BannerSection {
+async function fetchBlogs(): Promise<any[]> {
+  try {
+    const res = await HttpService.nativeFetch<TApiResponse<any>>(
+      "blogs?page=1&per_page=6",
+      { method: "GET" }
+    );
+    return res?.data ?? [];
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    return [];
+  }
+}
+
+function mapBlogToBannerSection(blog: any): BannerSection {
   const { acf_fields, title } = blog;
 
   return {
-    title: acf_fields.title || title,
+    title: acf_fields?.title || title,
     side_image: {
       url:
-        typeof acf_fields.blog_image === "string"
+        typeof acf_fields?.blog_image === "string"
           ? acf_fields.blog_image
           : "/images/icons/blog-detail.webp",
-      alt: acf_fields.title || title,
+      alt: acf_fields?.title || title,
     },
-    ...(acf_fields.author_name && {
+    ...(acf_fields?.author_name && {
       author: {
         name: acf_fields.author_name,
         avatar:
@@ -70,36 +59,33 @@ function mapBlogToBannerSection(blog: BlogApiResponse): BannerSection {
         linkedin_url: acf_fields.author_linkedin_url,
       },
     }),
-    ...(acf_fields.blog_post_date && {
+    ...(acf_fields?.blog_post_date && {
       date: acf_fields.blog_post_date,
     }),
   };
 }
+
 export default async function BlogDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const blog = await fetchBlog(slug);
+
+  const [blog, blogs] = await Promise.all([fetchBlog(slug), fetchBlogs()]);
 
   if (!blog) {
     return <div>Failed to load blog</div>;
   }
 
   const bannerData = mapBlogToBannerSection(blog);
-  const badge = "Blog";
-  const blogContent = blog.acf_fields.content || blog.description;
-  // TODO: Fetch content_blocks and recent_blogs from API when available
-  const contentBlocks: any[] = [];
-  const recentBlogs: any[] = [];
+  const blogContent = blog?.acf_fields?.content || blog?.description;
 
   return (
     <>
-      <BannerDetails badge={badge} banner_section={bannerData} />
+      <BannerDetails badge="Blog" banner_section={bannerData} />
       <BlogDetail
         content={blogContent}
-        content_blocks={contentBlocks}
-        recent_blogs={recentBlogs}
+        content_blocks={[]}
+        recent_blogs={[]}
       />
-      <BlogSlider blogs={[]} />
-      {/* other blog sections go here */}
+      <BlogSlider blogs={blogs} />
     </>
   );
 }
