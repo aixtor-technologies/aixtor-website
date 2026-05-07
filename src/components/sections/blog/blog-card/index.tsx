@@ -14,7 +14,7 @@ const BlogCard = ({ title, image, description, slug }: BlogCardProps) => {
   return (
     <div className="group h-full flex flex-col border border-dark-300 hover:shadow-card relative transition-all duration-200">
       <Image
-        src={image}
+        src={image || "/images/placeholder/placeholder.jpg"}
         alt={title || "blog-img"}
         width={480}
         height={256}
