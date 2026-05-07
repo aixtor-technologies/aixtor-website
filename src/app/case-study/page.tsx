@@ -45,12 +45,11 @@ export default async function CaseStudyPage() {
         description={data?.page_header?.banner_section?.description}
       />
       <SuccessStories
-        caseStudies={data?.data}
-        list_section={
-          Array.isArray(data?.page_header?.list_section)
-            ? data?.page_header?.list_section
-            : []
-        }
+        caseStudies={Array.isArray(data?.data) ? data.data : []}
+        list_section={{
+          title: data?.page_header?.list_section?.title ?? "",
+          description: data?.page_header?.list_section?.description ?? "",
+        }}
       />
       <BlogSlider blogs={blogs} />
       <StartConversation />
