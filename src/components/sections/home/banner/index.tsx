@@ -53,7 +53,9 @@ const Banner = ({ banner_section }: Props) => {
             </Button>
           </Grid.Col>
           <Grid.Col className="md:w-5/12 hidden md:block">
-            <BannerCircle items={banner_section?.rotating_items} />
+            <BannerCircle
+            // items={banner_section?.rotating_items} \
+            />
           </Grid.Col>
         </Grid>
         <RatingSection review_highlight={banner_section?.review_highlight} />
