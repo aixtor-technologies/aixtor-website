@@ -88,8 +88,8 @@ export default function ServicesSlider({ services }: ServicesSliderProps) {
           >
             <div className="gradient-card border px-4 md:px-6 py-6 md:py-8 rounded shadow-card h-full">
               <Image
-                src={service.image}
-                alt={service.title}
+                src={service.image || "/images/placeholder/placeholder.jpg"}
+                alt={service.title || "service-img"}
                 width={60}
                 height={60}
                 className="mb-6"

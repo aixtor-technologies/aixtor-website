@@ -43,8 +43,8 @@ const Industries = ({ industries_section }: Props) => {
               className="flex items-center gap-x-4 px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border border-dark-300 rounded-full hover:shadow-card"
             >
               <Image
-                src={industry.industry_icon}
-                alt={industry.industry_title}
+                src={industry.industry_icon || "/images/placeholder/placeholder.jpg"}
+                alt={industry.industry_title || "industry-icon"}
                 width={32}
                 height={32}
               />

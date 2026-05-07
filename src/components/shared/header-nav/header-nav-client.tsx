@@ -45,12 +45,11 @@ const MegaMenu = memo(function MegaMenu({
                     >
                       {item.icon && (
                         <Image
-                          src={item.icon}
-                          alt={item.label}
+                          src={item.icon || "/images/placeholder/placeholder.jpg"}
+                          alt={item.label || "nav-icon"}
                           width={20}
                           height={20}
                           className="size-5"
-                          //  Only the first few icons are eager — rest lazy load
                           loading={groupIndex === 0 ? "eager" : "lazy"}
                         />
                       )}
@@ -95,8 +94,8 @@ const NormalDropdown = memo(function NormalDropdown({
           >
             {item.icon && (
               <Image
-                src={item.icon}
-                alt={item.label}
+                src={item.icon || "/images/placeholder/placeholder.jpg"}
+                alt={item.label || "nav-icon"}
                 width={20}
                 height={20}
                 className="size-5"

@@ -28,7 +28,7 @@ const CircleAnimation = ({ items = [] }: Props) => {
               className={`absolute w-1/2 bottom-0 h-3/4 left-1/2 -translate-x-1/2 transition-all duration-500
                 ${item.id === activeItem?.id ? "opacity-100 scale-100 z-10" : "opacity-0 scale-110 z-0"}`}
             >
-              <Image src={item.img} alt={item.name} fill className="object-cover size-full" />
+              <Image src={item.img || "/images/placeholder/placeholder.jpg"} alt={item.name || "industry-img"} fill className="object-cover size-full" />
             </div>
           ))}
 

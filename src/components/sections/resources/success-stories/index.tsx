@@ -32,8 +32,8 @@ const StoryCardComponent = memo(
       <div className="flex flex-col h-full rounded-2xl p-4 transition-all duration-700 ease-in-out group-hover:-translate-y-1 group-hover:shadow-card-xl">
         <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-dark-200">
           <Image
-            src={image}
-            alt={title}
+            src={image || "/images/placeholder/placeholder.jpg"}
+            alt={title || "case-study-img"}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"

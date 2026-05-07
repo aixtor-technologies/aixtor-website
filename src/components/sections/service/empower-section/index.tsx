@@ -117,7 +117,7 @@ export default function EmpowerSection({
                   <div key={i} className="flex justify-center py-3">
                     <div className="w-14 h-14 md:w-18 md:h-18 lg:w-20 lg:h-20 rounded-full bg-dark-200 flex items-center justify-center shadow-sm mx-auto">
                       <Image
-                        src={item.move_up_image}
+                        src={item.move_up_image || "/images/placeholder/placeholder.jpg"}
                         alt=""
                         width={36}
                         height={36}
@@ -136,7 +136,7 @@ export default function EmpowerSection({
                   <div key={i} className="flex justify-center py-3">
                     <div className="w-14 h-14 md:w-18 md:h-18 lg:w-20 lg:h-20 rounded-full bg-dark-200 flex items-center justify-center shadow-sm mx-auto">
                       <Image
-                        src={item.move_down_image}
+                        src={item.move_down_image || "/images/placeholder/placeholder.jpg"}
                         alt=""
                         width={36}
                         height={36}

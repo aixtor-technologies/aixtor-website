@@ -27,8 +27,8 @@ const ValueCard = ({ image, title, description }: OurValueItem) => (
   <div className="h-full border border-gray-200 shadow-card-lg p-6 flex flex-col gap-6">
     <div className="w-16 h-16 flex items-start justify-start">
       <Image
-        src={image}
-        alt={title}
+        src={image || "/images/placeholder/placeholder.jpg"}
+        alt={title || "value-img"}
         width={64}
         height={64}
         className="object-contain"

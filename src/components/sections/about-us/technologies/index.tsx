@@ -25,7 +25,7 @@ type TechnologiesProps = {
 const TechCard = ({ image }: TechnologyItem) => (
   <div className="flex items-center justify-center py-6 px-4">
     <Image
-      src={image}
+      src={image || "/images/placeholder/placeholder.jpg"}
       alt=""
       width={160}
       height={60}

@@ -38,8 +38,8 @@ const VisionMission = ({
           <Grid.Col className="md:w-5/12 mb-6 md:mb-0">
             <div className=" overflow-hidden w-full shadow-card-xl ">
               <Image
-                src={vision_section.image}
-                alt={vision_section.title}
+                src={vision_section.image || "/images/placeholder/placeholder.jpg"}
+                alt={vision_section.title || "vision-img"}
                 width={540}
                 height={380}
                 className="w-full h-auto object-cover"
@@ -86,8 +86,8 @@ const VisionMission = ({
           <Grid.Col className="md:w-5/12 order-1 md:order-2">
             <div className=" overflow-hidden w-full shadow-card-xl">
               <Image
-                src={mission_section.image}
-                alt={mission_section.title}
+                src={mission_section.image || "/images/placeholder/placeholder.jpg"}
+                alt={mission_section.title || "mission-img"}
                 width={540}
                 height={380}
                 className="w-full h-auto object-cover"

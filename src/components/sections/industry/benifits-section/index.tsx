@@ -45,8 +45,8 @@ export default function BenifitsSection({ data }: BenefitsSectionProps) {
               <div className="flex items-start gap-4 md:gap-5">
                 <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center">
                   <Image
-                    src={item.icon.url}
-                    alt={item.icon.alt || item.title}
+                    src={item.icon.url || "/images/placeholder/placeholder.jpg"}
+                    alt={item.icon.alt || item.title || "benefit-icon"}
                     width={56}
                     height={56}
                     className="w-full h-full object-contain"

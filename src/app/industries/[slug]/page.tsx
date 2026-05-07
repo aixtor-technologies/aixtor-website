@@ -1,6 +1,6 @@
 import BenifitsSection from "@/components/sections/industry/benifits-section";
 import TelecomChallenges from "@/components/sections/industry/challenges";
-import BlogSlider from "@/components/sections/resources/blogs-slider";
+import BlogSlider from "@/components/shared/blogs-slider";
 import MigrateToLiferaySection from "@/components/sections/service/migrate-to-liferay";
 
 import Banner from "@/components/shared/banner";
@@ -49,8 +49,12 @@ export default async function IndustryDetailPage({ params }: PageProps) {
 
   if (!industry?.acf_fields) return null;
 
-  const { banner_section, challenges_section, aixtor_help, maximizing_manufacturing } =
-    industry.acf_fields;
+  const {
+    banner_section,
+    challenges_section,
+    aixtor_help,
+    maximizing_manufacturing,
+  } = industry.acf_fields;
 
   const imageSrc =
     typeof banner_section?.side_image === "string"
@@ -61,9 +65,9 @@ export default async function IndustryDetailPage({ params }: PageProps) {
 
   const migrateData = aixtor_help
     ? {
-      heading: aixtor_help.heading || "",
-      cta_title: "",
-      migrate_to_liferay:
+        heading: aixtor_help.heading || "",
+        cta_title: "",
+        migrate_to_liferay:
           aixtor_help.help?.map((item: any) => ({
             title: item?.title || "",
             description: item?.description || "",
@@ -73,7 +77,7 @@ export default async function IndustryDetailPage({ params }: PageProps) {
                 : item?.side_image?.url || "",
             read_more_link: item?.read_more?.url || "#",
           })) || [],
-    }
+      }
     : undefined;
 
   return (

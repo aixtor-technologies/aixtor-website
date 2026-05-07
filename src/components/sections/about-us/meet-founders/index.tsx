@@ -31,8 +31,8 @@ const FounderCard = ({ founders_section }: FounderItem) => {
       {/* Photo */}
       <div className="relative w-full aspect-3/4">
         <Image
-          src={image}
-          alt={name}
+          src={image || "/images/placeholder/placeholder.jpg"}
+          alt={name || "founder-img"}
           width={336}
           height={387}
           className="object-cover object-top transition-transform duration-700 group-hover:scale-105"

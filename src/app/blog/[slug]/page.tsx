@@ -1,5 +1,5 @@
 import BlogDetail from "@/components/sections/blog/blog-details";
-import BlogSlider from "@/components/sections/resources/blogs-slider";
+import BlogSlider from "@/components/shared/blogs-slider";
 import BannerDetails, {
   BannerSection,
 } from "@/components/shared/banner-details";
@@ -80,7 +80,10 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const recentBlogs = blogs.map((b: any) => ({
     id: b.id,
     title: b.acf_fields?.title || b.title,
-    image: typeof b.acf_fields?.blog_image === "string" ? b.acf_fields.blog_image : "",
+    image:
+      typeof b.acf_fields?.blog_image === "string"
+        ? b.acf_fields.blog_image
+        : "",
     slug: b.slug,
   }));
 

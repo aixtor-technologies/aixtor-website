@@ -28,8 +28,8 @@ const BenefitCard = ({ title, icon, description }: Benefit) => (
     <div className="flex items-center gap-4">
       <div className="w-14 h-14 md:w-17 md:h-17 rounded-full flex items-center justify-center shrink-0 shadow-sm">
         <Image
-          src={icon.url}
-          alt={icon.alt || title}
+          src={icon.url || "/images/placeholder/placeholder.jpg"}
+          alt={icon.alt || title || "benefit-icon"}
           width={36}
           height={36}
           className="object-contain"

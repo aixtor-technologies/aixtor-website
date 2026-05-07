@@ -104,8 +104,8 @@ export default function BannerDetails({
                     {/* Avatar */}
                     <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-dark-300">
                       <Image
-                        src={author!.avatar}
-                        alt={author!.name}
+                        src={author!.avatar || "/images/placeholder/placeholder.jpg"}
+                        alt={author!.name || "author-avatar"}
                         width={48}
                         height={48}
                         className="w-full h-full object-cover"
@@ -198,8 +198,8 @@ export default function BannerDetails({
             <div className="w-full max-w-140 rounded-xl border-2 border-dark-300 p-3">
               <div className="w-full rounded-xl border-2 border-dark-300 p-3">
                 <Image
-                  src={imageSrc}
-                  alt={imageAlt}
+                  src={imageSrc || "/images/placeholder/placeholder.jpg"}
+                  alt={imageAlt || "banner-img"}
                   width={560}
                   height={420}
                   sizes="(max-width: 768px) 100vw, 560px"

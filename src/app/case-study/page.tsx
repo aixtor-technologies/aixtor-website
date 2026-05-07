@@ -1,4 +1,4 @@
-import BlogSlider from "@/components/sections/resources/blogs-slider";
+import BlogSlider from "@/components/shared/blogs-slider";
 import SuccessStories from "@/components/sections/resources/success-stories";
 import Banner from "@/components/shared/banner";
 import StartConversation from "@/components/shared/start-conversation";
@@ -44,7 +44,10 @@ export default async function CaseStudyPage() {
         imgUrl={data?.page_header?.banner_section?.side_image}
         description={data?.page_header?.banner_section?.description}
       />
-      <SuccessStories caseStudies={data?.data} list_section={data?.page_header?.list_section} />
+      <SuccessStories
+        caseStudies={data?.data}
+        list_section={data?.page_header?.list_section}
+      />
       <BlogSlider blogs={blogs} />
       <StartConversation />
     </>

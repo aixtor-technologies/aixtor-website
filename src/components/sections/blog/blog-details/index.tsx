@@ -217,8 +217,8 @@ const BlogDetail = ({
                         <div className="w-16 h-14 shrink-0 rounded-lg overflow-hidden bg-gray-100">
                           {blog.image && (
                             <Image
-                              src={blog.image}
-                              alt={blog.title}
+                              src={blog.image || "/images/placeholder/placeholder.jpg"}
+                              alt={blog.title || "blog-img"}
                               width={64}
                               height={56}
                               className="w-full h-full object-cover"

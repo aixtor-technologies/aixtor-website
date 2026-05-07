@@ -116,15 +116,15 @@ const BannerCircle = () => {
               className="cycleImg"
             >
               <Image
-                src={item.mainImage}
-                alt={item.label}
+                src={item.mainImage || "/images/placeholder/placeholder.jpg"}
+                alt={item.label || "circle-img"}
                 width={80}
                 height={80}
                 className="mainImg"
               />
               <Image
-                src={item.icon}
-                alt={item.label}
+                src={item.icon || "/images/placeholder/placeholder.jpg"}
+                alt={item.label || "circle-icon"}
                 width={36}
                 height={36}
                 className="innerIcon"

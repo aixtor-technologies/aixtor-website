@@ -1,3 +1,4 @@
+import HeaderClassHandler from "../header-class-handler";
 import HeaderNavClient from "./header-nav-client";
 
 export type MenuItem = {
@@ -52,7 +53,6 @@ export type ApiResponse = {
 
 function transformNavLinks(items: ApiItem[]): NavLink[] {
   return items
-    .filter(item => !item.is_button)
     .map(item => {
       if (!item.children || item.children.length === 0) {
         return { label: item.title, href: item.url };
@@ -72,7 +72,13 @@ function transformNavLinks(items: ApiItem[]): NavLink[] {
           }
           return {
             title: "",
-            items: [{ label: group.title, href: group.url, icon: group.icon || undefined }],
+            items: [
+              {
+                label: group.title,
+                href: group.url,
+                icon: group.icon || undefined,
+              },
+            ],
           };
         });
 
@@ -118,5 +124,10 @@ export default function HeaderNav({ data }: { data: ApiResponse }) {
     return null;
   }
 
-  return <HeaderNavClient navLinks={navLinks} />;
+  return (
+    <>
+      <HeaderNavClient navLinks={navLinks} />
+      <HeaderClassHandler />
+    </>
+  );
 }

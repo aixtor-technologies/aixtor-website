@@ -31,8 +31,8 @@ const Banner = ({ title, imgUrl, description }: BannerProps) => {
           <Grid.Col className="md:w-6/12 lg:w-5/12">
             <div className="imgbox rounded-lg shadow-card mx-auto w-10/12 md:w-full">
               <Image
-                src={imgUrl}
-                alt="title"
+                src={imgUrl || "/images/placeholder/placeholder.jpg"}
+                alt={title || "banner-img"}
                 width={654}
                 height={442}
                 className="rounded-lg w-full"

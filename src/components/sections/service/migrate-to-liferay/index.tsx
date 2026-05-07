@@ -140,8 +140,8 @@ export default function MigrateToLiferaySection({
                 <div className="w-full lg:w-1/2 min-w-0 flex justify-center lg:justify-start">
                   <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
                     <Image
-                      src={activeItem.image}
-                      alt={activeItem.title}
+                      src={activeItem.image || "/images/placeholder/placeholder.jpg"}
+                      alt={activeItem.title || "migrate-img"}
                       width={453}
                       height={296}
                       className="w-full h-auto object-contain shadow-card-xl"
