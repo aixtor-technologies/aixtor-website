@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "https://dev.aixtor.com",
+        hostname: "dev.aixtor.com",
         port: "",
         pathname: "/**",
       },
