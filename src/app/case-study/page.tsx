@@ -51,7 +51,7 @@ export default async function CaseStudyPage() {
           description: data?.page_header?.list_section?.description ?? "",
         }}
       />
-      <BlogSlider blogs={blogs} />
+      <BlogSlider blogs={Array.isArray(blogs) ? blogs : []} />
       <StartConversation />
     </>
   );
