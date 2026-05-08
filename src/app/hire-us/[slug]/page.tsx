@@ -9,6 +9,9 @@ import BannerDetails from "@/components/shared/banner-details";
 import { mapSeoToMetadata } from "@/lib/seo";
 import HttpService from "@/shared/services/http.service";
 import { TApiResponse } from "@/shared/types";
+import EngagementModels from "@/components/sections/hire-us/engagement-models";
+import TechnologiesTabs from "@/components/sections/hire-us/technologies";
+import HiringProcess from "@/components/sections/hire-us/hiring-process";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -63,6 +66,9 @@ export default async function HireUsPage({ params }: PageProps) {
         description={servicesSection?.description ?? ""}
       />
       <WhyHire title={whyHireSection?.title ?? ""} />
+      <EngagementModels />
+      <TechnologiesTabs />
+      <HiringProcess />
       <FaqSection />
     </>
   );

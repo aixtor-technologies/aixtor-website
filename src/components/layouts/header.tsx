@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
 import HireDropdown from "@/components/shared/hire-btn";
+import SearchModal from "@/components/shared/search-modal";
 
 import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
@@ -48,9 +49,12 @@ export default async function Header() {
           </Link>
           <HeaderNav data={menuList} />
 
-          <Button href="/contact" variant="outline" className="outlineBtn">
-            Let&apos;s talk
-          </Button>
+          <div className="flex items-center gap-2 shrink-0">
+            <SearchModal />
+            <Button href="/contact" variant="outline" className="outlineBtn">
+              Let&apos;s talk
+            </Button>
+          </div>
         </div>
       </div>
     </header>

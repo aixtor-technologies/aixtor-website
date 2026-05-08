@@ -1,17 +1,25 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 import Grid from "@/components/ui/grid";
 import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
-
 import IconUp from "@/components/shared/icons/up";
+
+type SolutionItem = {
+  id: number;
+  slug: string;
+  title: string;
+  description: string | null;
+  image: string | null;
+};
 
 type SolutionsSection = {
   heading_title?: string;
   description?: string;
   cta_button?: string;
-  solution_items?: { title: string; description: string; image?: string }[];
+  solution_item?: SolutionItem[];
 };
 
 type Props = {
@@ -20,7 +28,7 @@ type Props = {
 
 const Solutions = ({ solutions_section }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const items = solutions_section?.solution_items ?? [];
+  const items = solutions_section?.solution_item ?? [];
 
   return (
     <section className="">
@@ -36,7 +44,7 @@ const Solutions = ({ solutions_section }: Props) => {
               </Typography>
             </Grid.Col>
             <Grid.Col className="md:w-4/12 md:text-end">
-              <Button href="">{solutions_section?.cta_button}</Button>
+              <Button href="/solutions">{solutions_section?.cta_button}</Button>
             </Grid.Col>
           </Grid>
         </div>
@@ -46,7 +54,7 @@ const Solutions = ({ solutions_section }: Props) => {
               <div className="space-y-0 border-x border-t border-black/10 rounded">
                 {items.map((solution, index) => (
                   <div
-                    key={solution.title}
+                    key={solution.id}
                     className={`transition-all duration-300 border rounded
                       ${activeIndex === index ? " gradient-card active" : "border-t-dark-300 border-x-dark-300 border-b-dark-300"}`}
                   >
@@ -70,12 +78,15 @@ const Solutions = ({ solutions_section }: Props) => {
                     >
                       <div className="overflow-hidden">
                         <div className="px-6 pb-5">
-                          <Typography size="p">
-                            {solution.description}
-                          </Typography>
-                          <button className="mt-3 text-sm text-primary border-b hover:text-secondary">
+                          {solution.description && (
+                            <Typography size="p">{solution.description}</Typography>
+                          )}
+                          <Link
+                            href={`/solutions/${solution.slug}`}
+                            className="mt-3 inline-block text-sm text-primary border-b hover:text-secondary"
+                          >
                             Know more
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
