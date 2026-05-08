@@ -5,9 +5,9 @@ import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 
 type BenefitItem = {
-  title: string;
-  description: string;
-  icon?: string;
+  benefits_icon?: string;
+  benefits_title: string;
+  benefits_description: string;
 };
 
 type KeyBenefitsSection = {
@@ -41,7 +41,7 @@ const Benefits = ({ key_benefits_section }: Props) => {
             alt="Benefits Left"
             width={812}
             height={672}
-            className="absolute left-0 hidden md:block object-contain w-full h-full "
+            className="absolute left-0 hidden md:block object-contain w-full h-full"
             style={{ aspectRatio: "812/672" }}
           />
           {[0, 2, 4].map(start => (
@@ -49,22 +49,25 @@ const Benefits = ({ key_benefits_section }: Props) => {
               className={`relative z-2 gap-y-4 ${start === 2 ? "justify-between" : "justify-evenly"}`}
               key={start}
             >
-              {items?.slice(start, start + 2).map(item => (
-                <Grid.Col key={item.title} className="md:w-4/12">
+              {items.slice(start, start + 2).map(item => (
+                <Grid.Col key={item.benefits_title} className="md:w-4/12">
                   <div className="gradient-card body-border py-3 lg:py-4 px-4 lg:px-6 border-2 rounded-xl">
-                    {item.icon && (
+                    {item.benefits_icon && (
                       <Image
-                        src={item.icon}
-                        alt={item.title}
+                        src={item.benefits_icon}
+                        alt={item.benefits_title}
                         width={60}
                         height={60}
                         className="mb-4 size-15 p-2"
                       />
                     )}
                     <Typography size="h5" className="font-semibold mb-1">
-                      {item.title}
+                      {item.benefits_title}
                     </Typography>
-                    <Typography>{item.description}</Typography>
+                    <div
+                      className="prose prose-sm"
+                      dangerouslySetInnerHTML={{ __html: item.benefits_description }}
+                    />
                   </div>
                 </Grid.Col>
               ))}

@@ -21,29 +21,29 @@ export function mapSeoToMetadata(
   siteName = "AIXTOR Technologies"
 ): Metadata {
   return {
-    title: seo.meta_title || siteName,
-    description: seo.meta_description,
-    keywords: seo.meta_keywords ?? undefined,
+    title: seo?.meta_title || siteName,
+    description: seo?.meta_description,
+    keywords: seo?.meta_keywords ?? undefined,
     alternates: {
-      canonical: seo.canonical_url || undefined,
+      canonical: seo?.canonical_url || undefined,
     },
     openGraph: {
-      title: seo.og_title,
-      description: seo.og_description,
+      title: seo?.og_title,
+      description: seo?.og_description,
       type:
-        seo.og_type && seo.og_type !== "default"
+        seo?.og_type && seo.og_type !== "default"
           ? (seo.og_type as any)
           : "website",
-      images: seo.og_image_url ? [{ url: seo.og_image_url }] : undefined,
+      images: seo?.og_image_url ? [{ url: seo.og_image_url }] : undefined,
       siteName,
     },
     twitter: {
       card:
-        seo.twitter_card === "default" ? "summary" : (seo.twitter_card as any),
-      title: seo.twitter_title,
-      description: seo.twitter_description,
-      images: seo.twitter_image_url ? [seo.twitter_image_url] : undefined,
+        seo?.twitter_card === "default" ? "summary" : (seo?.twitter_card as any),
+      title: seo?.twitter_title,
+      description: seo?.twitter_description,
+      images: seo?.twitter_image_url ? [seo?.twitter_image_url] : undefined,
     },
-    robots: seo.robots?.length ? seo.robots.join(", ") : "index, follow",
+    robots: seo?.robots?.length ? seo.robots.join(", ") : "index, follow",
   };
 }
