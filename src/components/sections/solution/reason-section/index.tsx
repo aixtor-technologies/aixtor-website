@@ -35,14 +35,25 @@ const FeatureItem = ({ text }: { text: string }) => (
   </li>
 );
 
-const ReasonsSection = ({ reasons_section }: Props) => {
+const ReasonsSection = ({
+  reasons_section,
+  isDark = false,
+}: Props & { isDark?: boolean }) => {
   const { title, reasons_list } = reasons_section;
 
   return (
-    <section className="common-section bg-dark-200">
+    <section
+      className={`common-section ${isDark ? "bg-dark-200" : "bg-white"}`}
+    >
       <div className="container">
         <div className="text-center common-heading">
-          <Typography variant="h2" size="h3" isTitle isCenter className="text-dark">
+          <Typography
+            variant="h2"
+            size="h3"
+            isTitle
+            isCenter
+            className="text-dark"
+          >
             {title}
           </Typography>
         </div>

@@ -54,7 +54,7 @@ export default async function SolutionDetailPage({ params }: PageProps) {
       />
       <UltimateSection ultimate_section={ultimate_section} />
       <ChallengesSection challenges_section={challenges_section} />
-      <ReasonsSection reasons_section={reasons_section} />
+      <ReasonsSection reasons_section={reasons_section} isDark />
       <BenefitsSection benefits_section={benefits_section} />
       <FaqSection faq_section={faq_section} />
       <CaseStudies />

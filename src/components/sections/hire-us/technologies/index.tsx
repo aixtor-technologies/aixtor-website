@@ -87,7 +87,7 @@ const TechnologiesTabs = ({
         </div>
 
         {/* Tab bar */}
-        <div className="border-b border-gray-200 mb-8">
+        <div className="border-b border-gray-200 mb-8 overflow-x-auto">
           <div className="flex gap-0 justify-center">
             {tabs.map((tab, i) => {
               const isActive = i === activeIndex;
