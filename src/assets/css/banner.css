@@ -55,7 +55,10 @@
   position: relative;
 }
 
-/* 🔥 NEW: OUTSIDE clip-path (this is the fix) */
+.banner-case-studies-wrapper {
+  overflow-x: clip;
+}
+
 .banner-case-studies-shape {
   position: absolute;
   top: -20px; /* 🔥 adjust based on visual */

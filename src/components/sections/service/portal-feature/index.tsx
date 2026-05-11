@@ -44,7 +44,7 @@ const PortalFeature = ({ customizable_section }: PortalFeatureProps) => {
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           {/* ── LEFT: circles ── */}
-          <div className="w-full lg:w-1/2 shrink-0 relative h-72 sm:h-80 md:h-96">
+          <div className="w-full lg:w-1/2 shrink-0 relative h-72 sm:h-80 md:h-96 lg:h-110">
             {CIRCLES.map((c, i) => {
               const imgSrc = customizable_section[c.key as keyof PortalFeatureSection];
               if (!imgSrc) return null;

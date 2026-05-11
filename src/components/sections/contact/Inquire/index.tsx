@@ -6,7 +6,7 @@ import Typography from "@/components/ui/typography";
 
 export default function InquireNow() {
   return (
-    <section className="bg-white py-16 px-12">
+    <section className="bg-white py-10 px-4 sm:px-6 md:px-8 lg:py-16 lg:px-12">
 
       {/* Header */}
       <div className="text-center mb-10">

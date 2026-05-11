@@ -27,10 +27,6 @@ export default async function Header() {
   const allItems = menuList?.data?.[0]?.items ?? [];
 
   const hireItem = allItems.find((item: any) => item.is_button === true);
-  const hireOptions = (hireItem?.children ?? []).map((child: any) => ({
-    label: child.title,
-    href: child.url,
-  }));
 
   return (
     <header

@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 type MigrateItem = {
   image: string;
@@ -19,7 +21,12 @@ type Section = {
   migrate_to_liferay: MigrateItem[];
 };
 
-const WHEEL_THROTTLE = 600;
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+const ANIM_DURATION = 500; // ms — must match CSS
+const WHEEL_THROTTLE = ANIM_DURATION + 100;
+
+// ─── MigrateToLiferaySection ──────────────────────────────────────────────────
 
 export default function MigrateToLiferaySection({
   migrate_to_liferay_section,
@@ -27,7 +34,9 @@ export default function MigrateToLiferaySection({
   migrate_to_liferay_section?: Section;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState<"up" | "down">("up");
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
   );
@@ -39,66 +48,73 @@ export default function MigrateToLiferaySection({
   const items = migrate_to_liferay_section?.migrate_to_liferay ?? [];
   const lastIndex = items.length - 1;
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+  // Keep ref in sync
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  const goTo = (next: number, dir: "up" | "down") => {
-    setDirection(dir);
-    setActiveIndex(next);
-  };
+  // Resize listener
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // ── Navigate ────────────────────────────────────────────────────────────────
+
+  const goTo = useCallback(
+    (next: number, dir: "up" | "down") => {
+      if (isAnimating) return;
+      setPrevIndex(activeIndexRef.current);
+      setDirection(dir);
+      setActiveIndex(next);
+      setIsAnimating(true);
+      setTimeout(() => {
+        setPrevIndex(null);
+        setIsAnimating(false);
+      }, ANIM_DURATION);
+    },
+    [isAnimating]
+  );
+
+  // ── Wheel handler ───────────────────────────────────────────────────────────
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || !items.length) return;
 
-    const handleWheel = (e: WheelEvent) => {
+    const onWheel = (e: WheelEvent) => {
       if (throttleRef.current) return;
-
       const current = activeIndexRef.current;
       const isDown = e.deltaY > 0;
-
-      // Check boundaries first
-      if ((isDown && current === lastIndex) || (!isDown && current === 0)) {
+      if ((isDown && current === lastIndex) || (!isDown && current === 0))
         return;
-      }
 
-      throttleRef.current = true;
       e.preventDefault();
-
-      // Update immediately for better UX
-      goTo(isDown ? current + 1 : current - 1, isDown ? "down" : "up");
-
-      // Reset throttle
+      throttleRef.current = true;
+      goTo(isDown ? current + 1 : current - 1, isDown ? "up" : "down");
       setTimeout(() => {
         throttleRef.current = false;
       }, WHEEL_THROTTLE);
     };
 
-    section.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () => {
-      section.removeEventListener("wheel", handleWheel);
-    };
-  }, [items.length, lastIndex]);
+    section.addEventListener("wheel", onWheel, { passive: false });
+    return () => section.removeEventListener("wheel", onWheel);
+  }, [items.length, lastIndex, goTo]);
 
   if (!migrate_to_liferay_section || !items.length) return null;
 
   const { heading, cta_title } = migrate_to_liferay_section;
-  const activeItem = items[activeIndex];
+
+  // Enter: new slide comes FROM below (up) or above (down)
+  // Exit:  old slide goes TO above (up) or below (down)
+  const enterClass = direction === "up" ? "slide-enter-up" : "slide-enter-down";
+  const exitClass = direction === "up" ? "slide-exit-up" : "slide-exit-down";
 
   return (
-    <section
-      ref={sectionRef}
-      className="common-section bg-dark-200"
-    >
+    <section ref={sectionRef} className="common-section bg-dark-200 relative pb-20 md:pb-24">
       <div className="container">
+        {/* Heading */}
         <Typography
           variant="h2"
           size="h2"
@@ -110,13 +126,15 @@ export default function MigrateToLiferaySection({
         </Typography>
 
         <div className="relative">
-          {/* Dots - Hidden on mobile */}
+          {/* Desktop dots */}
           {!isMobile && (
             <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4 w-12">
               {items.map((_, i) => (
                 <button
-                  key={`dot-${i}`}
-                  onClick={() => goTo(i, i > activeIndex ? "up" : "down")}
+                  key={i}
+                  onClick={() =>
+                    !isAnimating && goTo(i, i > activeIndex ? "up" : "down")
+                  }
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     i === activeIndex ? "bg-secondary scale-110" : "bg-dark-300"
                   }`}
@@ -127,58 +145,48 @@ export default function MigrateToLiferaySection({
             </div>
           )}
 
-          {/* Slide */}
-          <div className="overflow-visible">
-            <div
-              key={`${activeIndex}-${direction}`}
-              className={
-                direction === "up" ? "animate-slide-up" : "animate-slide-down"
-              }
-            >
-              <div className="flex flex-col lg:flex-row items-center justify-start gap-8 sm:gap-10 md:gap-12 lg:gap-16 lg:ml-16">
-                {/* Image - Left side */}
-                <div className="w-full lg:w-1/2 min-w-0 flex justify-center lg:justify-start">
-                  <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
-                    <Image
-                      src={activeItem.image || "/images/placeholder/placeholder.jpg"}
-                      alt={activeItem.title || "migrate-img"}
-                      width={453}
-                      height={296}
-                      className="w-full h-auto object-contain shadow-card-xl"
-                      priority={activeIndex === 0}
-                    />
-                  </div>
-                </div>
-
-                {/* Content - Right side */}
-                <div className="w-full lg:w-1/2 min-w-0 flex flex-col gap-3 sm:gap-4 justify-center">
-                  <Typography variant="h3" size="h4" className="text-dark">
-                    {activeItem.title}
-                  </Typography>
-                  <Typography
-                    size="p"
-                    className="text-dark-400 leading-relaxed text-sm sm:text-base"
-                  >
-                    {activeItem.description.trim()}
-                  </Typography>
-                </div>
+          {/* Slide container — clips overflow */}
+          <div
+            className="overflow-hidden relative"
+            style={{ minHeight: "320px" }}
+          >
+            {/* Exiting slide */}
+            {prevIndex !== null && (
+              <div
+                key={`exit-${prevIndex}`}
+                className={`slide-item ${exitClass}`}
+              >
+                <SlideContent item={items[prevIndex]} ml={!isMobile} />
               </div>
+            )}
+
+            {/* Entering slide */}
+            <div
+              key={`enter-${activeIndex}`}
+              className={`slide-item ${enterClass}`}
+            >
+              <SlideContent
+                item={items[activeIndex]}
+                ml={!isMobile}
+                priority={activeIndex === 0}
+              />
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation Dots */}
+        {/* Mobile dots */}
         {isMobile && (
           <div className="flex justify-center gap-2 mt-6">
             {items.map((_, i) => (
               <button
-                key={`mobile-dot-${i}`}
-                onClick={() => goTo(i, i > activeIndex ? "up" : "down")}
+                key={i}
+                onClick={() =>
+                  !isAnimating && goTo(i, i > activeIndex ? "up" : "down")
+                }
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   i === activeIndex ? "bg-secondary scale-110" : "bg-dark-300"
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
-                aria-current={i === activeIndex}
               />
             ))}
           </div>
@@ -192,17 +200,88 @@ export default function MigrateToLiferaySection({
       </div>
 
       <style>{`
-        @keyframes slideInUp {
-          0% { opacity: 0; transform: translateY(60px); }
-          100% { opacity: 1; transform: translateY(0); }
+        .slide-item {
+          position: absolute;
+          inset: 0;
+          width: 100%;
         }
-        @keyframes slideInDown {
-          0% { opacity: 0; transform: translateY(-60px); }
-          100% { opacity: 1; transform: translateY(0); }
+
+        /* ── Enter animations: new slide comes IN ── */
+        @keyframes enterFromBottom {
+          from { opacity: 0; transform: translateY(60px); }
+          to   { opacity: 1; transform: translateY(0);    }
         }
-        .animate-slide-up { animation: slideInUp 0.8s ease-out both; }
-        .animate-slide-down { animation: slideInDown 0.8s ease-out both; }
+        @keyframes enterFromTop {
+          from { opacity: 0; transform: translateY(-60px); }
+          to   { opacity: 1; transform: translateY(0);     }
+        }
+
+        /* ── Exit animations: old slide goes OUT ── */
+        @keyframes exitToTop {
+          from { opacity: 1; transform: translateY(0);    }
+          to   { opacity: 0; transform: translateY(-60px); }
+        }
+        @keyframes exitToBottom {
+          from { opacity: 1; transform: translateY(0);   }
+          to   { opacity: 0; transform: translateY(60px); }
+        }
+
+        .slide-enter-up   { animation: enterFromBottom ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+        .slide-enter-down { animation: enterFromTop    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+        .slide-exit-up    { animation: exitToTop       ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+        .slide-exit-down  { animation: exitToBottom    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
       `}</style>
+
+      {/* Bottom slope — right high, left low */}
+      <div
+        className="absolute bottom-0 left-0 w-full h-20 md:h-24 bg-white pointer-events-none"
+        style={{ clipPath: "polygon(100% 0, 0 100%, 100% 100%)" }}
+      />
     </section>
+  );
+}
+
+// ─── SlideContent ─────────────────────────────────────────────────────────────
+
+function SlideContent({
+  item,
+  ml = false,
+  priority = false,
+}: {
+  item: MigrateItem;
+  ml?: boolean;
+  priority?: boolean;
+}) {
+  return (
+    <div
+      className={`flex flex-col lg:flex-row items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 ${ml ? "lg:ml-16" : ""}`}
+    >
+      {/* Image */}
+      <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+        <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
+          <Image
+            src={item.image || "/images/placeholder/placeholder.jpg"}
+            alt={item.title || "slide-img"}
+            width={453}
+            height={296}
+            className="w-full h-auto object-contain shadow-card-xl"
+            priority={priority}
+          />
+        </div>
+      </div>
+
+      {/* Text */}
+      <div className="w-full lg:w-1/2 flex flex-col gap-3 sm:gap-4 justify-center">
+        <Typography variant="h3" size="h4" className="text-dark">
+          {item.title}
+        </Typography>
+        <Typography
+          size="p"
+          className="text-dark-400 leading-relaxed text-sm sm:text-base"
+        >
+          {item.description.trim()}
+        </Typography>
+      </div>
+    </div>
   );
 }

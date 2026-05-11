@@ -111,7 +111,7 @@ export default function EmpowerSection({
           </div>
 
           <div ref={containerRef} className="w-full lg:w-1/2 min-w-0 flex justify-center items-center gap-4 md:gap-6 lg:gap-8">
-            <div className="w-20 md:w-25 lg:w-30 h-70 md:h-85 lg:h-95 overflow-hidden shrink-0">
+            <div className="w-16 sm:w-20 md:w-25 lg:w-30 h-60 sm:h-70 md:h-85 lg:h-95 overflow-hidden shrink-0">
               <Slider ref={upSliderRef} {...sliderSettings}>
                 {move_up_image_list.map((item, i) => (
                   <div key={i} className="flex justify-center py-3">
@@ -130,7 +130,7 @@ export default function EmpowerSection({
             </div>
 
             {/* DOWN slider */}
-            <div className="w-20 md:w-25 lg:w-30 h-70 md:h-85 lg:h-95 overflow-hidden shrink-0">
+            <div className="w-16 sm:w-20 md:w-25 lg:w-30 h-60 sm:h-70 md:h-85 lg:h-95 overflow-hidden shrink-0">
               <Slider ref={downSliderRef} {...sliderSettings} rtl={true}>
                 {move_down_image_list.map((item, i) => (
                   <div key={i} className="flex justify-center py-3">

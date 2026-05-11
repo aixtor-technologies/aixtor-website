@@ -13,11 +13,13 @@ const MegaMenu = memo(function MegaMenu({
   gridClass,
   className,
   useSplitMegaLayout,
+  onLinkClick,
 }: {
   groups: MenuItem[];
   gridClass: string;
   className?: string;
   useSplitMegaLayout: boolean;
+  onLinkClick: () => void;
 }) {
   return (
     <div>
@@ -41,6 +43,7 @@ const MegaMenu = memo(function MegaMenu({
                   <li key={item.label}>
                     <Link
                       href={item.href}
+                      onClick={onLinkClick}
                       className="flex p-3 md:p-0 items-center gap-3 border-b border-dark-300 md:border-0 text-dark hover:text-primary text-sm"
                     >
                       {item.icon && (
@@ -70,6 +73,7 @@ const MegaMenu = memo(function MegaMenu({
         </p>
         <Link
           href="/contact"
+          onClick={onLinkClick}
           className="bg-white text-black px-5 py-2 rounded-full text-sm font-medium"
         >
           Contact Us
@@ -81,8 +85,10 @@ const MegaMenu = memo(function MegaMenu({
 
 const NormalDropdown = memo(function NormalDropdown({
   items,
+  onLinkClick,
 }: {
   items: DropdownItem[];
+  onLinkClick: () => void;
 }) {
   return (
     <ul className="flex flex-col md:gap-2">
@@ -90,6 +96,7 @@ const NormalDropdown = memo(function NormalDropdown({
         <li key={item.label}>
           <Link
             href={item.href}
+            onClick={onLinkClick}
             className="flex p-3 md:p-0 items-center gap-3 border-b border-dark-300 md:border-0 text-dark hover:text-primary text-sm"
           >
             {item.icon && (
@@ -111,8 +118,6 @@ const NormalDropdown = memo(function NormalDropdown({
 });
 
 // ─── Nav Item ─────────────────────────────────────────────────────────────────
-// Memoized per-item component so only the hovered item re-renders,
-// not the entire nav list.
 
 const NavItem = memo(function NavItem({
   link,
@@ -121,6 +126,7 @@ const NavItem = memo(function NavItem({
   onEnter,
   onLeave,
   onToggle,
+  onLinkClick,
 }: {
   link: NavLink;
   index: number;
@@ -128,6 +134,7 @@ const NavItem = memo(function NavItem({
   onEnter: (i: number) => void;
   onLeave: () => void;
   onToggle: (i: number) => void;
+  onLinkClick: () => void;
 }) {
   const hasDropdown = !!link.dropdown;
 
@@ -142,7 +149,11 @@ const NavItem = memo(function NavItem({
           isOpen ? "border-dark-300" : "border-dark-300 md:border-transparent"
         }`}
       >
-        <Link href={link.href} className="text-sm lg:text-base font-semibold">
+        <Link
+          href={link.href}
+          onClick={onLinkClick}
+          className="text-sm lg:text-base font-semibold"
+        >
           {link.label}
         </Link>
 
@@ -166,7 +177,7 @@ const NavItem = memo(function NavItem({
       {hasDropdown && (
         <div
           className={`
-            md:absolute left-0 top-full bg-white rounded-2xl md:shadow-xl p-4 md:p-6 transition-all duration-200 w-full 
+            md:absolute left-0 top-full bg-white rounded-2xl md:shadow-xl p-4 md:p-6 transition-all duration-200 w-full
             ${link.megamenu ? "md:w-3xl" : "md:w-54"}
             ${isOpen ? "opacity-100 visible block" : "hidden md:block md:opacity-0 md:invisible"}
           `}
@@ -176,9 +187,13 @@ const NavItem = memo(function NavItem({
               groups={link.dropdown as MenuItem[]}
               gridClass={link.megaMenuGridClass ?? "grid-cols-1"}
               useSplitMegaLayout={link.useSplitMegaLayout ?? false}
+              onLinkClick={onLinkClick}
             />
           ) : (
-            <NormalDropdown items={link.dropdown as DropdownItem[]} />
+            <NormalDropdown
+              items={link.dropdown as DropdownItem[]}
+              onLinkClick={onLinkClick}
+            />
           )}
         </div>
       )}
@@ -196,12 +211,16 @@ export default function HeaderNavClient({ navLinks }: { navLinks: NavLink[] }) {
     (i: number) => setOpenIndex(prev => (prev === i ? null : i)),
     []
   );
+  const handleLinkClick = useCallback(() => {
+    setOpenMenu(false);
+    setOpenIndex(null);
+  }, []);
 
   return (
     <div className="order-1 md:order-0">
       <button
         className="size-8 block lg:hidden"
-        onClick={() => setOpenMenu(!openMenu)}
+        onClick={() => setOpenMenu(prev => !prev)}
       >
         <IconMenu />
       </button>
@@ -217,6 +236,7 @@ export default function HeaderNavClient({ navLinks }: { navLinks: NavLink[] }) {
             onEnter={handleEnter}
             onLeave={handleLeave}
             onToggle={handleToggle}
+            onLinkClick={handleLinkClick}
           />
         ))}
       </nav>

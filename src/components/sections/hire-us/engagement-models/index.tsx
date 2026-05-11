@@ -20,49 +20,6 @@ type EngagementModelsProps = {
   models?: EngagementModel[];
 };
 
-// ─── Static fallback ──────────────────────────────────────────────────────────
-
-const DEFAULT_MODELS: EngagementModel[] = [
-  {
-    title: "Dedicated Engagaement",
-    icon: "/images/engagement/dedicated.svg",
-    features: [
-      "Full-time availability",
-      "8 hours a day, 5 days a week",
-      "160 hours/month",
-      "Flexible 30-day billing cycle",
-      "Fast and seamless onboarding",
-    ],
-    cta_title: "Hire Now",
-    cta_href: "/contact",
-  },
-  {
-    title: "Flexible Collaboration",
-    icon: "/images/engagement/flexible.svg",
-    features: [
-      "Part-time availability",
-      "4 hours a day, 5 days a week",
-      "80 hours/month",
-      "Flexible 30-day billing cycle",
-      "Smooth onboarding in just one week",
-    ],
-    cta_title: "Hire Now",
-    cta_href: "/contact",
-  },
-  {
-    title: "Ad-Hoc Expertise",
-    icon: "/images/engagement/adhoc.svg",
-    features: [
-      "On-demand, tailored availability",
-      "Flexible hours based on project needs",
-      "Total hours vary by scope",
-      "30-day billing cycle",
-      "Quick onboarding as needed",
-    ],
-    cta_title: "Hire Now",
-    cta_href: "/contact",
-  },
-];
 // ─── ModelCard ────────────────────────────────────────────────────────────────
 
 const ModelCard = ({
@@ -73,7 +30,6 @@ const ModelCard = ({
   cta_href,
 }: EngagementModel) => (
   <div className="h-full border border-gray-200 rounded-2xl bg-white flex flex-col px-6 pt-6 pb-7 gap-6">
-    {/* Title with gradient underline — underline matches text width */}
     <div className="flex flex-col items-center">
       <div className="inline-block">
         <Typography
@@ -87,7 +43,6 @@ const ModelCard = ({
       </div>
     </div>
 
-    {/* Icon */}
     <div className="flex justify-center">
       <Image
         src={icon}
@@ -98,7 +53,6 @@ const ModelCard = ({
       />
     </div>
 
-    {/* Feature list */}
     <ul className="flex flex-col gap-3 flex-1">
       {features.map(f => (
         <li key={f} className="flex items-start gap-2.5">
@@ -114,7 +68,6 @@ const ModelCard = ({
       ))}
     </ul>
 
-    {/* CTA */}
     {cta_title && (
       <div className="flex justify-center pt-2">
         <Button href={cta_href ?? "/contact"} variant="default">
@@ -128,19 +81,17 @@ const ModelCard = ({
 // ─── EngagementModels ─────────────────────────────────────────────────────────
 
 const EngagementModels = ({
-  title = "Engagement Models That Fit Your Needs",
-  models = DEFAULT_MODELS,
+  title,
+  models = [],
 }: EngagementModelsProps) => (
   <section className="common-section bg-[#f4f4f6]">
     <div className="container">
-      {/* Heading */}
       <div className="flex flex-col items-center mb-10 lg:mb-14">
         <Typography variant="h2" size="h3" isTitle isCenter>
           {title}
         </Typography>
       </div>
 
-      {/* Cards */}
       <Grid size="lg">
         {models.map(model => (
           <Grid.Col key={model.title} className="w-full md:w-1/3 mb-6 md:mb-0">

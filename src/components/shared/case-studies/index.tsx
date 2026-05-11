@@ -55,7 +55,7 @@ async function fetchCaseStudies(): Promise<CaseStudySection> {
 }
 
 const CaseStudyCard = memo(({ item }: { item: CaseStudyItem }) => (
-  <div className="p-2.5 bg-white w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card">
+  <div className="p-2.5 bg-white w-72 sm:w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card">
     <Image
       src={item.details.image || "/images/placeholder/placeholder.jpg"}
       alt={item.details.title || "case-study-img"}
