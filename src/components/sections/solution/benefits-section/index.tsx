@@ -55,7 +55,7 @@ const BenefitsSection = ({ benefits_section }: Props) => {
 
   return (
     <section className="common-section bg-white">
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         <div className="text-center common-heading">
           <Typography variant="h2" size="h3" isTitle isCenter className="text-dark-500">
             {benefits_heading}

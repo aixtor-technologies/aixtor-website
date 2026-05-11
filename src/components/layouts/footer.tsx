@@ -16,42 +16,22 @@ type FooterApiResponse = {
       phone: string;
       copyrights: string;
       certificates: { label: string; image: string; redirect_url: string }[];
-      social_icons: {
-        label: string;
-        icon: string | null;
-        redirect_url: string;
+      social_icons: { label: string; icon: string | null; redirect_url: string }[];
+      footer_menu_item: {
+        menu_title: string;
+        menu_list: { field_69fdc14ea7ea3: string; field_69fdc14ea7ea4: string }[];
       }[];
     };
   };
 };
 
-type MenuApiResponse = {
-  status: string;
-  data: {
-    items: {
-      title: string;
-      children: { title: string; url: string }[];
-    }[];
-  };
-};
-
 export default async function Footer() {
-  const [footerRes, menuRes] = await Promise.allSettled([
-    HttpService.nativeFetch<FooterApiResponse>("common-options/footer", {
-      method: "GET",
-    }),
-    HttpService.nativeFetch<MenuApiResponse>("menu/footer-menu", {
-      method: "GET",
-    }),
-  ]);
+  const footerRes = await HttpService.nativeFetch<FooterApiResponse>(
+    "common-options/footer",
+    { method: "GET" }
+  ).catch(() => null);
 
-  const footer =
-    footerRes.status === "fulfilled" ? footerRes.value?.data?.footer : null;
-
-  const menuItems =
-    menuRes.status === "fulfilled"
-      ? (menuRes.value?.data?.items ?? [])
-      : [];
+  const footer = footerRes?.data?.footer ?? null;
 
   const indiaAddress = footer?.india_address ?? "";
   const usAddress = footer?.us_address ?? "";
@@ -60,6 +40,7 @@ export default async function Footer() {
   const copyrights = footer?.copyrights ?? "";
   const certificates = footer?.certificates ?? [];
   const socialIcons = footer?.social_icons ?? [];
+  const menuItems = footer?.footer_menu_item ?? [];
 
   return (
     <footer className="pt-8 lg:pt-10 xl:pt-12 pb-2 bg-white">
@@ -131,10 +112,16 @@ export default async function Footer() {
           <Grid.Col className="md:w-8/12">
             <Grid>
               {menuItems.map(group => (
-                <Grid.Col key={group.title} className="sm:w-6/12 md:w-4/12">
+                <Grid.Col key={group.menu_title} className="sm:w-6/12 md:w-4/12">
                   <FooterMenuSection
-                    title={group.title}
-                    groups={[{ title: "", items: group.children }]}
+                    title={group.menu_title}
+                    groups={[{
+                      title: "",
+                      items: group.menu_list.map(item => ({
+                        title: item.field_69fdc14ea7ea3,
+                        url: `/${item.field_69fdc14ea7ea4}`,
+                      })),
+                    }]}
                   />
                 </Grid.Col>
               ))}

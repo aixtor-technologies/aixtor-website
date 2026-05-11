@@ -34,12 +34,8 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
   };
 
   return (
-    // 🔥 NEW: wrapper (VERY IMPORTANT - outside clip-path)
-    <section className="relative">
-      {/* 🔥 NEW: shape moved OUTSIDE clipped section */}
+    <section className="relative banner-case-studies-wrapper">
       <div className="banner-case-studies-shape" />
-
-      {/* ORIGINAL SECTION (unchanged clip-path) */}
       <section
         className="banner-case-studies bg-[#f4f4f6] pb-16 lg:pb-20 overflow-hidden"
         style={{
@@ -63,6 +59,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
                   name="fullName"
                   placeholder="Full name *"
                   value={form.fullName}
+                  variant="white"
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -73,6 +70,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
                   name="company"
                   placeholder="Company/organization*"
                   value={form.company}
+                  variant="white"
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -86,6 +84,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
                   name="email"
                   placeholder="Email*"
                   value={form.email}
+                  variant="white"
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -96,6 +95,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
                   name="phone"
                   placeholder="Phone number*"
                   value={form.phone}
+                  variant="white"
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -109,7 +109,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
                 value={form.message}
                 onChange={handleChange}
                 rows={5}
-                className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-dark-400 placeholder:text-dark-200 resize-y focus:outline-none focus:ring-1 focus:ring-primary transition"
+                className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-dark-400 placeholder:text-dark-200 resize-y focus:outline-none focus:ring-1 focus:ring-gray-300 transition"
               />
             </div>
 

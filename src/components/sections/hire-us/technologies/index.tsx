@@ -21,65 +21,20 @@ type TechnologiesTabsProps = {
   tabs?: TechTab[];
 };
 
-// ─── Static fallback ──────────────────────────────────────────────────────────
-
-const DEFAULT_TABS: TechTab[] = [
-  {
-    label: "UI",
-    items: [
-      { name: "HTML5", logo: "/images/AX-logo.svg" },
-      { name: "CSS3", logo: "/images/AX-logo.svg" },
-      { name: "React", logo: "/images/AX-logo.svg" },
-      { name: "Bootstrap", logo: "/images/AX-logo.svg" },
-    ],
-  },
-  {
-    label: "Framework",
-    items: [
-      { name: "Next.js", logo: "/images/AX-logo.svg" },
-      { name: "Spring Boot", logo: "/images/AX-logo.svg" },
-      { name: "Node.js", logo: "/images/AX-logo.svg" },
-      { name: "Angular", logo: "/images/AX-logo.svg" },
-    ],
-  },
-  {
-    label: "Hosting",
-    items: [
-      { name: "AWS", logo: "/images/AX-logo.svg" },
-      { name: "Azure", logo: "/images/AX-logo.svg" },
-      { name: "GCP", logo: "/images/AX-logo.svg" },
-    ],
-  },
-  {
-    label: "Database",
-    items: [
-      { name: "MySQL", logo: "/images/AX-logo.svg" },
-      { name: "PostgreSQL", logo: "/images/AX-logo.svg" },
-      { name: "MongoDB", logo: "/images/AX-logo.svg" },
-    ],
-  },
-  {
-    label: "Search",
-    items: [
-      { name: "Elasticsearch", logo: "/images/AX-logo.svg" },
-      { name: "Solr", logo: "/images/AX-logo.svg" },
-    ],
-  },
-];
-
 // ─── TechnologiesTabs ─────────────────────────────────────────────────────────
 
 const TechnologiesTabs = ({
-  title = "Technologies",
-  tabs = DEFAULT_TABS,
+  title,
+  tabs = [],
 }: TechnologiesTabsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTab = tabs[activeIndex];
 
+  if (!tabs.length) return null;
+
   return (
     <section className="common-section bg-white">
       <div className="container">
-        {/* Heading */}
         <div className="flex flex-col items-center mb-8 lg:mb-10">
           <Typography variant="h2" size="h3" isTitle isCenter>
             {title}
@@ -101,7 +56,6 @@ const TechnologiesTabs = ({
                   `}
                 >
                   {tab.label}
-                  {/* Active underline */}
                   {isActive && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full" />
                   )}

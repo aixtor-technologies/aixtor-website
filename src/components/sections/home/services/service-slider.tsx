@@ -24,7 +24,7 @@ export default function ServicesSlider({ services }: ServicesSliderProps) {
       arrow
       arrowBehavior="disable"
       className="gap-4"
-      itemClassName="w-[85%] sm:w-[60%] lg:w-[33.33%]"
+      itemClassName="w-[85%] sm:w-[60%] md:w-[45%] lg:w-[33.33%]"
     >
       {services.map((service) => (
         <div
