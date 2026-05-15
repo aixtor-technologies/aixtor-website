@@ -15,6 +15,7 @@ export type DropdownItem = {
 export type NavLink = {
   label: string;
   href: string;
+  isButton?: boolean;
   megamenu?: boolean;
   dropdown?: MenuItem[] | DropdownItem[];
   megaMenuGridClass?: string;
@@ -55,7 +56,7 @@ function transformNavLinks(items: ApiItem[]): NavLink[] {
   return items
     .map(item => {
       if (!item.children || item.children.length === 0) {
-        return { label: item.title, href: item.url };
+        return { label: item.title, href: item.url, isButton: item.is_button };
       }
 
       if (item.is_mega_menu) {
@@ -91,6 +92,7 @@ function transformNavLinks(items: ApiItem[]): NavLink[] {
         return {
           label: item.title,
           href: item.url,
+          isButton: item.is_button,
           megamenu: true,
           dropdown: groups,
           megaMenuGridClass,
@@ -101,6 +103,7 @@ function transformNavLinks(items: ApiItem[]): NavLink[] {
       return {
         label: item.title,
         href: item.url,
+        isButton: item.is_button,
         megamenu: false,
         dropdown: item.children.map(child => ({
           label: child.title,

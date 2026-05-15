@@ -112,7 +112,10 @@ export default function MigrateToLiferaySection({
   const exitClass = direction === "up" ? "slide-exit-up" : "slide-exit-down";
 
   return (
-    <section ref={sectionRef} className="common-section bg-dark-200 relative pb-20 md:pb-24">
+    <section
+      ref={sectionRef}
+      className="common-section bg-dark-200 relative pb-20 md:pb-24"
+    >
       <div className="container">
         {/* Heading */}
         <Typography
@@ -240,8 +243,6 @@ export default function MigrateToLiferaySection({
     </section>
   );
 }
-
-// ─── SlideContent ─────────────────────────────────────────────────────────────
 
 function SlideContent({
   item,

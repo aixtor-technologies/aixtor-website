@@ -7,6 +7,7 @@ import { useState, useCallback, memo } from "react";
 import IconMenu from "@/components/shared/icons/menu";
 import type { NavLink, MenuItem, DropdownItem } from "./index";
 import IconChevronDown from "@/components/shared/icons/chevron-down";
+import Button from "@/components/ui/button";
 
 const MegaMenu = memo(function MegaMenu({
   groups,
@@ -48,7 +49,9 @@ const MegaMenu = memo(function MegaMenu({
                     >
                       {item.icon && (
                         <Image
-                          src={item.icon || "/images/placeholder/placeholder.jpg"}
+                          src={
+                            item.icon || "/images/placeholder/placeholder.jpg"
+                          }
                           alt={item.label || "nav-icon"}
                           width={20}
                           height={20}
@@ -137,6 +140,7 @@ const NavItem = memo(function NavItem({
   onLinkClick: () => void;
 }) {
   const hasDropdown = !!link.dropdown;
+  const isButtonStyle = !!link.isButton;
 
   return (
     <div
@@ -144,35 +148,48 @@ const NavItem = memo(function NavItem({
       onPointerEnter={e => e.pointerType === "mouse" && onEnter(index)}
       onPointerLeave={e => e.pointerType === "mouse" && onLeave()}
     >
-      <div
-        className={`navItem w-full md:w-auto flex m-auto items-center gap-1 px-4 py-3 md:px-3 md:py-2 md:rounded-full border-b md:border transition-all duration-100 justify-between ${
-          isOpen ? "border-dark-300" : "border-dark-300 md:border-transparent"
-        }`}
-      >
-        <Link
-          href={link.href}
-          onClick={onLinkClick}
-          className="text-sm lg:text-base font-semibold"
-        >
-          {link.label}
-        </Link>
-
-        {hasDropdown && (
-          <button
+      {isButtonStyle ? (
+        <div className="flex m-auto items-center">
+          <Button
+            variant="outline"
+            rounded="default"
             onClick={() => onToggle(index)}
-            className="lg:hidden size-5"
-            aria-label={`Toggle ${link.label} menu`}
           >
-            <IconChevronDown />
-          </button>
-        )}
+            {link.label}
+            {hasDropdown && <IconChevronDown />}
+          </Button>
+        </div>
+      ) : (
+        <div
+          className={`navItem w-full md:w-auto flex m-auto items-center gap-1 px-4 py-3 md:px-3 md:py-2 md:rounded-full border-b md:border transition-all duration-100 justify-between ${
+            isOpen ? "border-dark-300" : "border-dark-300 md:border-transparent"
+          }`}
+        >
+          <Link
+            href={link.href}
+            onClick={onLinkClick}
+            className="text-sm lg:text-base font-semibold"
+          >
+            {link.label}
+          </Link>
 
-        {hasDropdown && (
-          <span className="hidden lg:block size-5 -me-0.5" aria-hidden>
-            <IconChevronDown />
-          </span>
-        )}
-      </div>
+          {hasDropdown && (
+            <button
+              onClick={() => onToggle(index)}
+              className="lg:hidden size-5"
+              aria-label={`Toggle ${link.label} menu`}
+            >
+              <IconChevronDown />
+            </button>
+          )}
+
+          {hasDropdown && (
+            <span className="hidden lg:block size-5 -me-0.5" aria-hidden>
+              <IconChevronDown />
+            </span>
+          )}
+        </div>
+      )}
 
       {hasDropdown && (
         <div

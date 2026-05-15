@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@keyframes toast-slide-in {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.toast-slide-in {
+  animation: toast-slide-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 @theme inline {
   /* Breakpoints */
   --breakpoint-2xl: 1400px;
