@@ -152,7 +152,7 @@ const NavItem = memo(function NavItem({
         <div className="flex m-auto items-center">
           <Button
             variant="outline"
-            rounded="default"
+            className="isButton"
             onClick={() => onToggle(index)}
           >
             {link.label}
@@ -161,7 +161,7 @@ const NavItem = memo(function NavItem({
         </div>
       ) : (
         <div
-          className={`navItem w-full md:w-auto flex m-auto items-center gap-1 px-4 py-3 md:px-3 md:py-2 md:rounded-full border-b md:border transition-all duration-100 justify-between ${
+          className={`navItem w-full md:w-auto flex m-auto items-center gap-0.5 xl:gap-1 px-4 py-3 lg:px-2 xl:px-3 md:py-2 md:rounded-full border-b md:border transition-all duration-100 justify-between ${
             isOpen ? "border-dark-300" : "border-dark-300 md:border-transparent"
           }`}
         >
@@ -234,15 +234,15 @@ export default function HeaderNavClient({ navLinks }: { navLinks: NavLink[] }) {
   }, []);
 
   return (
-    <div className="order-1 md:order-0">
+    <div className="order-1 lg:order-0">
       <button
-        className="size-8 block lg:hidden"
+        className="size-8 block lg:hidden menuButton"
         onClick={() => setOpenMenu(prev => !prev)}
       >
         <IconMenu />
       </button>
       <nav
-        className={`${openMenu ? "block" : "hidden md:block"} max-h-96 md:max-h-fit absolute inset-s-0 top-full md:static bg-white md:bg-transparent w-full md:w-auto p-4 md:p-0 md:flex items-center gap-2 font-medium overflow-auto md:overflow-visible`}
+        className={`${openMenu ? "block" : "hidden lg:flex"} max-h-96 md:max-h-fit absolute inset-s-0 top-full md:static bg-white md:bg-transparent w-full md:w-auto p-4 md:p-0 items-center gap-2 lg:gap-1 xl:gap-2 font-medium overflow-auto md:overflow-visible`}
       >
         {navLinks?.map((link, index) => (
           <NavItem

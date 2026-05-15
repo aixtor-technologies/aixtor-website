@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
-import SearchModal from "@/components/shared/search-modal";
+// import SearchModal from "@/components/shared/search-modal";
 
 import { TApiResponse } from "@/shared/types";
 import HttpService from "@/shared/services/http.service";
@@ -23,23 +23,23 @@ async function fetchMenu(): Promise<any> {
 export default async function Header() {
   const menuList = await fetchMenu();
 
-  const allItems = menuList?.data?.[0]?.items ?? [];
-
-  const hireItem = allItems.find((item: any) => item.is_button === true);
-
   return (
     <header
       id="site-header"
-      className="py-4 md:py-0 fixed top-0 inset-s-0 w-full z-50 backdrop-blur-lg transition-all duration-200"
+      className="py-4 lg:py-0 fixed top-0 inset-s-0 w-full z-50 backdrop-blur-lg transition-all duration-200"
     >
       <div className="container">
         <div className="flex gap-2 items-center justify-between">
-          <Link href="/" className="logo w-32 md:w-36 xl:w-40 shrink-0">
+          <Link
+            href="/"
+            className="logo w-32 md:w-36 xl:w-40 shrink-0 me-auto lg:me-0"
+          >
             <Image
               src="/images/logo.svg"
               alt="Aixtor Logo"
               width={135}
               height={29}
+              className="w-full"
             />
           </Link>
           <HeaderNav data={menuList} />
