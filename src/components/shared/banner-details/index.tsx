@@ -174,7 +174,7 @@ export default function BannerDetails({
                           height={18}
                           className="mt-1 shrink-0"
                         />
-                        <Typography size="p" className="text-dark-400">
+                        <Typography size="p" className="text-dark-400 font-bold">
                           {item.description.trim()}
                         </Typography>
                       </li>

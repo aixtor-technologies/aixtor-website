@@ -3,7 +3,6 @@ import Image from "next/image";
 
 import Button from "@/components/ui/button";
 import HeaderNav from "@/components/shared/header-nav";
-import HireDropdown from "@/components/shared/hire-btn";
 import SearchModal from "@/components/shared/search-modal";
 
 import { TApiResponse } from "@/shared/types";
@@ -46,7 +45,7 @@ export default async function Header() {
           <HeaderNav data={menuList} />
 
           <div className="flex items-center gap-2 shrink-0">
-            <SearchModal />
+            {/* <SearchModal /> */}
             <Button href="/contact" variant="outline" className="outlineBtn">
               Let&apos;s talk
             </Button>

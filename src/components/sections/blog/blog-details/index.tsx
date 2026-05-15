@@ -4,10 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import ReCAPTCHA from "react-google-recaptcha";
 import Typography from "@/components/ui/typography";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 import Button from "@/components/ui/button";
+import HttpService from "@/shared/services/http.service";
+import Toast from "@/components/shared/toast";
 import styles from "./style.module.css";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -79,70 +82,65 @@ const FaqAccordion = ({ items }: { items: FaqItem[] }) => {
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 
 const ContactForm = () => {
-  const [form, setForm] = useState({
-    fullName: "",
-    company: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const token = recaptchaRef.current?.getValue();
+    if (!token) { setError("Please complete the reCAPTCHA."); return; }
+    setLoading(true);
+    setError("");
+    try {
+      await HttpService.nativePost("contact-submission", {
+        full_name: form.fullName,
+        company: form.company,
+        email: form.email,
+        phone: form.phone,
+        message: form.message,
+        recaptcha_token: token,
+        form_type: "blog-contact-us-enquiry",
+      });
+      setSubmitted(true);
+      setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
+      recaptchaRef.current?.reset();
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-      <Typography
-        variant="h3"
-        size="h5"
-        className="font-semibold text-dark-400 mb-4"
-      >
-        Contact us
-      </Typography>
-      <Input
-        name="fullName"
-        type="text"
-        placeholder="Full name *"
-        value={form.fullName}
-        onChange={handleChange}
-        variant="white"
-      />
-      <Input
-        name="company"
-        type="text"
-        placeholder="Company/organization *"
-        value={form.company}
-        onChange={handleChange}
-        variant="white"
-      />
-      <Input
-        name="email"
-        type="email"
-        placeholder="Email *"
-        value={form.email}
-        onChange={handleChange}
-        variant="white"
-      />
-      <Input
-        name="phone"
-        type="tel"
-        placeholder="Phone number *"
-        value={form.phone}
-        onChange={handleChange}
-        variant="white"
-      />
-      <Textarea
-        name="message"
-        placeholder="What you are looking for"
-        value={form.message}
-        onChange={handleChange}
-        variant="white"
-      />
-      <Button className="w-full mt-4" variant="default">
-        Submit
-      </Button>
-    </div>
+    <>
+      {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
+      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <Typography variant="h3" size="h5" className="font-semibold text-dark-400 mb-4">
+          Contact us
+        </Typography>
+        <Input name="fullName" type="text" placeholder="Full name *" value={form.fullName} onChange={handleChange} variant="white" required />
+        <Input name="company" type="text" placeholder="Company/organization *" value={form.company} onChange={handleChange} variant="white" required />
+        <Input name="email" type="email" placeholder="Email *" value={form.email} onChange={handleChange} variant="white" required />
+        <Input name="phone" type="tel" placeholder="Phone number *" value={form.phone} onChange={handleChange} variant="white" required />
+        <Textarea name="message" placeholder="What you are looking for" value={form.message} onChange={handleChange} variant="white" />
+        <div className="mt-4">
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+          />
+        </div>
+        {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+        <Button className="w-full mt-4" variant="default" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </Button>
+      </form>
+    </>
   );
 };
 
