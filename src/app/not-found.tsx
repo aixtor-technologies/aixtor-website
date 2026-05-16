@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-white">
       <Image
-        src="/images/error.svg"
+        src="/images/404-error.svg"
         alt="Page not found"
         width={400}
         height={300}
