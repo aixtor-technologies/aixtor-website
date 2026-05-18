@@ -1,5 +1,6 @@
 import BlogDetail from "@/components/sections/blog/blog-details";
 import BlogSlider from "@/components/shared/blogs-slider";
+import FaqSection from "@/components/shared/faq";
 import BannerDetails, {
   BannerSection,
 } from "@/components/shared/banner-details";
@@ -33,6 +34,16 @@ async function fetchBlogs(): Promise<any[]> {
   } catch (error) {
     console.error("Failed to fetch blogs:", error);
     return [];
+  }
+}
+
+async function fetchBlogImage(slug: string): Promise<string> {
+  try {
+    const res = await HttpService.nativeFetch<any>(`blogs/${slug}`, { method: "GET" });
+    const img = res?.acf_fields?.blog_image;
+    return typeof img === "string" ? img : typeof img === "object" && img?.url ? img.url : "";
+  } catch {
+    return "";
   }
 }
 
@@ -76,14 +87,17 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
   const bannerData = mapBlogToBannerSection(blog);
   const blogContent = blog?.acf_fields?.content || blog?.description;
-  const faqSection = blog?.acf_fields?.faq_section ?? [];
-  const recentBlogs = blogs.map((b: any) => ({
+  const faqSection = { faq: blog?.acf_fields?.faq_section ?? [] };
+
+  // List API returns image:null — fetch each blog individually to get the actual image
+  const blogImages = await Promise.all(
+    blogs.map((b: any) => fetchBlogImage(b.slug))
+  );
+
+  const recentBlogs = blogs.map((b: any, i: number) => ({
     id: b.id,
-    title: b.acf_fields?.title || b.title,
-    image:
-      typeof b.acf_fields?.blog_image === "string"
-        ? b.acf_fields.blog_image
-        : "",
+    title: b.title,
+    image: blogImages[i],
     slug: b.slug,
   }));
 
@@ -92,9 +106,9 @@ export default async function BlogDetailPage({ params }: PageProps) {
       <BannerDetails badge="Blog" banner_section={bannerData} />
       <BlogDetail
         content={blogContent}
-        faq_section={faqSection}
         recent_blogs={recentBlogs}
       />
+      <FaqSection faq_section={faqSection} />
       <BlogSlider blogs={blogs} />
     </>
   );

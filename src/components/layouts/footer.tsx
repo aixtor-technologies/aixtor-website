@@ -16,10 +16,17 @@ type FooterApiResponse = {
       phone: string;
       copyrights: string;
       certificates: { label: string; image: string; redirect_url: string }[];
-      social_icons: { label: string; icon: string | null; redirect_url: string }[];
+      social_icons: {
+        label: string;
+        icon: string | null;
+        redirect_url: string;
+      }[];
       footer_menu_item: {
         menu_title: string;
-        menu_list: { field_69fdc14ea7ea3: string; field_69fdc14ea7ea4: string }[];
+        menu_list: {
+          field_69fdc14ea7ea3: string;
+          field_69fdc14ea7ea4: string;
+        }[];
       }[];
     };
   };
@@ -41,6 +48,14 @@ export default async function Footer() {
   const certificates = footer?.certificates ?? [];
   const socialIcons = footer?.social_icons ?? [];
   const menuItems = footer?.footer_menu_item ?? [];
+
+  const [liferayServices, websiteServices, solution, company] = menuItems;
+
+  const toItems = (group: (typeof menuItems)[0] | undefined) =>
+    (group?.menu_list ?? []).map(item => ({
+      title: item.field_69fdc14ea7ea3,
+      url: item.field_69fdc14ea7ea4 ? `/${item.field_69fdc14ea7ea4}` : "/",
+    }));
 
   return (
     <footer className="pt-8 lg:pt-10 xl:pt-12 pb-2 bg-white">
@@ -111,20 +126,28 @@ export default async function Footer() {
           </Grid.Col>
           <Grid.Col className="md:w-8/12">
             <Grid>
-              {menuItems.map(group => (
-                <Grid.Col key={group.menu_title} className="sm:w-6/12 md:w-4/12">
-                  <FooterMenuSection
-                    title={group.menu_title}
-                    groups={[{
-                      title: "",
-                      items: group.menu_list.map(item => ({
-                        title: item.field_69fdc14ea7ea3,
-                        url: `/${item.field_69fdc14ea7ea4}`,
-                      })),
-                    }]}
-                  />
-                </Grid.Col>
-              ))}
+              <Grid.Col className="sm:w-6/12 md:w-4/12 flex flex-col gap-8">
+                <FooterMenuSection
+                  title={liferayServices?.menu_title ?? ""}
+                  items={toItems(liferayServices)}
+                />
+                <FooterMenuSection
+                  title={company?.menu_title ?? ""}
+                  items={toItems(company)}
+                />
+              </Grid.Col>
+              <Grid.Col className="sm:w-6/12 md:w-4/12">
+                <FooterMenuSection
+                  title={websiteServices?.menu_title ?? ""}
+                  items={toItems(websiteServices)}
+                />
+              </Grid.Col>
+              <Grid.Col className="sm:w-6/12 md:w-4/12">
+                <FooterMenuSection
+                  title={solution?.menu_title ?? ""}
+                  items={toItems(solution)}
+                />
+              </Grid.Col>
             </Grid>
           </Grid.Col>
         </Grid>
@@ -140,8 +163,12 @@ export default async function Footer() {
             />
           ))}
         </div>
+        {/** privacy policy and cookies policy */}
         <div className="border-t border-t-dark-300 py-3 md:py-4 text-center">
-          <div dangerouslySetInnerHTML={{ __html: copyrights }} />
+          <div
+            className="[&_a]:transition-colors [&_a]:duration-300 [&_a:hover]:text-primary"
+            dangerouslySetInnerHTML={{ __html: copyrights }}
+          />
         </div>
       </div>
     </footer>

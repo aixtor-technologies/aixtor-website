@@ -10,13 +10,13 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 const baseClasses =
-  "block w-full rounded-lg border-0 text-base transition-colors outline-none focus:ring-0";
+  "block w-full rounded-lg border text-base transition-colors outline-none focus:ring-0";
 
 const variantClasses: Record<Variant, string> = {
   default:
-    "bg-dark-200 text-black border-slate-200 placeholder:text-slate-400 focus:border-primary",
+    "bg-dark-200 text-black border-transparent placeholder:text-slate-400 focus:border-primary",
   white:
-    "bg-white text-black border-white placeholder:text-slate-400 focus:border-white",
+    "bg-white text-black border-slate-200 placeholder:text-slate-400 focus:border-slate",
 };
 
 const sizeClasses: Record<Size, string> = {

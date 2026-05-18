@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import DOMPurify from "dompurify";
 
 type SafeHtmlProps = {
@@ -8,7 +9,9 @@ type SafeHtmlProps = {
 };
 
 export default function SafeHtml({ html, className }: SafeHtmlProps) {
-  const cleanHtml = DOMPurify.sanitize(html);
+  const cleanHtml = useMemo(() => {
+    return DOMPurify.sanitize(html);
+  }, [html]);
 
   return (
     <div
