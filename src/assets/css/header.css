@@ -1,14 +1,31 @@
 .transparent-header:not(.stickyHeader) .logo {
   filter: brightness(0) invert(1);
 }
+.transparent-header:not(.stickyHeader) .menuButton,
 .transparent-header:not(.stickyHeader) .outlineBtn,
-.transparent-header:not(.stickyHeader) .hireBtn,
+.transparent-header:not(.stickyHeader) .isButton,
 .transparent-header:not(.stickyHeader) .navItem {
   color: var(--color-white);
 }
 
+.transparent-header:not(.stickyHeader) .isButton,
 .transparent-header:not(.stickyHeader) .outlineBtn {
   border-color: var(--color-white);
+}
+
+header .outlineBtn,
+header .isButton {
+  height: 44px;
+}
+
+header .outlineBtn {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+header .isButton {
+  background: transparent;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 .stickyHeader {
   background: rgba(255, 255, 255, 0.8);

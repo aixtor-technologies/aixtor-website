@@ -34,7 +34,7 @@ export default function PageLoader() {
     if (isLoading) {
       finishLoading();
     }
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, isLoading, finishLoading]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {

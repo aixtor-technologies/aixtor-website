@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import Grid from "@/components/ui/grid";
 import Button from "@/components/ui/button";
@@ -49,7 +50,8 @@ const Solutions = ({ solutions_section }: Props) => {
           </Grid>
         </div>
         {items.length > 0 && (
-          <Grid className="justify-between">
+          <Grid className="justify-between items-center gap-8">
+            {/* ── Left: Accordion ── */}
             <Grid.Col className="md:w-5/12">
               <div className="space-y-0 border-x border-t border-black/10 rounded">
                 {items.map((solution, index) => (
@@ -79,7 +81,9 @@ const Solutions = ({ solutions_section }: Props) => {
                       <div className="overflow-hidden">
                         <div className="px-6 pb-5">
                           {solution.description && (
-                            <Typography size="p">{solution.description}</Typography>
+                            <Typography size="p">
+                              {solution.description}
+                            </Typography>
                           )}
                           <Link
                             href={`/solutions/${solution.slug}`}
@@ -93,6 +97,25 @@ const Solutions = ({ solutions_section }: Props) => {
                   </div>
                 ))}
               </div>
+            </Grid.Col>
+
+            {/* ── Right: Active image ── */}
+            <Grid.Col className="hidden md:flex md:w-6/12 justify-center">
+              {items[activeIndex]?.image && (
+                <div
+                  key={activeIndex}
+                  className="w-full max-w-120 animate-fade-in"
+                >
+                  <Image
+                    src={items[activeIndex].image!}
+                    alt={items[activeIndex].title}
+                    width={360}
+                    height={380}
+                    className="w-full h-auto object-contain rounded-2xl"
+                    priority={activeIndex === 0}
+                  />
+                </div>
+              )}
             </Grid.Col>
           </Grid>
         )}

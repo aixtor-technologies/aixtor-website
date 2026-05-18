@@ -7,6 +7,7 @@ import Typography from "@/components/ui/typography";
 type IndustryItem = {
   industry_icon: string;
   industry_title: string;
+  industry_slug: string | null;
 };
 
 type IndustriesSection = {
@@ -38,7 +39,7 @@ const Industries = ({ industries_section }: Props) => {
         <div className="flex flex-wrap justify-center gap-6 lg:gap-8 xl:gap-10">
           {industries_section?.industries_item?.map(industry => (
             <Link
-              href="#"
+              href={industry.industry_slug ? `/industries/${industry.industry_slug}` : "#"}
               key={industry.industry_title}
               className="flex items-center gap-x-4 px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 border border-dark-300 rounded-full hover:shadow-card"
             >

@@ -114,7 +114,7 @@ export default function MigrateToLiferaySection({
   return (
     <section
       ref={sectionRef}
-      className="common-section bg-dark-200 relative pb-20 md:pb-24"
+      className="common-section bg-dark-200 relative pb-20! md:pb-24!"
     >
       <div className="container">
         {/* Heading */}

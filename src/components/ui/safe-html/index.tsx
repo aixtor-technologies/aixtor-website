@@ -1,6 +1,7 @@
 "use client";
 
-import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
+import createDOMPurify from "dompurify";
 
 type SafeHtmlProps = {
   html: string;
@@ -8,7 +9,11 @@ type SafeHtmlProps = {
 };
 
 export default function SafeHtml({ html, className }: SafeHtmlProps) {
-  const cleanHtml = DOMPurify.sanitize(html);
+  const [cleanHtml, setCleanHtml] = useState(html);
+
+  useEffect(() => {
+    setCleanHtml(createDOMPurify(window).sanitize(html));
+  }, [html]);
 
   return (
     <div

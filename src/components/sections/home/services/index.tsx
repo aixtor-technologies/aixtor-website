@@ -29,23 +29,21 @@ const Services = ({ services_section }: Props) => {
     <section className="large-section">
       <div className="container">
         <div className="common-heading">
-          <Grid className="items-center">
-            <Grid.Col className="md:w-8/12">
-              <Typography variant="h2" size="h3" isTitle>
+          <Grid className="items-center justify-center">
+            <Grid.Col className="md:w-8/12 mx-auto text-center">
+              <Typography variant="h2" size="h3" isTitle isCenter>
                 {services_section?.heading_title}
               </Typography>
               <Typography variant="p" size="h5" className="mt-4">
                 {services_section?.description}
               </Typography>
             </Grid.Col>
-            <Grid.Col className="md:w-4/12 md:text-end">
-              <Button href="/services">{services_section?.cta_button}</Button>
-            </Grid.Col>
           </Grid>
         </div>
-        {items.length > 0 && (
-          <ServicesSlider services={items} />
-        )}
+        {items.length > 0 && <ServicesSlider services={items} />}
+      </div>
+      <div className="flex justify-center mt-10">
+        <Button href="/services">{services_section?.cta_button}</Button>
       </div>
     </section>
   );

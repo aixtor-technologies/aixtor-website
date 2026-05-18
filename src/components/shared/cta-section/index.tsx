@@ -1,5 +1,6 @@
 import Button from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
+import Image from "next/image";
 
 type CtaBannerSection = {
   heading_title?: string;
@@ -20,7 +21,7 @@ const CTASection = ({ cta_banner_section }: Props) => {
     <section>
       <div className="container">
         <div
-          className="px-4 md:px-10 lg:px-12 xl:px-16 py-4 md:py-8 lg:py-10 xl:py-12 bg-linear-to-r from-primary to-secondary p-8 rounded text-white rounded-2xl"
+          className="relative overflow-hidden px-4 md:px-10 lg:px-12 xl:px-16 py-4 md:py-8 lg:py-10 xl:py-12 bg-linear-to-r from-primary to-secondary p-8 text-white rounded-2xl"
           style={bgStyle}
         >
           <div className="md:w-6/12">
@@ -32,6 +33,15 @@ const CTASection = ({ cta_banner_section }: Props) => {
               {cta_banner_section?.heading_title}
             </Typography>
             <Button variant="light">{cta_banner_section?.cta_button}</Button>
+          </div>
+          <div className="absolute right-0 bottom-0 hidden md:block h-full">
+            <Image
+              src="/images/dummy/cta-home.png"
+              alt="CTA Banner"
+              width={500}
+              height={300}
+              className="h-full w-auto object-contain object-bottom"
+            />
           </div>
         </div>
       </div>

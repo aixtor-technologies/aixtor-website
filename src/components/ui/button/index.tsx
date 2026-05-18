@@ -70,7 +70,7 @@ const Button = React.forwardRef<
     const content = (
       <>
         {isLoading && <Spinner />}
-        <span className={isLoading ? "opacity-0" : "flex items-center gap-2"}>
+        <span className={isLoading ? "opacity-0" : "flex items-center gap-1"}>
           {children}
         </span>
       </>

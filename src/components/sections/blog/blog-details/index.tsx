@@ -11,7 +11,8 @@ import Textarea from "@/components/ui/textarea";
 import Button from "@/components/ui/button";
 import HttpService from "@/shared/services/http.service";
 import Toast from "@/components/shared/toast";
-import styles from "./style.module.css";
+import styles from "@/assets/css/content.module.css";
+import SafeHtml from "@/components/ui/safe-html";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -22,79 +23,37 @@ type RecentBlog = {
   slug: string;
 };
 
-type FaqItem = {
-  title: string;
-  description: string;
-};
-
 type BlogDetailProps = {
   content?: string;
-  faq_section?: FaqItem[];
   recent_blogs?: RecentBlog[];
-};
-
-// ─── FAQ Accordion ────────────────────────────────────────────────────────────
-
-const FaqAccordion = ({ items }: { items: FaqItem[] }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  if (!items.length) return null;
-
-  return (
-    <div className="mt-8 md:mt-10">
-      <Typography size="h4" className="font-bold text-dark mb-4">
-        Frequently Asked Questions
-      </Typography>
-      <div className="border-t border-gray-200">
-        {items.map((item, i) => (
-          <div key={i} className={styles.faqItem}>
-            <button
-              className={styles.faqTrigger}
-              onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              aria-expanded={openIndex === i}
-            >
-              <span>{item.title}</span>
-              <svg
-                className={`${styles.faqIcon} ${openIndex === i ? styles.faqIconOpen : ""}`}
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-            <div
-              className={`${styles.faqBody} ${openIndex === i ? styles.faqBodyOpen : ""}`}
-            >
-              <p className={styles.faqDescription}>{item.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 };
 
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 
 const ContactForm = () => {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    fullName: "",
+    company: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = recaptchaRef.current?.getValue();
-    if (!token) { setError("Please complete the reCAPTCHA."); return; }
+    if (!token) {
+      setError("Please complete the reCAPTCHA.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
@@ -120,15 +79,60 @@ const ContactForm = () => {
   return (
     <>
       {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-        <Typography variant="h3" size="h5" className="font-semibold text-dark-400 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-off-white border border-gray-200  p-5"
+      >
+        <Typography
+          variant="h3"
+          size="h5"
+          className="font-semibold text-dark-400 mb-4"
+        >
           Contact us
         </Typography>
-        <Input name="fullName" type="text" placeholder="Full name *" value={form.fullName} onChange={handleChange} variant="white" required />
-        <Input name="company" type="text" placeholder="Company/organization *" value={form.company} onChange={handleChange} variant="white" required />
-        <Input name="email" type="email" placeholder="Email *" value={form.email} onChange={handleChange} variant="white" required />
-        <Input name="phone" type="tel" placeholder="Phone number *" value={form.phone} onChange={handleChange} variant="white" required />
-        <Textarea name="message" placeholder="What you are looking for" value={form.message} onChange={handleChange} variant="white" />
+        <Input
+          name="fullName"
+          type="text"
+          placeholder="Full name *"
+          value={form.fullName}
+          onChange={handleChange}
+          variant="white"
+          required
+        />
+        <Input
+          name="company"
+          type="text"
+          placeholder="Company/organization *"
+          value={form.company}
+          onChange={handleChange}
+          variant="white"
+          required
+        />
+        <Input
+          name="email"
+          type="email"
+          placeholder="Email *"
+          value={form.email}
+          onChange={handleChange}
+          variant="white"
+          required
+        />
+        <Input
+          name="phone"
+          type="tel"
+          placeholder="Phone number *"
+          value={form.phone}
+          onChange={handleChange}
+          variant="white"
+          required
+        />
+        <Textarea
+          name="message"
+          placeholder="What you are looking for"
+          value={form.message}
+          onChange={handleChange}
+          variant="white"
+        />
         <div className="mt-4">
           <ReCAPTCHA
             ref={recaptchaRef}
@@ -146,11 +150,7 @@ const ContactForm = () => {
 
 // ─── BlogDetail ───────────────────────────────────────────────────────────────
 
-const BlogDetail = ({
-  content,
-  faq_section = [],
-  recent_blogs = [],
-}: BlogDetailProps = {}) => {
+const BlogDetail = ({ content, recent_blogs = [] }: BlogDetailProps = {}) => {
   const [email, setEmail] = useState("");
   const formWrapRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(96);
@@ -174,13 +174,7 @@ const BlogDetail = ({
         <div className="flex flex-col lg:flex-row gap-8 xl:gap-12">
           {/* ── LEFT: Main content ── */}
           <div className="flex-1 min-w-0">
-            {content && (
-              <div
-                className={styles.prose}
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
-            )}
-            <FaqAccordion items={faq_section} />
+            {content && <SafeHtml html={content} className={styles.prose} />}
           </div>
 
           {/* ── RIGHT: Sidebar ── */}
@@ -189,7 +183,7 @@ const BlogDetail = ({
             <div className="flex flex-col gap-6 mb-6">
               {/* Recent blogs */}
               {recent_blogs.length > 0 && (
-                <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <div className="bg-off-white  border border-gray-200 p-5">
                   <div className="flex items-center justify-between mb-4">
                     <Typography
                       variant="h3"
@@ -213,15 +207,17 @@ const BlogDetail = ({
                         className="flex gap-3 group"
                       >
                         <div className="w-16 h-14 shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                          {blog.image && (
-                            <Image
-                              src={blog.image || "/images/placeholder/placeholder.jpg"}
-                              alt={blog.title || "blog-img"}
-                              width={64}
-                              height={56}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
+                          <Image
+                            src={
+                              blog.image ||
+                              "/images/placeholder/placeholder.jpg"
+                            }
+                            alt={blog.title || "blog-img"}
+                            width={64}
+                            height={56}
+                            className="w-full h-full object-cover"
+                            unoptimized
+                          />
                         </div>
                         <Typography className="text-xs text-dark-400 leading-relaxed group-hover:text-primary transition-colors line-clamp-3">
                           {blog.title}
@@ -247,10 +243,9 @@ const BlogDetail = ({
                     placeholder="Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    variant="white"
-                    className="flex-1 mb-0!"
+                    variant="default"
                   />
-                  <button className="h-12 bg-primary text-white px-3 rounded-md text-sm hover:opacity-90 transition shrink-0">
+                  <button className="h-12  text-black px-3 rounded-md text-xl hover:opacity-90 transition shrink-0">
                     →
                   </button>
                 </div>

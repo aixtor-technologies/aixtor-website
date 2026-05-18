@@ -1,5 +1,6 @@
 import { memo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import Grid from "@/components/ui/grid";
 import Button from "@/components/ui/button";
@@ -55,7 +56,7 @@ async function fetchCaseStudies(): Promise<CaseStudySection> {
 }
 
 const CaseStudyCard = memo(({ item }: { item: CaseStudyItem }) => (
-  <div className="p-2.5 bg-white w-72 sm:w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card">
+  <Link href={`/case-study/${item.slug}`} className="block p-2.5 bg-white w-72 sm:w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card cursor-pointer">
     <Image
       src={item.details.image || "/images/placeholder/placeholder.jpg"}
       alt={item.details.title || "case-study-img"}
@@ -72,7 +73,7 @@ const CaseStudyCard = memo(({ item }: { item: CaseStudyItem }) => (
         {item.details.description}
       </Typography>
     </div>
-  </div>
+  </Link>
 ));
 
 CaseStudyCard.displayName = "CaseStudyCard";

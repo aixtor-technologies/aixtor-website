@@ -35,7 +35,7 @@ const CIRCLES = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const PortalFeature = ({ customizable_section }: PortalFeatureProps) => {
-  if (!customizable_section) return null;
+  if (!customizable_section?.title) return null;
 
   const { title, description, cta_title } = customizable_section;
 
