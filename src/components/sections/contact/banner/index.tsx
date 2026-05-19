@@ -24,7 +24,7 @@ export default function ContactBanner() {
             <Typography
               variant="h1"
               size="h2"
-              className="text-black mb-4 lg:mb-6"
+              className="text-dark-100 mb-4 lg:mb-6"
             >
               {CONTENT.heading}
             </Typography>

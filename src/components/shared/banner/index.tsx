@@ -19,7 +19,7 @@ const Banner = ({ title, imgUrl, description }: BannerProps) => {
             <Typography
               variant="h1"
               size="h2"
-              className="font-semibold text-dark"
+              className="font-semibold text-dark-100"
             >
               {title}
             </Typography>

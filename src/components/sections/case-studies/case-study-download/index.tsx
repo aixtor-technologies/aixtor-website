@@ -22,7 +22,8 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
   const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [captchaError, setCaptchaError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,9 +31,9 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = recaptchaRef.current?.getValue();
-    if (!token) { setError("Please complete the reCAPTCHA."); return; }
+    if (!token) { setCaptchaError("Please complete the reCAPTCHA."); return; }
     setLoading(true);
-    setError("");
+    setCaptchaError("");
     try {
       await HttpService.nativePost("contact-submission", {
         full_name: form.fullName,
@@ -49,7 +50,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
       const file = data?.acf_fields?.case_study_file;
       if (file) window.open(file, "_blank");
     } catch {
-      setError("Something went wrong. Please try again.");
+      setApiError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -68,6 +69,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
       >
         <div className="container relative z-10">
           {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
+          {apiError && <Toast type="error" message={apiError} onDismiss={() => setApiError("")} />}
 
           <div className="flex flex-col items-center mb-10">
             <Typography variant="h2" size="h3" isTitle isCenter>
@@ -112,7 +114,7 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
               />
             </div>
 
-            {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+            {captchaError && <p className="text-red-500 text-sm mb-4 text-center">{captchaError}</p>}
 
             <div className="flex justify-center">
               <Button variant="default" size="default" rounded="default" disabled={loading}>

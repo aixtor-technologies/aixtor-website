@@ -19,6 +19,7 @@ const nativeFetch = async <T = any>(
     headers,
     next: { revalidate: 5 }, // App Router ISR support
   });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json();
 };
 
@@ -41,6 +42,7 @@ const nativePost = async <T = any>(
     body: JSON.stringify(body),
     headers,
   });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json();
 };
 

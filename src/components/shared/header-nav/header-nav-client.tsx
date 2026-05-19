@@ -195,7 +195,7 @@ const NavItem = memo(function NavItem({
         <div
           className={`
             md:absolute left-0 top-full bg-white rounded-2xl md:shadow-xl p-4 md:p-6 transition-all duration-200 w-full
-            ${link.megamenu ? "md:w-3xl" : "md:w-54"}
+            ${link.megamenu ? "md:w-5xl" : "md:w-75"}
             ${isOpen ? "opacity-100 visible block" : "hidden md:block md:opacity-0 md:invisible"}
           `}
         >

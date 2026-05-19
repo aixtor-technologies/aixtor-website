@@ -65,8 +65,7 @@ const CaseStudyBanner = ({
   const counters = counter_fields?.counter ?? [];
 
   return (
-    // Extra pb to make room for the overlapping stat cards
-    <section className="large-section pt-20 lg:pt-24 pb-20 lg:pb-28 relative">
+    <section className="large-section pt-20 lg:pt-24 pb-6 md:pb-20 lg:pb-28 relative">
       <div className="container">
         {/* ── Hero row ── */}
         <Grid size="lg" className="items-center mb-0">
@@ -76,7 +75,7 @@ const CaseStudyBanner = ({
               {tag}
             </span>
 
-            <Typography variant="h1" size="h2" className="text-dark">
+            <Typography variant="h1" size="h2" className="text-dark-100">
               {title}
             </Typography>
 
@@ -113,10 +112,10 @@ const CaseStudyBanner = ({
           </Grid.Col>
         </Grid>
 
-        {/* ── Stat cards — absolutely pulled down to overlap the next section ── */}
+        {/* ── Stat cards ── */}
         {counters.length > 0 && (
-          <div className="absolute left-0 right-0 bottom-0 translate-y-1/2 px-4 sm:px-6 lg:px-8">
-            <div className="container">
+          <div className="mt-8 md:mt-0 md:absolute md:left-0 md:right-0 md:bottom-0 md:translate-y-1/2 md:px-4 lg:px-8">
+            <div className="md:container">
               <Grid size="md">
                 {counters.map(stat => (
                   <Grid.Col

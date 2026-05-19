@@ -32,7 +32,7 @@ const TelecomChallenges: React.FC<TelecomChallengesProps> = ({ data }) => {
     <section className="common-section bg-white">
       <div className="container">
         <div className="common-heading text-center">
-          <Typography variant="h2" size="h2" isTitle isCenter className="text-dark font-bold">
+          <Typography variant="h2" size="h2" isTitle isCenter className="font-bold">
             {title}
           </Typography>
         </div>

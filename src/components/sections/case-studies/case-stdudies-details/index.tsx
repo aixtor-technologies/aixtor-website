@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Typography from "@/components/ui/typography";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -53,7 +53,10 @@ const BulletPoint = ({ title, description }: BulletItem) => (
 // ─── CaseStudyDetail ──────────────────────────────────────────────────────────
 
 const CaseStudyDetail = ({ data }: CaseStudyDetailProps) => {
-  const sections = data?.acf_fields?.detail_sections ?? [];
+  const sections = useMemo(
+    () => data?.acf_fields?.detail_sections ?? [],
+    [data?.acf_fields?.detail_sections]
+  );
   const [activeId, setActiveId] = useState(() => sections[0]?.id ?? "");
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -109,7 +112,7 @@ const CaseStudyDetail = ({ data }: CaseStudyDetailProps) => {
                   >
                     {/* Active indicator — overlaps the left border */}
                     {isActive && (
-                      <span className="absolute left-[-2px] top-0 bottom-0 w-[2px] bg-primary" />
+                      <span className="absolute -left-0.5 top-0 bottom-0 w-0.5 bg-primary" />
                     )}
                     <span className="flex items-center gap-2">
                       {section.label}

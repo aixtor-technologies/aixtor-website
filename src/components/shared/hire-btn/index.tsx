@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 import IconChevronDown from "@/components/shared/icons/chevron-down";
-import HeaderClassHandler from "../header-class-handler";
 
 type HireOption = {
   label: string;

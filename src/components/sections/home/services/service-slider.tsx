@@ -29,7 +29,7 @@ export default function ServicesSlider({ services }: ServicesSliderProps) {
       {services.map((service) => (
         <div
           key={service.id}
-          className="gradient-card border px-4 md:px-6 py-6 md:py-8 rounded shadow-card h-full"
+          className="gradient-card  border px-4 md:px-6 py-6 md:py-8 shadow-card-lg h-full"
         >
           <Image
             src={service.image ?? "/images/placeholder/placeholder.jpg"}

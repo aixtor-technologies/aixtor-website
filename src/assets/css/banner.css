@@ -75,6 +75,23 @@
   z-index: 60; /* above both sections */
   pointer-events: none; /* optional: avoids blocking clicks */
 }
+.migrate-liferay-strip {
+  position: absolute;
+  bottom: 150px;
+  right: 0;
+
+  width: 130px;
+  height: 60px;
+
+  background: var(--lineargradientcolor6);
+
+  transform: skew(-20deg) rotate(-8deg);
+  transform-origin: right bottom;
+
+  z-index: 60;
+  pointer-events: none;
+}
+
 .banner .imgbox {
   background: var(--lineargradientcolor9);
 }
@@ -91,5 +108,10 @@
     width: 192px;
     bottom: -16px;
     left: -10px;
+  }
+  .migrate-liferay-strip {
+    bottom: 60px;
+    width: 90px;
+    height: 40px;
   }
 }

@@ -56,20 +56,22 @@ async function fetchCaseStudies(): Promise<CaseStudySection> {
 }
 
 const CaseStudyCard = memo(({ item }: { item: CaseStudyItem }) => (
-  <Link href={`/case-study/${item.slug}`} className="block p-2.5 bg-white w-72 sm:w-80 md:w-96 lg:w-120 xl:w-140 rounded-xs transition-all duration-300 hover:shadow-card cursor-pointer">
-    <Image
-      src={item.details.image || "/images/placeholder/placeholder.jpg"}
-      alt={item.details.title || "case-study-img"}
-      width={600}
-      height={400}
-      className="w-full h-auto mb-3 md:mb-4 lg:mb-5"
-      loading="lazy"
-    />
-    <div className="px-3 md:px-4">
-      <Typography variant="h3" size="h5" className="mb-2 font-semibold">
+  <Link href={`/case-study/${item.slug}`} className="group flex flex-col p-2.5 bg-white w-72 sm:w-80 md:w-96 lg:w-120 xl:w-140 min-h-105 md:min-h-120 lg:min-h-120 rounded-xs transition-all duration-300 hover:shadow-card cursor-pointer">
+    <div className="w-full overflow-hidden rounded-sm">
+      <Image
+        src={item.details.image || "/images/placeholder/placeholder.jpg"}
+        alt={item.details.title || "case-study-img"}
+        width={600}
+        height={400}
+        className="w-full h-60 md:h-64 lg:h-72 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div className="px-3 md:px-4 flex flex-col flex-1 mt-3 md:mt-4 lg:mt-5">
+      <Typography variant="h3" size="h5" className="mb-2 font-semibold line-clamp-2 transition-colors duration-300 group-hover:text-primary">
         {item.details.title}
       </Typography>
-      <Typography variant="p" size="p" className="mb-2.5">
+      <Typography variant="p" size="p" className="line-clamp-3">
         {item.details.description}
       </Typography>
     </div>

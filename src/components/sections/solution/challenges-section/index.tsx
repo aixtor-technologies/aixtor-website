@@ -32,7 +32,7 @@ const ChallengesSection = ({ challenges_section }: Props) => {
     <section className="common-section bg-white">
       <div className="container">
         <div className="text-center common-heading">
-          <Typography variant="h2" size="h3" isTitle isCenter className="text-dark">
+          <Typography variant="h2" size="h3" isTitle isCenter>
             {challenges_heading}
           </Typography>
         </div>
