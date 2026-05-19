@@ -41,7 +41,8 @@ const ContactForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [captchaError, setCaptchaError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -51,11 +52,11 @@ const ContactForm = () => {
     e.preventDefault();
     const token = recaptchaRef.current?.getValue();
     if (!token) {
-      setError("Please complete the reCAPTCHA.");
+      setCaptchaError("Please complete the reCAPTCHA.");
       return;
     }
     setLoading(true);
-    setError("");
+    setCaptchaError("");
     try {
       await HttpService.nativePost("contact-submission", {
         full_name: form.fullName,
@@ -70,7 +71,7 @@ const ContactForm = () => {
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
       recaptchaRef.current?.reset();
     } catch {
-      setError("Something went wrong. Please try again.");
+      setApiError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -79,6 +80,7 @@ const ContactForm = () => {
   return (
     <>
       {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
+      {apiError && <Toast type="error" message={apiError} onDismiss={() => setApiError("")} />}
       <form
         onSubmit={handleSubmit}
         className="bg-off-white border border-gray-200  p-5"
@@ -139,7 +141,7 @@ const ContactForm = () => {
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
           />
         </div>
-        {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+        {captchaError && <p className="text-red-500 text-xs mt-2">{captchaError}</p>}
         <Button className="w-full mt-4" variant="default" disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
         </Button>

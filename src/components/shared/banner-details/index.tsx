@@ -77,7 +77,7 @@ export default function BannerDetails({
             )}
 
             {/* Title */}
-            <Typography variant="h1" size="h2" className="text-dark">
+            <Typography variant="h1" size="h2" className="text-dark-100">
               {title}
             </Typography>
 

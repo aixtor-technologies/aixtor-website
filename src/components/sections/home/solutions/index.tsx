@@ -104,14 +104,14 @@ const Solutions = ({ solutions_section }: Props) => {
               {items[activeIndex]?.image && (
                 <div
                   key={activeIndex}
-                  className="w-full max-w-120 animate-fade-in"
+                  className="w-full max-w-140 animate-fade-in"
                 >
                   <Image
                     src={items[activeIndex].image!}
                     alt={items[activeIndex].title}
-                    width={360}
+                    width={380}
                     height={380}
-                    className="w-full h-auto object-contain rounded-2xl"
+                    className="w-full h-auto shadow-card-xl object-contain"
                     priority={activeIndex === 0}
                   />
                 </div>

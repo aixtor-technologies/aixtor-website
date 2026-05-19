@@ -22,6 +22,7 @@ type FormValues = {
 
 const ConsultationForm = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [errorToast, setErrorToast] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
@@ -31,7 +32,6 @@ const ConsultationForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-    setError,
   } = useForm<FormValues>();
 
   const onSubmit = useCallback(
@@ -52,15 +52,16 @@ const ConsultationForm = () => {
         setCaptchaToken(null);
         setCaptchaKey(k => k + 1);
       } catch {
-        setError("root", { message: "Something went wrong. Please try again." });
+        setErrorToast(true);
       }
     },
-    [captchaToken, reset, setError],
+    [captchaToken, reset],
   );
 
   return (
     <div className="p-6 pt-0 bg-white shadow-card rounded-xl lg:rounded-2xl">
       {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
+      {errorToast && <Toast type="error" onDismiss={() => setErrorToast(false)} />}
 
       <Typography variant="h3" size="h4" className="mb-4 font-semibold">
         Let&apos;s Start Conversation!
@@ -113,10 +114,6 @@ const ConsultationForm = () => {
             <p className="text-red-500 text-xs mt-1">{captchaError}</p>
           )}
         </div>
-
-        {errors.root && (
-          <p className="text-red-500 text-sm mb-3">{errors.root.message}</p>
-        )}
 
         <Button className="w-full" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Book your consultation"}

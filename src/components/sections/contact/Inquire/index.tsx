@@ -15,7 +15,8 @@ export default function InquireNow() {
   const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [captchaError, setCaptchaError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
@@ -23,9 +24,9 @@ export default function InquireNow() {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = recaptchaRef.current?.getValue();
-    if (!token) { setError("Please complete the reCAPTCHA."); return; }
+    if (!token) { setCaptchaError("Please complete the reCAPTCHA."); return; }
     setLoading(true);
-    setError("");
+    setCaptchaError("");
     try {
       await HttpService.nativePost("contact-submission", {
         full_name: form.fullName,
@@ -40,7 +41,7 @@ export default function InquireNow() {
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
       recaptchaRef.current?.reset();
     } catch {
-      setError("Something went wrong. Please try again.");
+      setApiError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -49,6 +50,7 @@ export default function InquireNow() {
   return (
     <section className="bg-white py-10 px-4 sm:px-6 md:px-8 lg:py-16 lg:px-12">
       {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
+      {apiError && <Toast type="error" message={apiError} onDismiss={() => setApiError("")} />}
 
       {/* Header */}
       <div className="text-center mb-10">
@@ -87,7 +89,7 @@ export default function InquireNow() {
           />
         </div>
 
-        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+        {captchaError && <p className="text-red-500 text-sm mt-3">{captchaError}</p>}
 
         <div className="flex justify-end mt-4">
           <Button variant="default" size="default" rounded="default" disabled={loading}>

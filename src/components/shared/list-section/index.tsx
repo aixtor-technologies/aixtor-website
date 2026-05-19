@@ -22,7 +22,7 @@ const ListSection = ({ title, description, items }: ListSectionProps) => {
       <div className="container">
         {/* Heading */}
         <div className="common-heading">
-          <Typography size="h2" isCenter isTitle className="font-semibold mb-4">
+          <Typography size="h3" isCenter isTitle className="font-semibold mb-4">
             {title}
           </Typography>
           <Typography size="h6" className="text-center">

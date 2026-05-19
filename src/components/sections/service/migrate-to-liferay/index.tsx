@@ -106,141 +106,173 @@ export default function MigrateToLiferaySection({
 
   const { heading, cta_title } = migrate_to_liferay_section;
 
-  // Enter: new slide comes FROM below (up) or above (down)
-  // Exit:  old slide goes TO above (up) or below (down)
-  const enterClass = direction === "up" ? "slide-enter-up" : "slide-enter-down";
-  const exitClass = direction === "up" ? "slide-exit-up" : "slide-exit-down";
+  const enterClass = isMobile
+    ? (direction === "up" ? "slide-enter-right" : "slide-enter-left")
+    : (direction === "up" ? "slide-enter-up"    : "slide-enter-down");
+  const exitClass = isMobile
+    ? (direction === "up" ? "slide-exit-left"  : "slide-exit-right")
+    : (direction === "up" ? "slide-exit-up"    : "slide-exit-down");
 
   return (
-    <section
-      ref={sectionRef}
-      className="common-section bg-dark-200 relative pb-20! md:pb-24!"
-    >
-      <div className="container">
-        {/* Heading */}
-        <Typography
-          variant="h2"
-          size="h2"
-          className="text-dark common-heading"
-          isCenter
-          isTitle
-        >
-          {heading}
-        </Typography>
+    <div className="relative" style={{ overflowX: "clip" }}>
+      <section
+        ref={sectionRef}
+        className="large-section bg-dark-200 relative pt-8! md:pt-10! lg:pt-16! pb-35! md:pb-44!"
+      >
+        <div className="container">
+          {/* Heading */}
+          <Typography
+            variant="h2"
+            size="h2"
+            className="text-dark common-heading"
+            isCenter
+            isTitle
+          >
+            {heading}
+          </Typography>
 
-        <div className="relative">
-          {/* Desktop dots */}
-          {!isMobile && (
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4 w-12">
+          <div className="relative">
+            {/* Desktop dots */}
+            {!isMobile && (
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4 w-12">
+                {items.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() =>
+                      !isAnimating && goTo(i, i > activeIndex ? "up" : "down")
+                    }
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      i === activeIndex ? "bg-secondary scale-110" : "bg-dark-300"
+                    }`}
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-current={i === activeIndex}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Slide container — clips overflow */}
+            <div
+              className="overflow-hidden relative"
+              style={{ minHeight: "320px" }}
+            >
+              {/* Exiting slide */}
+              {prevIndex !== null && (
+                <div
+                  key={`exit-${prevIndex}`}
+                  className={`slide-item ${exitClass}`}
+                >
+                  <SlideContent item={items[prevIndex]} ml={!isMobile} />
+                </div>
+              )}
+
+              {/* Entering slide */}
+              <div
+                key={`enter-${activeIndex}`}
+                className={`slide-item ${enterClass}`}
+              >
+                <SlideContent
+                  item={items[activeIndex]}
+                  ml={!isMobile}
+                  priority={activeIndex === 0}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile dots */}
+          {isMobile && (
+            <div className="flex justify-center gap-2 mt-6">
               {items.map((_, i) => (
                 <button
                   key={i}
                   onClick={() =>
                     !isAnimating && goTo(i, i > activeIndex ? "up" : "down")
                   }
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                     i === activeIndex ? "bg-secondary scale-110" : "bg-dark-300"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
-                  aria-current={i === activeIndex}
                 />
               ))}
             </div>
           )}
 
-          {/* Slide container — clips overflow */}
-          <div
-            className="overflow-hidden relative"
-            style={{ minHeight: "320px" }}
-          >
-            {/* Exiting slide */}
-            {prevIndex !== null && (
-              <div
-                key={`exit-${prevIndex}`}
-                className={`slide-item ${exitClass}`}
-              >
-                <SlideContent item={items[prevIndex]} ml={!isMobile} />
-              </div>
-            )}
-
-            {/* Entering slide */}
-            <div
-              key={`enter-${activeIndex}`}
-              className={`slide-item ${enterClass}`}
-            >
-              <SlideContent
-                item={items[activeIndex]}
-                ml={!isMobile}
-                priority={activeIndex === 0}
-              />
+          {cta_title && (
+            <div className="flex justify-center mt-10 sm:mt-12 md:mt-14">
+              <Button href="/contact">{cta_title}</Button>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Mobile dots */}
-        {isMobile && (
-          <div className="flex justify-center gap-2 mt-6">
-            {items.map((_, i) => (
-              <button
-                key={i}
-                onClick={() =>
-                  !isAnimating && goTo(i, i > activeIndex ? "up" : "down")
-                }
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  i === activeIndex ? "bg-secondary scale-110" : "bg-dark-300"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        )}
+        <style>{`
+          .slide-item {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+          }
 
-        {cta_title && (
-          <div className="flex justify-center mt-10 sm:mt-12 md:mt-14">
-            <Button href="/contact">{cta_title}</Button>
-          </div>
-        )}
-      </div>
+          /* ── Enter animations: new slide comes IN ── */
+          @keyframes enterFromBottom {
+            from { opacity: 0; transform: translateY(60px); }
+            to   { opacity: 1; transform: translateY(0);    }
+          }
+          @keyframes enterFromTop {
+            from { opacity: 0; transform: translateY(-60px); }
+            to   { opacity: 1; transform: translateY(0);     }
+          }
 
-      <style>{`
-        .slide-item {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-        }
+          /* ── Exit animations: old slide goes OUT ── */
+          @keyframes exitToTop {
+            from { opacity: 1; transform: translateY(0);    }
+            to   { opacity: 0; transform: translateY(-60px); }
+          }
+          @keyframes exitToBottom {
+            from { opacity: 1; transform: translateY(0);   }
+            to   { opacity: 0; transform: translateY(60px); }
+          }
 
-        /* ── Enter animations: new slide comes IN ── */
-        @keyframes enterFromBottom {
-          from { opacity: 0; transform: translateY(60px); }
-          to   { opacity: 1; transform: translateY(0);    }
-        }
-        @keyframes enterFromTop {
-          from { opacity: 0; transform: translateY(-60px); }
-          to   { opacity: 1; transform: translateY(0);     }
-        }
+          .slide-enter-up   { animation: enterFromBottom ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+          .slide-enter-down { animation: enterFromTop    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+          .slide-exit-up    { animation: exitToTop       ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+          .slide-exit-down  { animation: exitToBottom    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
 
-        /* ── Exit animations: old slide goes OUT ── */
-        @keyframes exitToTop {
-          from { opacity: 1; transform: translateY(0);    }
-          to   { opacity: 0; transform: translateY(-60px); }
-        }
-        @keyframes exitToBottom {
-          from { opacity: 1; transform: translateY(0);   }
-          to   { opacity: 0; transform: translateY(60px); }
-        }
+          /* ── Mobile: horizontal enter ── */
+          @keyframes enterFromRight {
+            from { opacity: 0; transform: translateX(60px); }
+            to   { opacity: 1; transform: translateX(0);    }
+          }
+          @keyframes enterFromLeft {
+            from { opacity: 0; transform: translateX(-60px); }
+            to   { opacity: 1; transform: translateX(0);     }
+          }
 
-        .slide-enter-up   { animation: enterFromBottom ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
-        .slide-enter-down { animation: enterFromTop    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
-        .slide-exit-up    { animation: exitToTop       ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
-        .slide-exit-down  { animation: exitToBottom    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
-      `}</style>
+          /* ── Mobile: horizontal exit ── */
+          @keyframes exitToLeft {
+            from { opacity: 1; transform: translateX(0);     }
+            to   { opacity: 0; transform: translateX(-60px); }
+          }
+          @keyframes exitToRight {
+            from { opacity: 1; transform: translateX(0);    }
+            to   { opacity: 0; transform: translateX(60px); }
+          }
 
-      {/* Bottom slope — right high, left low */}
-      <div
-        className="absolute bottom-0 left-0 w-full h-20 md:h-24 bg-white pointer-events-none"
-        style={{ clipPath: "polygon(100% 0, 0 100%, 100% 100%)" }}
-      />
-    </section>
+          .slide-enter-right { animation: enterFromRight ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+          .slide-enter-left  { animation: enterFromLeft  ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+          .slide-exit-left   { animation: exitToLeft     ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+          .slide-exit-right  { animation: exitToRight    ${ANIM_DURATION}ms cubic-bezier(0.22,1,0.36,1) both; }
+        `}</style>
+
+        {/* Bottom slope — right high, left low */}
+        <div
+          className="absolute bottom-0 left-0 w-full h-20 md:h-44 bg-white pointer-events-none"
+          style={{ clipPath: "polygon(100% 0, 0 100%, 100% 100%)" }}
+        />
+      </section>
+
+      {/* Strip at bottom-right — mirrors the case-study download top-right strip */}
+      <div className="migrate-liferay-strip" />
+    </div>
   );
 }
 
@@ -273,7 +305,7 @@ function SlideContent({
 
       {/* Text */}
       <div className="w-full lg:w-1/2 flex flex-col gap-3 sm:gap-4 justify-center">
-        <Typography variant="h3" size="h4" className="text-dark">
+        <Typography variant="h3" size="h4" className="font-semibold">
           {item.title}
         </Typography>
         <Typography

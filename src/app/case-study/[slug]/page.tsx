@@ -126,20 +126,6 @@ async function fetchCaseStudyDetails(slug: string): Promise<any> {
   }
 }
 
-async function fetchAllCaseStudies(): Promise<any> {
-  try {
-    const res = await HttpService.nativeFetch<any>(
-      "case-studies?page=1&per_page=20",
-      {
-        method: "GET",
-      }
-    );
-    return res?.data || [];
-  } catch (error) {
-    console.error("Failed to fetch case studies:", error);
-    return [];
-  }
-}
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -148,36 +134,11 @@ type PageProps = {
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
 
-  // Parallelize API calls for better performance
-  const [apiData, allCaseStudies] = await Promise.all([
-    fetchCaseStudyDetails(slug),
-    fetchAllCaseStudies(),
-  ]);
+  const apiData = await fetchCaseStudyDetails(slug);
 
   const caseStudyData = transformApiResponse(apiData);
 
   if (!caseStudyData) notFound();
-
-  // Filter out current case study and transform for the slider component
-  const relatedCaseStudies = allCaseStudies
-    .filter((study: any) => study.slug !== slug)
-    .slice(0, 10)
-    .map((study: any) => ({
-      id: study.id,
-      slug: study.slug,
-      details: {
-        title: study.title,
-        description: study.description,
-        image: study.image,
-      },
-    }));
-
-  const caseStudiesSliderData = {
-    heading_title: "More Case Studies",
-    description: "Explore our other successful client projects",
-    cta_button: "View All Case Studies",
-    case_study_item: relatedCaseStudies,
-  };
 
   return (
     <>
@@ -185,7 +146,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       <CaseStudyAbout data={caseStudyData} />
       <CaseStudyDetail data={caseStudyData} />
       <CaseStudyDownload data={caseStudyData} />
-      <CaseStudies/>
+      <CaseStudies />
     </>
   );
 }
