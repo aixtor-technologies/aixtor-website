@@ -29,7 +29,7 @@ const RatingSection = ({ review_highlight }: Props) => {
 
   return (
     <div className="w-full pt-6 lg:pt-16 xl:pt-24 pb-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 text-white">
+      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 text-white">
         {items.map((item, index) => (
           <div
             key={index}

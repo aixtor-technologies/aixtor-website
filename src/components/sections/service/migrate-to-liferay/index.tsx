@@ -152,24 +152,21 @@ export default function MigrateToLiferaySection({
             )}
 
             {/* Slide container — clips overflow */}
-            <div
-              className="overflow-hidden relative"
-              style={{ minHeight: "320px" }}
-            >
-              {/* Exiting slide */}
+            <div className="overflow-hidden relative">
+              {/* Exiting slide — absolute overlay during transition */}
               {prevIndex !== null && (
                 <div
                   key={`exit-${prevIndex}`}
-                  className={`slide-item ${exitClass}`}
+                  className={`slide-item-exit ${exitClass}`}
                 >
                   <SlideContent item={items[prevIndex]} ml={!isMobile} />
                 </div>
               )}
 
-              {/* Entering slide */}
+              {/* Entering slide — in normal flow so container expands to content height */}
               <div
                 key={`enter-${activeIndex}`}
-                className={`slide-item ${enterClass}`}
+                className={`${enterClass}`}
               >
                 <SlideContent
                   item={items[activeIndex]}
@@ -206,7 +203,7 @@ export default function MigrateToLiferaySection({
         </div>
 
         <style>{`
-          .slide-item {
+          .slide-item-exit {
             position: absolute;
             inset: 0;
             width: 100%;

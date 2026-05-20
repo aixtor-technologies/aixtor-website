@@ -1,13 +1,21 @@
 "use client";
 
-import { useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+
+import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
+
 import Typography from "@/components/ui/typography";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 import HttpService from "@/shared/services/http.service";
 import Toast from "@/components/shared/toast";
+
+const ReCAPTCHAWidget = dynamic(() => import("react-google-recaptcha"), {
+  ssr: false,
+  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
+});
 
 type CaseStudyDownloadProps = {
   data: {
@@ -18,20 +26,20 @@ type CaseStudyDownloadProps = {
 };
 
 const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
   const [apiError, setApiError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const token = recaptchaRef.current?.getValue();
-    if (!token) { setCaptchaError("Please complete the reCAPTCHA."); return; }
+    if (!captchaToken) { setCaptchaError("Please complete the reCAPTCHA."); return; }
     setLoading(true);
     setCaptchaError("");
     try {
@@ -41,12 +49,13 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
         email: form.email,
         phone: form.phone,
         message: form.message,
-        recaptcha_token: token,
+        recaptcha_token: captchaToken,
         form_type: "case-study-enquiry",
       });
       setSubmitted(true);
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
-      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+      setCaptchaKey(k => k + 1);
       const file = data?.acf_fields?.case_study_file;
       if (file) window.open(file, "_blank");
     } catch {
@@ -108,9 +117,11 @@ const CaseStudyDownload = ({ data }: CaseStudyDownloadProps) => {
             </div>
 
             <div className="mb-4 flex justify-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+              <ReCAPTCHAWidget
+                key={captchaKey}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={setCaptchaToken}
+                onExpired={() => setCaptchaToken(null)}
               />
             </div>
 

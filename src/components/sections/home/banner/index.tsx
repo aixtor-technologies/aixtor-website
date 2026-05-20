@@ -65,6 +65,8 @@ const Banner = ({ banner_section }: Props) => {
           autoPlay
           muted
           loop
+          playsInline
+          preload="none"
           className="absolute top-0 left-0 w-full h-full object-cover"
         >
           <source src={banner_section.background_video} type="video/mp4" />
