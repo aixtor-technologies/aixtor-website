@@ -34,6 +34,7 @@ export default async function ServicePage() {
         title={services?.page_header?.list_section?.title}
         description={services?.page_header?.list_section?.description}
         items={Array.isArray(services?.data) ? services.data : []}
+        basePath="services"
       />
       <CaseStudies/>
       <StartConversation />

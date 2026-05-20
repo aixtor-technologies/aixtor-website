@@ -34,6 +34,7 @@ export default async function SolutionsPage() {
         title={solutions?.page_header?.list_section?.title}
         description={solutions?.page_header?.list_section?.description}
         items={Array.isArray(solutions?.data) ? solutions.data : []}
+        basePath="solutions"
       />
       <CaseStudies />
       <StartConversation />
