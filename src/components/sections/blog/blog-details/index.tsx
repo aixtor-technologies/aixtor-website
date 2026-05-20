@@ -2,9 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState ,useRef} from "react";
+import dynamic from "next/dynamic";
 
-import ReCAPTCHA from "react-google-recaptcha";
+import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
+
+const ReCAPTCHAWidget = dynamic(() => import("react-google-recaptcha"), {
+  ssr: false,
+  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
+});
 import Typography from "@/components/ui/typography";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
@@ -31,7 +37,6 @@ type BlogDetailProps = {
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 
 const ContactForm = () => {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [form, setForm] = useState({
     fullName: "",
     company: "",
@@ -43,6 +48,8 @@ const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
   const [apiError, setApiError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,8 +57,7 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const token = recaptchaRef.current?.getValue();
-    if (!token) {
+    if (!captchaToken) {
       setCaptchaError("Please complete the reCAPTCHA.");
       return;
     }
@@ -64,12 +70,13 @@ const ContactForm = () => {
         email: form.email,
         phone: form.phone,
         message: form.message,
-        recaptcha_token: token,
+        recaptcha_token: captchaToken,
         form_type: "blog-contact-us-enquiry",
       });
       setSubmitted(true);
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
-      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+      setCaptchaKey(k => k + 1);
     } catch {
       setApiError("Something went wrong. Please try again.");
     } finally {
@@ -136,9 +143,11 @@ const ContactForm = () => {
           variant="white"
         />
         <div className="mt-4">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+          <ReCAPTCHAWidget
+            key={captchaKey}
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={setCaptchaToken}
+            onExpired={() => setCaptchaToken(null)}
           />
         </div>
         {captchaError && <p className="text-red-500 text-xs mt-2">{captchaError}</p>}

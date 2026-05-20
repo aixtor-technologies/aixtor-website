@@ -1,7 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+
+import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
+
 import Button from "@/components/ui/button";
 import Grid from "@/components/ui/grid";
 import Input from "@/components/ui/input";
@@ -10,21 +13,26 @@ import Typography from "@/components/ui/typography";
 import HttpService from "@/shared/services/http.service";
 import Toast from "@/components/shared/toast";
 
+const ReCAPTCHAWidget = dynamic(() => import("react-google-recaptcha"), {
+  ssr: false,
+  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
+});
+
 export default function InquireNow() {
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
   const [apiError, setApiError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const token = recaptchaRef.current?.getValue();
-    if (!token) { setCaptchaError("Please complete the reCAPTCHA."); return; }
+    if (!captchaToken) { setCaptchaError("Please complete the reCAPTCHA."); return; }
     setLoading(true);
     setCaptchaError("");
     try {
@@ -34,12 +42,13 @@ export default function InquireNow() {
         email: form.email,
         phone: form.phone,
         message: form.message,
-        recaptcha_token: token,
+        recaptcha_token: captchaToken,
         form_type: "contact-enquiry",
       });
       setSubmitted(true);
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
-      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+      setCaptchaKey(k => k + 1);
     } catch {
       setApiError("Something went wrong. Please try again.");
     } finally {
@@ -83,9 +92,11 @@ export default function InquireNow() {
         </Grid>
 
         <div className="mt-4">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+          <ReCAPTCHAWidget
+            key={captchaKey}
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={setCaptchaToken}
+            onExpired={() => setCaptchaToken(null)}
           />
         </div>
 

@@ -27,7 +27,7 @@ export default function GlobalError({
             textAlign: "center",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* eslint-dis   able-next-line @next/next/no-img-element */}
           <img
             src="/images/error.svg"
             alt="Critical error"

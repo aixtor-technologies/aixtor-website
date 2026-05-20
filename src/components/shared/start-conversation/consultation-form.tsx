@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import ReCAPTCHA from "react-google-recaptcha";
+import dynamic from "next/dynamic";
 
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
@@ -10,6 +10,12 @@ import Textarea from "@/components/ui/textarea";
 import Typography from "@/components/ui/typography";
 import HttpService from "@/shared/services/http.service";
 import Toast from "@/components/shared/toast";
+import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
+
+const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
+  ssr: false,
+  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
+});
 
 type FormValues = {
   name: string;
@@ -26,6 +32,26 @@ const ConsultationForm = () => {
   const [captchaError, setCaptchaError] = useState("");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const captchaRef = useRef<HTMLDivElement>(null);
+
+  // Mount reCAPTCHA only when the form scrolls into view — keeps Google
+  // scripts off the page until the user actually reaches this section.
+  useEffect(() => {
+    const el = captchaRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowCaptcha(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const {
     register,
@@ -51,17 +77,20 @@ const ConsultationForm = () => {
         reset();
         setCaptchaToken(null);
         setCaptchaKey(k => k + 1);
+        setShowCaptcha(false);
       } catch {
         setErrorToast(true);
       }
     },
-    [captchaToken, reset],
+    [captchaToken, reset]
   );
 
   return (
     <div className="p-6 pt-0 bg-white shadow-card rounded-xl lg:rounded-2xl">
       {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
-      {errorToast && <Toast type="error" onDismiss={() => setErrorToast(false)} />}
+      {errorToast && (
+        <Toast type="error" onDismiss={() => setErrorToast(false)} />
+      )}
 
       <Typography variant="h3" size="h4" className="mb-4 font-semibold">
         Let&apos;s Start Conversation!
@@ -100,16 +129,22 @@ const ConsultationForm = () => {
         <Textarea
           placeholder="Your Enquiry"
           error={errors.your_enquiry?.message}
-          {...register("your_enquiry", { required: "Please describe your enquiry" })}
+          {...register("your_enquiry", {
+            required: "Please describe your enquiry",
+          })}
         />
 
-        <div className="mb-4">
-          <ReCAPTCHA
-            key={captchaKey}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-            onChange={setCaptchaToken}
-            onExpired={() => setCaptchaToken(null)}
-          />
+        <div ref={captchaRef} className="mb-4 min-h-19.5">
+          {showCaptcha ? (
+            <ReCAPTCHA
+              key={captchaKey}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={setCaptchaToken}
+              onExpired={() => setCaptchaToken(null)}
+            />
+          ) : (
+            <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />
+          )}
           {captchaError && (
             <p className="text-red-500 text-xs mt-1">{captchaError}</p>
           )}

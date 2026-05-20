@@ -53,6 +53,7 @@ const StartConversation = async () => {
         width={1526}
         height={298}
         alt="contact"
+        loading="lazy"
         className="md:-mt-24 lg:-mt-28 xl:-mt-32"
       />
     </section>
