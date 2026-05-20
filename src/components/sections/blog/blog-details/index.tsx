@@ -2,15 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState ,useRef} from "react";
-import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
-
-const ReCAPTCHAWidget = dynamic(() => import("react-google-recaptcha"), {
-  ssr: false,
-  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
-});
 import Typography from "@/components/ui/typography";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
@@ -48,8 +42,7 @@ const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
   const [apiError, setApiError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -57,26 +50,25 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!captchaToken) {
-      setCaptchaError("Please complete the reCAPTCHA.");
+    if (!executeRecaptcha) {
+      setCaptchaError("reCAPTCHA not ready. Please try again.");
       return;
     }
     setLoading(true);
     setCaptchaError("");
     try {
+      const recaptchaToken = await executeRecaptcha("blog_contact_enquiry");
       await HttpService.nativePost("contact-submission", {
         full_name: form.fullName,
         company: form.company,
         email: form.email,
         phone: form.phone,
         message: form.message,
-        recaptcha_token: captchaToken,
+        recaptcha_token: recaptchaToken,
         form_type: "blog-contact-us-enquiry",
       });
       setSubmitted(true);
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
-      setCaptchaToken(null);
-      setCaptchaKey(k => k + 1);
     } catch {
       setApiError("Something went wrong. Please try again.");
     } finally {
@@ -90,7 +82,7 @@ const ContactForm = () => {
       {apiError && <Toast type="error" message={apiError} onDismiss={() => setApiError("")} />}
       <form
         onSubmit={handleSubmit}
-        className="bg-off-white border border-gray-200  p-5"
+        className="bg-off-white border border-gray-200 p-5"
       >
         <Typography
           variant="h3"
@@ -142,14 +134,6 @@ const ContactForm = () => {
           onChange={handleChange}
           variant="white"
         />
-        <div className="mt-4">
-          <ReCAPTCHAWidget
-            key={captchaKey}
-            sitekey={RECAPTCHA_SITE_KEY}
-            onChange={setCaptchaToken}
-            onExpired={() => setCaptchaToken(null)}
-          />
-        </div>
         {captchaError && <p className="text-red-500 text-xs mt-2">{captchaError}</p>}
         <Button className="w-full mt-4" variant="default" disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
@@ -190,11 +174,10 @@ const BlogDetail = ({ content, recent_blogs = [] }: BlogDetailProps = {}) => {
 
           {/* ── RIGHT: Sidebar ── */}
           <aside className="w-full lg:w-80 xl:w-96 shrink-0">
-            {/* Scrollable widgets */}
             <div className="flex flex-col gap-6 mb-6">
               {/* Recent blogs */}
               {recent_blogs.length > 0 && (
-                <div className="bg-off-white  border border-gray-200 p-5">
+                <div className="bg-off-white border border-gray-200 p-5">
                   <div className="flex items-center justify-between mb-4">
                     <Typography
                       variant="h3"
@@ -219,10 +202,7 @@ const BlogDetail = ({ content, recent_blogs = [] }: BlogDetailProps = {}) => {
                       >
                         <div className="w-16 h-14 shrink-0 rounded-lg overflow-hidden bg-gray-100">
                           <Image
-                            src={
-                              blog.image ||
-                              "/images/placeholder/placeholder.jpg"
-                            }
+                            src={blog.image || "/images/placeholder/placeholder.jpg"}
                             alt={blog.title || "blog-img"}
                             width={64}
                             height={56}
@@ -256,7 +236,7 @@ const BlogDetail = ({ content, recent_blogs = [] }: BlogDetailProps = {}) => {
                     onChange={e => setEmail(e.target.value)}
                     variant="default"
                   />
-                  <button className="h-12  text-black px-3 rounded-md text-xl hover:opacity-90 transition shrink-0">
+                  <button className="h-12 text-black px-3 rounded-md text-xl hover:opacity-90 transition shrink-0">
                     →
                   </button>
                 </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import "@/assets/css//common.css";
 import Footer from "@/components/layouts/footer";
 import Header from "@/components/layouts/header";
+import RecaptchaProvider from "@/components/providers/recaptcha-provider";
 
 
 const gilroy = localFont({
@@ -55,9 +56,11 @@ export default function RootLayout({
         {/* <Suspense fallback={null}>
           <PageLoader />
         </Suspense> */}
-        <Header />
-        {children}
-        <Footer />
+        <RecaptchaProvider>
+          <Header />
+          {children}
+          <Footer />
+        </RecaptchaProvider>
       </body>
     </html>
   );

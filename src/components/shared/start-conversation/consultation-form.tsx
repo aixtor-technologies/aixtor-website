@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import dynamic from "next/dynamic";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
@@ -10,12 +10,6 @@ import Textarea from "@/components/ui/textarea";
 import Typography from "@/components/ui/typography";
 import HttpService from "@/shared/services/http.service";
 import Toast from "@/components/shared/toast";
-import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
-
-const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
-  ssr: false,
-  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
-});
 
 type FormValues = {
   name: string;
@@ -30,28 +24,7 @@ const ConsultationForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [errorToast, setErrorToast] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
-  const [showCaptcha, setShowCaptcha] = useState(false);
-  const captchaRef = useRef<HTMLDivElement>(null);
-
-  // Mount reCAPTCHA only when the form scrolls into view — keeps Google
-  // scripts off the page until the user actually reaches this section.
-  useEffect(() => {
-    const el = captchaRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowCaptcha(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const {
     register,
@@ -62,27 +35,25 @@ const ConsultationForm = () => {
 
   const onSubmit = useCallback(
     async (data: FormValues) => {
-      if (!captchaToken) {
-        setCaptchaError("Please complete the reCAPTCHA.");
+      if (!executeRecaptcha) {
+        setCaptchaError("reCAPTCHA not ready. Please try again.");
         return;
       }
       setCaptchaError("");
       try {
+        const recaptchaToken = await executeRecaptcha("consultation_enquiry");
         await HttpService.nativePost("contact-submission", {
           ...data,
-          recaptcha_token: captchaToken,
+          recaptcha_token: recaptchaToken,
           form_type: "consultation-enquiry",
         });
         setSubmitted(true);
         reset();
-        setCaptchaToken(null);
-        setCaptchaKey(k => k + 1);
-        setShowCaptcha(false);
       } catch {
         setErrorToast(true);
       }
     },
-    [captchaToken, reset]
+    [executeRecaptcha, reset]
   );
 
   return (
@@ -134,21 +105,9 @@ const ConsultationForm = () => {
           })}
         />
 
-        <div ref={captchaRef} className="mb-4 min-h-19.5">
-          {showCaptcha ? (
-            <ReCAPTCHA
-              key={captchaKey}
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={setCaptchaToken}
-              onExpired={() => setCaptchaToken(null)}
-            />
-          ) : (
-            <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />
-          )}
-          {captchaError && (
-            <p className="text-red-500 text-xs mt-1">{captchaError}</p>
-          )}
-        </div>
+        {captchaError && (
+          <p className="text-red-500 text-xs mb-4">{captchaError}</p>
+        )}
 
         <Button className="w-full" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Book your consultation"}

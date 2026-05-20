@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
-
-import { RECAPTCHA_SITE_KEY } from "@/shared/constants";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import Button from "@/components/ui/button";
 import Grid from "@/components/ui/grid";
@@ -13,42 +11,38 @@ import Typography from "@/components/ui/typography";
 import HttpService from "@/shared/services/http.service";
 import Toast from "@/components/shared/toast";
 
-const ReCAPTCHAWidget = dynamic(() => import("react-google-recaptcha"), {
-  ssr: false,
-  loading: () => <div className="h-19.5 w-76 bg-gray-100 rounded animate-pulse" />,
-});
-
 export default function InquireNow() {
   const [form, setForm] = useState({ fullName: "", company: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [captchaError, setCaptchaError] = useState("");
   const [apiError, setApiError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!captchaToken) { setCaptchaError("Please complete the reCAPTCHA."); return; }
+    if (!executeRecaptcha) {
+      setCaptchaError("reCAPTCHA not ready. Please try again.");
+      return;
+    }
     setLoading(true);
     setCaptchaError("");
     try {
+      const recaptchaToken = await executeRecaptcha("contact_enquiry");
       await HttpService.nativePost("contact-submission", {
         full_name: form.fullName,
         company: form.company,
         email: form.email,
         phone: form.phone,
         message: form.message,
-        recaptcha_token: captchaToken,
+        recaptcha_token: recaptchaToken,
         form_type: "contact-enquiry",
       });
       setSubmitted(true);
       setForm({ fullName: "", company: "", email: "", phone: "", message: "" });
-      setCaptchaToken(null);
-      setCaptchaKey(k => k + 1);
     } catch {
       setApiError("Something went wrong. Please try again.");
     } finally {
@@ -61,7 +55,6 @@ export default function InquireNow() {
       {submitted && <Toast onDismiss={() => setSubmitted(false)} />}
       {apiError && <Toast type="error" message={apiError} onDismiss={() => setApiError("")} />}
 
-      {/* Header */}
       <div className="text-center mb-10">
         <Typography variant="h2" size="h2" isTitle isCenter>
           Inquire Now
@@ -71,7 +64,6 @@ export default function InquireNow() {
         </Typography>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="max-w-275 mx-auto">
         <Grid>
           <Grid.Col className="lg:w-1/2">
@@ -90,15 +82,6 @@ export default function InquireNow() {
             <Textarea name="message" placeholder="What you are looking for" value={form.message} onChange={handleChange} />
           </Grid.Col>
         </Grid>
-
-        <div className="mt-4">
-          <ReCAPTCHAWidget
-            key={captchaKey}
-            sitekey={RECAPTCHA_SITE_KEY}
-            onChange={setCaptchaToken}
-            onExpired={() => setCaptchaToken(null)}
-          />
-        </div>
 
         {captchaError && <p className="text-red-500 text-sm mt-3">{captchaError}</p>}
 
