@@ -14,9 +14,10 @@ type ListSectionProps = {
   title: string;
   description: string;
   items: ListItem[];
+  basePath?: string;
 };
 
-const ListSection = ({ title, description, items }: ListSectionProps) => {
+const ListSection = ({ title, description, items, basePath }: ListSectionProps) => {
   return (
     <section className="common-section bg-white">
       <div className="container">
@@ -38,7 +39,7 @@ const ListSection = ({ title, description, items }: ListSectionProps) => {
                 title={item.title}
                 description={item.description}
                 image={item.image}
-                slug={item.slug}
+                slug={basePath ? `/${basePath}/${item.slug}` : item.slug}
               />
             </Grid.Col>
           ))}

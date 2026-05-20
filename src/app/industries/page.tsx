@@ -34,6 +34,7 @@ export default async function IndustriesPage() {
         title={industries?.page_header?.list_section?.title}
         description={industries?.page_header?.list_section?.description}
         items={Array.isArray(industries?.data) ? industries.data : []}
+        basePath="industries"
       />
       <CaseStudies />
       <StartConversation />
